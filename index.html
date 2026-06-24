@@ -42,8 +42,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 /* Vendor roller */
 .vendor-roller{display:flex;overflow-x:auto;gap:8px;padding:4px 0 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .vendor-roller::-webkit-scrollbar{display:none}
-.vr-btn{flex-shrink:0;padding:10px 16px;border-radius:20px;border:2px solid #1a1a1a;background:#fff;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;color:#1a1a1a;box-shadow:0 2px 4px rgba(0,0,0,0.12)}
-.vr-btn.on{background:#1a1a1a;color:#fff;border-color:#1a1a1a;box-shadow:0 2px 8px rgba(0,0,0,0.25)}
+.vr-btn{flex-shrink:0;padding:10px 16px;border-radius:20px;border:2px solid #1a1a1a;background:#fff;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;color:#1a1a1a;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+.vr-btn:active{transform:scale(0.96)}
+.vr-btn.on{background:#1a1a1a;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.25)}
 
 .scan-btn{width:100%;padding:14px;background:#1a1a1a;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
 .scan-btn:active{opacity:0.85}
@@ -288,8 +289,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
     <div><div class="sl">Items counted</div><div class="sv" id="inv-prog">0</div></div>
     <div><div class="sl">Items to order</div><div class="sv" id="inv-order-cnt">0</div></div>
   </div>
-  <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.6px;text-transform:uppercase;margin-bottom:6px">Filter by Vendor</div>
-<div class="vendor-roller" id="inv-vendor-roller"></div>
+  <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.6px;text-transform:uppercase;margin-bottom:6px">Jump to Vendor</div>
+  <div class="vendor-roller" id="inv-vendor-roller"></div>
   <button class="scan-btn" id="inv-scan-btn" onclick="toggleScan('inv')">📷 Scan Product</button>
   <div class="scanner-box" id="inv-scanner">
     <video id="inv-video" autoplay playsinline muted webkit-playsinline></video>
@@ -328,7 +329,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
     <input type="text" id="inv-search" placeholder="Or search by name…" oninput="renderInvList()" autocomplete="off">
   </div>
   <div id="inv-list"></div>
-  <button class="btn btn-green" onclick="submitInv()" style="margin-top:12px">→ Submit to Peter for Approval</button>
+  <button class="btn" id="inv-submit-btn" onclick="submitInv()" style="margin-top:12px;background:#ccc;color:#fff;cursor:not-allowed" disabled>→ Submit to Peter for Approval</button>
 </div>
 
 <!-- APPROVE SETUP -->
@@ -629,7 +630,15 @@ function setInvVendor(v){
   document.querySelectorAll(".vr-btn").forEach(function(b){
     b.classList.toggle("on",b.textContent===(v==="All"?"All Vendors":v));
   });
-  renderInvList();
+  if(v==="All"){
+    // scroll list to top
+    var el=document.getElementById("inv-list");
+    if(el) el.scrollIntoView({behavior:"smooth"});
+  } else {
+    // jump to vendor section anchor
+    var anchor=document.getElementById("vhdr-"+v.replace(/[^a-z0-9]/gi,"_"));
+    if(anchor) anchor.scrollIntoView({behavior:"smooth",block:"start"});
+  }
 }
 
 function renderInvList(){
@@ -672,10 +681,18 @@ function renderInvList(){
 function setInv(name,vendor,unit,field,val){
   if(!S.invData[name])S.invData[name]={vendor:vendor,orderUnit:unit};
   S.invData[name][field]=val===""?undefined:parseFloat(val)||0;
-  var done=Object.keys(S.invData).length;
+  var done=Object.keys(S.invData).filter(function(n){ return S.invData[n].stock!==undefined; }).length;
   var orders=Object.values(S.invData).filter(function(d){return d.order&&d.order>0;}).length;
   document.getElementById("inv-prog").textContent=done;
   document.getElementById("inv-order-cnt").textContent=orders;
+  // Update submit button
+  var allCounted=done>=S.products.length;
+  var submitBtn=document.getElementById("inv-submit-btn");
+  if(submitBtn){
+    submitBtn.disabled=!allCounted;
+    submitBtn.style.background=allCounted?"#1A7A3C":"#ccc";
+    submitBtn.style.cursor=allCounted?"pointer":"not-allowed";
+  }
 }
 
 function showInvPanel(p){
@@ -713,6 +730,15 @@ function saveInvItem(){
   S.invData[p.name].order=order;
   toast("✓ "+p.name+" saved","ok");
   clearInvPanel();
+  // Check completion after scan save
+  var done=Object.keys(S.invData).filter(function(n){ return S.invData[n].stock!==undefined; }).length;
+  var allCounted=done>=S.products.length;
+  var submitBtn=document.getElementById("inv-submit-btn");
+  if(submitBtn){
+    submitBtn.disabled=!allCounted;
+    submitBtn.style.background=allCounted?"#1A7A3C":"#ccc";
+    submitBtn.style.cursor=allCounted?"pointer":"not-allowed";
+  }
   setTimeout(function(){toggleScan("inv");},500);
 }
 
