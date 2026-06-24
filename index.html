@@ -380,7 +380,7 @@ function checkPin(){
 // ── Init ────────────────────────────────────────────────
 function init(){
   api("getProducts",{},function(d){ S.products=d; renderIntakeList(); });
-  api("getLatestCounts",{},function(d){ S.counts=d; });
+  api("getLatestCounts",{},function(d){ S.counts=d||{}; },function(){ S.counts={}; });
 }
 
 // ── API call (JSONP for GET, form POST for writes) ────────
