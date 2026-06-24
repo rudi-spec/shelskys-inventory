@@ -265,12 +265,31 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
       <select id="cnt-vendor" onchange="renderCount()"><option value="">All</option></select>
     </div>
   </div>
+  <button class="scan-btn" id="cnt-scan-btn" onclick="toggleScan('count')">📷 Scan to Count</button>
+  <div id="cnt-scanner" style="display:none;width:100%;max-width:400px;margin:0 auto 12px;border-radius:12px;overflow:hidden;background:#000;position:relative">
+    <video id="cnt-video" autoplay playsinline muted webkit-playsinline style="width:100%;height:240px;object-fit:cover;display:block;background:#000"></video>
+    <div style="position:absolute;top:50%;left:10%;right:10%;height:2px;background:#ff0;opacity:0.7;animation:scanmove 1.5s ease-in-out infinite"></div>
+    <div style="text-align:center;padding:8px;background:rgba(0,0,0,0.75);color:#fff;font-size:12px">Point at barcode — hold steady</div>
+  </div>
+  <div id="cnt-qty-panel" class="qty-panel" style="display:none">
+    <div class="qp-name" id="cq-name"></div>
+    <div class="qp-meta" id="cq-meta"></div>
+    <div class="qty-row">
+      <input type="number" id="cq-val" value="0" min="0" step="0.25">
+      <div class="qty-steps">
+        <button onclick="adj('cq-val',1)">+</button>
+        <button onclick="adj('cq-val',-1)">−</button>
+      </div>
+    </div>
+    <button class="btn btn-green" onclick="confirmCount()">✓ Save &amp; Scan Next</button>
+    <button class="btn btn-outline" onclick="skipCount()">Skip</button>
+  </div>
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
-    <input type="text" id="cnt-search" placeholder="Search…" oninput="renderCount()" autocomplete="off">
+    <input type="text" id="cnt-search" placeholder="Or search by name…" oninput="renderCount()" autocomplete="off">
   </div>
   <div id="cnt-list"></div>
-  <button class="btn btn-green" onclick="submitCount()">✓ Submit Count</button>
+  <button class="btn btn-green" onclick="submitCount()" style="margin-top:12px">✓ Submit Count</button>
 </div>
 
 <!-- ORDER SETUP -->
@@ -380,41 +399,58 @@ function checkPin(){
 // ── Init ────────────────────────────────────────────────
 function init(){
   api("getProducts",{},function(d){ S.products=d; renderIntakeList(); });
-  api("getLatestCounts",{},function(d){ S.counts=d; });
+  api("getLatestCounts",{},function(d){ S.counts=d||{}; },function(){ S.counts={}; });
 }
 
-// ── API call (JSONP for GET, form POST for writes) ────────
+// ── API call ─────────────────────────────────────────────
 var _cbCount = 0;
-function api(fn,params,cb,errCb){
-  params.fn = fn;
+
+function api(fn, params, cb, errCb){
+  var p = params || {};
+  p.fn = fn;
   var cbName = "_cb" + (++_cbCount);
-  params.callback = cbName;
+  p.callback = cbName;
+
+  var timeout = setTimeout(function(){
+    if(window[cbName]){
+      delete window[cbName];
+      var s = document.getElementById(cbName);
+      if(s) s.remove();
+      if(errCb) errCb("timeout");
+      else toast("Request timed out","err");
+    }
+  }, 15000);
+
   window[cbName] = function(d){
+    clearTimeout(timeout);
     delete window[cbName];
     var s = document.getElementById(cbName);
     if(s) s.remove();
-    if(d.error){ toast(d.error,"err"); if(errCb) errCb(d.error); return; }
-    if(cb) cb(d.result!==undefined?d.result:d);
+    if(d && d.error){ if(errCb) errCb(d.error); else toast(d.error,"err"); return; }
+    if(cb) cb(d && d.result !== undefined ? d.result : d);
   };
-  var url = API+"?"+Object.keys(params).map(function(k){
-    return encodeURIComponent(k)+"="+encodeURIComponent(params[k]);
+
+  var url = API + "?" + Object.keys(p).map(function(k){
+    return encodeURIComponent(k) + "=" + encodeURIComponent(
+      typeof p[k] === "object" ? JSON.stringify(p[k]) : p[k]
+    );
   }).join("&");
+
   var s = document.createElement("script");
   s.id = cbName;
   s.src = url;
   s.onerror = function(){
+    clearTimeout(timeout);
     delete window[cbName];
     s.remove();
-    toast("Network error","err");
     if(errCb) errCb("network error");
+    else toast("Network error — check connection","err");
   };
   document.head.appendChild(s);
 }
 
-function apiPost(fn,body,cb,errCb){
-  // Use GET with JSON-encoded data parameter for write operations
-  var params = {fn:fn, data:JSON.stringify(body)};
-  api(fn, params, cb, errCb);
+function apiPost(fn, body, cb, errCb){
+  api(fn, {data: JSON.stringify(body)}, cb, errCb);
 }
 
 // ── Navigation ───────────────────────────────────────────
@@ -452,9 +488,9 @@ function toggleScan(ctx){
   if(S.scanning&&S.scanCtx===ctx){ stopScan(); return; }
   stopScan();
   S.scanCtx=ctx;
-  var videoEl=ctx==="intake"?"intake-video":"add-video";
-  var wrapEl=ctx==="intake"?"intake-scanner":"add-scanner";
-  var btnEl=ctx==="intake"?"intake-scan-btn":"add-scan-btn";
+  var videoEl = ctx==="intake" ? "intake-video" : ctx==="count" ? "cnt-video" : "add-video";
+  var wrapEl  = ctx==="intake" ? "intake-scanner" : ctx==="count" ? "cnt-scanner" : "add-scanner";
+  var btnEl   = ctx==="intake" ? "intake-scan-btn" : ctx==="count" ? "cnt-scan-btn" : "add-scan-btn";
   document.getElementById(wrapEl).style.display="block";
   document.getElementById(btnEl).textContent="⏹ Stop Scanner";
   document.getElementById(btnEl).classList.add("active-scan");
@@ -482,21 +518,22 @@ function stopScan(){
     _zxingReader = null;
   }
   S.scanning=false;
-  ["intake-scanner","add-scanner"].forEach(function(id){
+  ["intake-scanner","cnt-scanner","add-scanner"].forEach(function(id){
     var el=document.getElementById(id);
     if(el) el.style.display="none";
   });
-  ["intake-scan-btn","add-scan-btn"].forEach(function(id){
-    var el=document.getElementById(id);
-    if(el){
-      el.textContent=id==="intake-scan-btn"?"📷 Scan Barcode":"📷 Scan Barcode to Auto-Fill";
-      el.classList.remove("active-scan");
-    }
+  [
+    {id:"intake-scan-btn", label:"📷 Scan Barcode"},
+    {id:"cnt-scan-btn",    label:"📷 Scan to Count"},
+    {id:"add-scan-btn",    label:"📷 Scan Barcode to Auto-Fill"}
+  ].forEach(function(b){
+    var el=document.getElementById(b.id);
+    if(el){ el.textContent=b.label; el.classList.remove("active-scan"); }
   });
 }
 
 function handleScan(code,ctx){
-  toast("Scanning: "+code);
+  toast("Barcode: "+code);
   api("lookupBarcode",{barcode:code},function(r){
     if(ctx==="intake"){
       if(r.found&&r.source==="local"){
@@ -512,6 +549,17 @@ function handleScan(code,ctx){
         document.getElementById("intake-search").value=code;
         filterList("intake");
       }
+    } else if(ctx==="count"){
+      if(r.found&&r.source==="local"){
+        var p=S.products.find(function(x){return x.name===r.name;});
+        if(p) showCountQtyPanel(p);
+        else toast("Product not loaded — try refresh","err");
+      } else {
+        // Not in local DB — search by name
+        document.getElementById("cnt-search").value=r.name||code;
+        renderCount();
+        toast("Not found — search results shown below");
+      }
     } else {
       document.getElementById("np-barcode").value=code;
       if(r.found&&r.source==="openfoodfacts"){
@@ -524,7 +572,7 @@ function handleScan(code,ctx){
         toast("Barcode not in database — fill in manually");
       }
     }
-  });
+  }, function(){ toast("Lookup failed — search by name","err"); });
 }
 
 // ── Intake ───────────────────────────────────────────────
@@ -617,6 +665,46 @@ function setCount(name,val){
   }).length;
   document.getElementById("cnt-prog").textContent=done+" / "+total;
 }
+var _cntScanProduct = null;
+
+function showCountQtyPanel(p){
+  _cntScanProduct = p;
+  document.getElementById("cq-name").textContent = p.name;
+  var lastCount = S.counts[p.name];
+  var lastQty = lastCount ? "Last count: "+lastCount.qty : "No previous count";
+  document.getElementById("cq-meta").textContent = p.vendor + " · " + lastQty;
+  document.getElementById("cq-val").value = lastCount ? lastCount.qty : 0;
+  document.getElementById("cnt-qty-panel").style.display = "block";
+  document.getElementById("cnt-search").parentNode.style.display = "none";
+  document.getElementById("cnt-list").style.display = "none";
+  document.getElementById("cnt-scan-btn").style.display = "none";
+  setTimeout(function(){ document.getElementById("cq-val").focus(); document.getElementById("cq-val").select(); }, 100);
+}
+
+function confirmCount(){
+  if(!_cntScanProduct) return;
+  var qty = parseFloat(document.getElementById("cq-val").value) || 0;
+  S.countData[_cntScanProduct.name] = qty;
+  toast("✓ "+_cntScanProduct.name+" — "+qty, "ok");
+  clearCountQtyPanel();
+  // Auto-restart scanner
+  setTimeout(function(){ toggleScan("count"); }, 600);
+}
+
+function skipCount(){
+  clearCountQtyPanel();
+  setTimeout(function(){ toggleScan("count"); }, 300);
+}
+
+function clearCountQtyPanel(){
+  _cntScanProduct = null;
+  document.getElementById("cnt-qty-panel").style.display = "none";
+  document.getElementById("cnt-search").parentNode.style.display = "block";
+  document.getElementById("cnt-list").style.display = "block";
+  document.getElementById("cnt-scan-btn").style.display = "flex";
+  renderCount();
+}
+
 function submitCount(){
   var entries=Object.keys(S.countData).map(function(name){
     var p=S.products.find(function(x){return x.name===name;})||{};
