@@ -340,7 +340,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
   <div id="inact-list"><div class="loading"><div class="spinner"></div>Loading…</div></div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@zxing/library@0.19.1/umd/index.min.js"></script>
 <script>
 var API = "https://script.google.com/a/macros/shelskys.com/s/AKfycbxWAh8V4zkSTTPRdoQiiivC4shf2LHfym6jkn_TjQ81K3582XOo4R6ZI-QLfIWo0Cz3DA/exec";
 var PIN = "1984"; // ← CHANGE THIS
@@ -380,7 +380,7 @@ function checkPin(){
 // ── Init ────────────────────────────────────────────────
 function init(){
   api("getProducts",{},function(d){ S.products=d; renderIntakeList(); });
-  api("getLatestCounts",{},function(d){ S.counts=d||{}; },function(){ S.counts={}; });
+  api("getLatestCounts",{},function(d){ S.counts=d; });
 }
 
 // ── API call (JSONP for GET, form POST for writes) ────────
@@ -445,43 +445,42 @@ function setStaff(ctx,name){
   });
 }
 
-// ── Scanner ──────────────────────────────────────────────
+// ── Scanner (ZXing) ──────────────────────────────────────
+var _zxingReader = null;
+
 function toggleScan(ctx){
   if(S.scanning&&S.scanCtx===ctx){ stopScan(); return; }
   stopScan();
   S.scanCtx=ctx;
   var videoEl=ctx==="intake"?"intake-video":"add-video";
   var wrapEl=ctx==="intake"?"intake-scanner":"add-scanner";
-  document.getElementById(wrapEl).style.display="block";
   var btnEl=ctx==="intake"?"intake-scan-btn":"add-scan-btn";
+  document.getElementById(wrapEl).style.display="block";
   document.getElementById(btnEl).textContent="⏹ Stop Scanner";
   document.getElementById(btnEl).classList.add("active-scan");
   S.scanning=true;
-  Quagga.init({
-    inputStream:{name:"Live",type:"LiveStream",
-      target:document.getElementById(videoEl),
-      constraints:{facingMode:"environment",width:{ideal:1280},height:{ideal:720}}
-    },
-    decoder:{readers:["ean_reader","upc_reader","code_128_reader","code_39_reader"]},
-    locate:true
-  },function(err){
-    if(err){toast("Camera error: "+err.message,"err");stopScan();return;}
-    Quagga.start();
-    var lastCode="",lastTime=0;
-    Quagga.onDetected(function(r){
-      var code=r.codeResult.code;
-      var now=Date.now();
-      if(code===lastCode&&now-lastTime<2000) return;
-      lastCode=code; lastTime=now;
-      stopScan();
-      handleScan(code,ctx);
+
+  try {
+    _zxingReader = new ZXing.BrowserMultiFormatReader();
+    _zxingReader.decodeFromVideoDevice(null, videoEl, function(result, err){
+      if(result){
+        var code = result.getText();
+        stopScan();
+        handleScan(code, ctx);
+      }
     });
-  });
+  } catch(e) {
+    toast("Camera error: "+e.message,"err");
+    stopScan();
+  }
 }
 
 function stopScan(){
   if(!S.scanning) return;
-  try{Quagga.stop();}catch(e){}
+  if(_zxingReader){
+    try{ _zxingReader.reset(); }catch(e){}
+    _zxingReader = null;
+  }
   S.scanning=false;
   ["intake-scanner","add-scanner"].forEach(function(id){
     var el=document.getElementById(id);
