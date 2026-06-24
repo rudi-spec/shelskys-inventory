@@ -181,14 +181,48 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 <!-- SKU Edit Modal -->
 <div class="modal-bg" id="sku-modal" style="display:none" onclick="closeSkuModal(event)">
   <div class="modal">
-    <h3 id="sku-modal-name">Edit SKU</h3>
+    <h3 id="sku-modal-title">Edit SKU</h3>
     <div class="form-field">
-      <label>Case Pack Size (units per case)</label>
-      <input type="number" id="sku-modal-unitcount" min="1" step="1" placeholder="e.g. 12">
+      <label>Product Name *</label>
+      <input type="text" id="sku-modal-name" placeholder="e.g. Ritter Sport Dark Chocolate">
     </div>
     <div class="form-field">
-      <label>Order Unit Label</label>
-      <input type="text" id="sku-modal-orderunit" placeholder="e.g. Case">
+      <label>Vendor *</label>
+      <input type="text" id="sku-modal-vendor" placeholder="e.g. Nassau Candy" list="vendor-list" autocomplete="off">
+      <datalist id="vendor-list"></datalist>
+    </div>
+    <div class="form-field">
+      <label>Order Unit</label>
+      <select id="sku-modal-orderunit">
+        <option>Case</option>
+        <option>Box</option>
+        <option>Bag</option>
+        <option>Tub</option>
+        <option>Each</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:10px">
+      <div class="form-field" style="flex:1">
+        <label>Unit Count</label>
+        <input type="number" id="sku-modal-unitcount" min="1" step="1" placeholder="e.g. 12">
+      </div>
+      <div class="form-field" style="flex:1">
+        <label>Size</label>
+        <input type="number" id="sku-modal-size" min="0" step="0.1" placeholder="e.g. 3.5">
+      </div>
+      <div class="form-field" style="flex:1">
+        <label>UOM</label>
+        <select id="sku-modal-uom">
+          <option value="">—</option>
+          <option>oz</option>
+          <option>gram</option>
+          <option>ml</option>
+          <option>lb</option>
+          <option>kg</option>
+          <option>liter</option>
+        </select>
+      </div>
     </div>
     <button class="btn btn-dark" onclick="saveSkuEdit()">Save Changes</button>
     <button class="btn btn-outline" onclick="document.getElementById('sku-modal').style.display='none'">Cancel</button>
@@ -253,12 +287,37 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
   <div id="intake-new-panel" class="new-sku-section" style="display:none">
     <div class="nss-title">⚠ Product not in system — add it?</div>
     <div class="form-field"><label>Product Name *</label><input type="text" id="inp-name" placeholder="e.g. Heinz Ketchup"></div>
-    <div class="form-field"><label>Vendor *</label><input type="text" id="inp-vendor" placeholder="e.g. Nassau Candy"></div>
-    <div class="form-field"><label>Case Pack Size</label><input type="number" id="inp-unitcount" placeholder="e.g. 12" min="1" step="1"></div>
+    <div class="form-field">
+      <label>Vendor *</label>
+      <input type="text" id="inp-vendor" placeholder="e.g. Nassau Candy" list="inp-vendor-list" autocomplete="off">
+      <datalist id="inp-vendor-list"></datalist>
+    </div>
     <div class="form-field"><label>Order Unit</label>
       <select id="inp-unit"><option>Case</option><option>Box</option><option>Bag</option><option>Tub</option><option>Each</option><option>Other</option></select>
     </div>
-    <div class="form-field"><label>Qty Received (cases)</label>
+    <div style="display:flex;gap:10px">
+      <div class="form-field" style="flex:1">
+        <label>Unit Count</label>
+        <input type="number" id="inp-unitcount" placeholder="e.g. 12" min="1" step="1">
+      </div>
+      <div class="form-field" style="flex:1">
+        <label>Size</label>
+        <input type="number" id="inp-size" placeholder="e.g. 3.5" min="0" step="0.1">
+      </div>
+      <div class="form-field" style="flex:1">
+        <label>UOM</label>
+        <select id="inp-uom">
+          <option value="">—</option>
+          <option>oz</option>
+          <option>gram</option>
+          <option>ml</option>
+          <option>lb</option>
+          <option>kg</option>
+          <option>liter</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-field"><label>Qty Received</label>
       <input type="number" id="inp-qty" value="1" min="0" step="1">
     </div>
     <button class="btn btn-dark" onclick="addAndLogIntake()">+ Add to System &amp; Log Intake</button>
@@ -536,6 +595,10 @@ function handleScan(code,ctx){
 
 // ── INTAKE ───────────────────────────────────────────────
 function renderIntakeList(){
+  // Keep vendor datalist current
+  var vendors=[...new Set(S.products.map(function(p){return p.vendor;}))].filter(Boolean).sort();
+  var dl=document.getElementById("inp-vendor-list");
+  if(dl) dl.innerHTML=vendors.map(function(v){return"<option value='"+v.replace(/'/g,"&#39;")+"'>";}).join("");
   var q=document.getElementById("intake-search").value.toLowerCase();
   var list=document.getElementById("intake-list");
   var f=S.products.filter(function(p){
@@ -603,9 +666,11 @@ function addAndLogIntake(){
   var vendor=document.getElementById("inp-vendor").value.trim();
   var qty=parseFloat(document.getElementById("inp-qty").value)||0;
   var unitCount=parseInt(document.getElementById("inp-unitcount").value)||0;
+  var size=parseFloat(document.getElementById("inp-size").value)||0;
+  var uom=document.getElementById("inp-uom").value;
   var unit=document.getElementById("inp-unit").value;
   if(!name||!vendor){toast("Name and vendor required","err");return;}
-  apiPost("addProduct",{name:name,vendor:vendor,orderUnit:unit,unitCount:unitCount,barcode:S.intakeBarcode,category:"GROCERY"},function(r){
+  apiPost("addProduct",{name:name,vendor:vendor,orderUnit:unit,unitCount:unitCount,size:size,uom:uom,barcode:S.intakeBarcode,category:"GROCERY"},function(r){
     apiPost("logIntake",{name:name,vendor:vendor,qty:qty,staff:S.staff.intake,barcode:S.intakeBarcode},function(){
       toast("✓ Added & logged","ok");
       init();
@@ -638,13 +703,22 @@ function setInvVendor(v){
   });
   if(v==="All"){
     var el=document.getElementById("inv-list");
-    if(el) window.scrollTo({top:el.offsetTop-120,behavior:"smooth"});
+    if(el) el.scrollIntoView({behavior:"smooth",block:"start"});
   } else {
-    var anchor=document.getElementById(vendorId(v));
-    if(anchor){
-      var top=anchor.getBoundingClientRect().top+window.pageYOffset-80;
-      window.scrollTo({top:top,behavior:"smooth"});
-    }
+    // Small delay to ensure DOM is rendered
+    setTimeout(function(){
+      var anchor=document.getElementById(vendorId(v));
+      if(anchor){
+        anchor.scrollIntoView({behavior:"smooth",block:"start"});
+      } else {
+        // fallback: re-render then scroll
+        renderInvList();
+        setTimeout(function(){
+          var a2=document.getElementById(vendorId(v));
+          if(a2) a2.scrollIntoView({behavior:"smooth",block:"start"});
+        },100);
+      }
+    },50);
   }
 }
 
@@ -797,9 +871,17 @@ function submitInv(){
 function openSkuModalFor(p){
   S.invSel=p;
   S.skuEditRowIndex=p.rowIndex;
-  document.getElementById("sku-modal-name").textContent=p.name;
-  document.getElementById("sku-modal-unitcount").value=p.unitCount||"";
+  // Populate vendor datalist
+  var vendors=[...new Set(S.products.map(function(x){return x.vendor;}))].filter(Boolean).sort();
+  document.getElementById("vendor-list").innerHTML=vendors.map(function(v){return"<option value='"+v.replace(/'/g,"&#39;")+"'>";}).join("");
+  // Fill fields
+  document.getElementById("sku-modal-title").textContent="Edit SKU";
+  document.getElementById("sku-modal-name").value=p.name||"";
+  document.getElementById("sku-modal-vendor").value=p.vendor||"";
   document.getElementById("sku-modal-orderunit").value=p.orderUnit||"Case";
+  document.getElementById("sku-modal-unitcount").value=p.unitCount||"";
+  document.getElementById("sku-modal-size").value=p.size||"";
+  document.getElementById("sku-modal-uom").value=p.uom||"";
   document.getElementById("sku-modal").style.display="flex";
 }
 
@@ -814,19 +896,29 @@ function closeSkuModal(e){
 }
 
 function saveSkuEdit(){
+  var name=document.getElementById("sku-modal-name").value.trim();
+  var vendor=document.getElementById("sku-modal-vendor").value.trim();
+  var orderUnit=document.getElementById("sku-modal-orderunit").value;
   var unitCount=parseInt(document.getElementById("sku-modal-unitcount").value)||0;
-  var orderUnit=document.getElementById("sku-modal-orderunit").value.trim();
-  if(!unitCount){toast("Enter a case pack size","err");return;}
-  apiPost("updateProductUnitCount",{rowIndex:S.skuEditRowIndex,unitCount:unitCount,orderUnit:orderUnit},function(){
+  var size=parseFloat(document.getElementById("sku-modal-size").value)||0;
+  var uom=document.getElementById("sku-modal-uom").value;
+  if(!name||!vendor){toast("Name and vendor required","err");return;}
+  apiPost("updateProductFull",{
+    rowIndex:S.skuEditRowIndex,
+    name:name,vendor:vendor,orderUnit:orderUnit,
+    unitCount:unitCount,size:size,uom:uom
+  },function(){
     toast("✓ SKU updated","ok");
     document.getElementById("sku-modal").style.display="none";
-    // Update local product data
+    // Update local product cache
     var p=S.products.find(function(x){return x.rowIndex===S.skuEditRowIndex;});
-    if(p){p.unitCount=unitCount;p.orderUnit=orderUnit;}
+    if(p){p.name=name;p.vendor=vendor;p.orderUnit=orderUnit;p.unitCount=unitCount;p.size=size;p.uom=uom;}
     if(S.invSel&&S.invSel.rowIndex===S.skuEditRowIndex){
-      S.invSel.unitCount=unitCount;S.invSel.orderUnit=orderUnit;
+      S.invSel.name=name;S.invSel.vendor=vendor;S.invSel.orderUnit=orderUnit;
+      S.invSel.unitCount=unitCount;S.invSel.size=size;S.invSel.uom=uom;
       showInvPanel(S.invSel);
     }
+    renderInvList();
   });
 }
 
