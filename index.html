@@ -46,6 +46,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .vr-btn:active{transform:scale(0.96)}
 .vr-btn.on{background:#1a1a1a;color:#fff;border-color:#1a1a1a;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
 
+/* Needs Vendor Warning Pill styling */
+.vr-btn.needs-classification {border-color:#f5c842;background:#fff8e8;color:#b8860b}
+.vr-btn.needs-classification.on {background:#f5c842;color:#fff;border-color:#f5c842}
+
 .scan-btn{width:100%;padding:14px;background:#1a1a1a;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
 .scan-btn:active{opacity:0.85}
 .scan-btn.red{background:#CC0000}
@@ -454,7 +458,7 @@ function vendorId(v){ return "vhdr_"+v.replace(/[^a-zA-Z0-9]/g,"_"); }
 function init(){
   api("getProducts",{},function(d){
     S.products=d||[];
-    buildVendorRoller(); // Dynamic generation safely on sync finish
+    buildVendorRoller(); 
     renderIntakeList();
   });
   api("getLatestCounts",{},function(d){ S.counts=d||{}; },function(){ S.counts={}; });
@@ -683,12 +687,39 @@ function buildVendorRoller(){
   var container = document.getElementById("inv-vendor-roller");
   if (!container) return;
   
-  var vendors=["All"].concat([...new Set(S.products.map(function(p){return p.vendor;}))].filter(Boolean).sort());
+  // Find SKUs needing classification
+  var unclassifiedCount = S.products.filter(function(p) {
+    var v = (p.vendor || "").toString().trim().toUpperCase();
+    return !v || v === "" || v === "TBD" || v === "UNKNOWN";
+  }).length;
+  
+  var vendors=["All"];
+  
+  // If unclassified products exist, append the warning pill to the front
+  if (unclassifiedCount > 0) {
+    vendors.push("Needs Vendor");
+  }
+  
+  // Pull valid vendors
+  var validVendors = [...new Set(S.products.map(function(p){return p.vendor;}))]
+    .filter(Boolean)
+    .filter(function(v) {
+      var u = v.toString().trim().toUpperCase();
+      return u !== "" && u !== "TBD" && u !== "UNKNOWN";
+    })
+    .sort();
+    
+  vendors = vendors.concat(validVendors);
   
   container.innerHTML=vendors.map(function(v){
     var label=v==="All"?"All Vendors":v;
+    var isWarningPill = v === "Needs Vendor";
+    if (isWarningPill) label = "⚠️ Needs Vendor (" + unclassifiedCount + ")";
+    
     var activeClass = (v === S.invVendor) ? " on" : "";
-    return "<button class='vr-btn" + activeClass + "' onclick='setInvVendor(" + JSON.stringify(v) + ")'>"
+    var customPillClass = isWarningPill ? " needs-classification" : "";
+    
+    return "<button class='vr-btn" + activeClass + customPillClass + "' onclick='setInvVendor(" + JSON.stringify(v) + ")'>"
       + label + "</button>";
   }).join("");
 }
@@ -697,7 +728,11 @@ function setInvVendor(v){
   S.invVendor=v;
   document.querySelectorAll(".vr-btn").forEach(function(b){
     var targetLabel = v === "All" ? "All Vendors" : v;
-    b.classList.toggle("on", b.textContent === targetLabel);
+    if (v === "Needs Vendor") {
+      b.classList.toggle("on", b.textContent.includes("Needs Vendor"));
+    } else {
+      b.classList.toggle("on", b.textContent === targetLabel);
+    }
   });
   renderInvList();
 }
@@ -729,13 +764,29 @@ function renderInvList(){
   
   S.products.forEach(function(p){
     var matchesSearch = !q || p.name.toLowerCase().includes(q) || p.vendor.toLowerCase().includes(q);
-    var matchesVendor = S.invVendor === "All" || p.vendor === S.invVendor;
+    
+    // Vendor filtering including unclassified target checking logic
+    var matchesVendor = false;
+    if (S.invVendor === "All") {
+      matchesVendor = true;
+    } else if (S.invVendor === "Needs Vendor") {
+      var vCheck = (p.vendor || "").toString().trim().toUpperCase();
+      matchesVendor = !vCheck || vCheck === "" || vCheck === "TBD" || vCheck === "UNKNOWN";
+    } else {
+      matchesVendor = p.vendor === S.invVendor;
+    }
     
     if (!matchesSearch || !matchesVendor) return;
     
-    if(p.vendor!==cv){
-      cv=p.vendor;
-      html+="<div class='vhdr' id='"+vendorId(p.vendor)+"'>"+p.vendor+"</div>";
+    var headerLabel = p.vendor;
+    var vCheckUpper = (p.vendor || "").toString().trim().toUpperCase();
+    if (!vCheckUpper || vCheckUpper === "" || vCheckUpper === "TBD" || vCheckUpper === "UNKNOWN") {
+      headerLabel = "⚠️ UNCLASSIFIED SKUS";
+    }
+    
+    if(headerLabel!==cv){
+      cv=headerLabel;
+      html+="<div class='vhdr' id='"+vendorId(p.vendor || "unclassified")+"'>"+headerLabel+"</div>";
     }
     var d=S.invData[p.name]||{};
     var sv=d.stock!==undefined?d.stock:"";
@@ -888,7 +939,6 @@ function openSkuModalFor(p){
   document.getElementById("sku-modal").style.display="flex";
 }
 
-// Fixed target validation error in closing handler
 function closeSkuModal(e){
   if(e.target===document.getElementById("sku-modal"))
     document.getElementById("sku-modal").style.display="none";
@@ -916,7 +966,7 @@ function saveSkuEdit(){
       S.invSel.unitCount=unitCount;S.invSel.size=size;S.invSel.uom=uom;
       showInvPanel(S.invSel);
     }
-    buildVendorRoller(); // Re-index names in background carousel seamlessly
+    buildVendorRoller(); 
     renderInvList();
   });
 }
