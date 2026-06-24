@@ -39,26 +39,41 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .home-card.dark{background:#1a1a1a;border-color:#1a1a1a}
 .home-card.dark .label,.home-card.dark .sub{color:#fff}
 
+/* Vendor roller */
+.vendor-roller{display:flex;overflow-x:auto;gap:8px;padding:4px 0 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.vendor-roller::-webkit-scrollbar{display:none}
+.vr-btn{flex-shrink:0;padding:8px 14px;border-radius:20px;border:1.5px solid #e0e0e0;background:#fff;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;color:#555}
+.vr-btn.on{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+
 .scan-btn{width:100%;padding:14px;background:#1a1a1a;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
 .scan-btn:active{opacity:0.85}
 .scan-btn.red{background:#CC0000}
 
 .scanner-box{width:100%;max-width:400px;margin:0 auto 12px;border-radius:12px;overflow:hidden;background:#000;display:none;position:relative}
 .scanner-box video{width:100%;height:240px;object-fit:cover;display:block}
-.scan-line{position:absolute;top:50%;left:10%;right:10%;height:2px;background:#ff0;opacity:0.8;animation:scanmove 1.5s ease-in-out infinite}
+.scan-line{position:absolute;top:30%;left:10%;right:10%;height:2px;background:#ff0;opacity:0.8;animation:scanmove 1.5s ease-in-out infinite}
 @keyframes scanmove{0%,100%{top:30%}50%{top:70%}}
 .scan-hint{text-align:center;padding:8px;background:rgba(0,0,0,0.75);color:#fff;font-size:12px}
 
 .panel{background:#fff;border-radius:14px;padding:16px;border:2px solid #1a1a1a;margin-bottom:12px}
-.panel-name{font-size:16px;font-weight:700;margin-bottom:2px}
-.panel-meta{font-size:12px;color:#888;margin-bottom:14px}
+.panel-name{font-size:15px;font-weight:700;margin-bottom:2px}
+.panel-meta{font-size:12px;color:#888;margin-bottom:6px}
+.panel-stats{display:flex;gap:8px;margin-bottom:14px}
+.pstat{flex:1;background:#f5f5f5;border-radius:8px;padding:8px;text-align:center}
+.pstat .ps-val{font-size:17px;font-weight:700;color:#1a1a1a}
+.pstat .ps-lbl{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:0.4px;margin-top:2px}
+.pstat.highlight{background:#fff8e8}
 .panel-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.panel-row label{font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.5px;width:120px;flex-shrink:0}
+.panel-row label{font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.4px;width:110px;flex-shrink:0}
 .panel-row input[type=number]{flex:1;padding:12px;font-size:20px;font-weight:700;text-align:center;border:1.5px solid #e0e0e0;border-radius:10px;-webkit-appearance:none;outline:none}
 .panel-row input:focus{border-color:#1a1a1a}
 .qty-steps{display:flex;flex-direction:column;gap:4px}
-.qty-steps button{width:40px;height:40px;border:1.5px solid #e0e0e0;border-radius:8px;background:#fff;font-size:20px;cursor:pointer}
+.qty-steps button{width:40px;height:40px;border:1.5px solid #e0e0e0;border-radius:8px;background:#fff;font-size:20px;cursor:pointer;color:#1a1a1a}
 .qty-steps button:active{background:#f0f0f0}
+
+.missing-unit{background:#fff3cd;border:1.5px solid #ffc107;border-radius:10px;padding:10px 13px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+.missing-unit span{font-size:12px;color:#856404}
+.missing-unit button{background:#1a1a1a;color:#fff;border:none;border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer}
 
 .new-sku-section{background:#fff8e8;border:1.5px solid #f5c842;border-radius:12px;padding:14px;margin-top:10px}
 .new-sku-section .nss-title{font-size:13px;font-weight:700;color:#b8860b;margin-bottom:10px}
@@ -73,7 +88,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:15px;color:#bbb;pointer-events:none}
 
 .sumbar{background:#1a1a1a;color:#fff;border-radius:10px;padding:11px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
-.sumbar select{background:transparent;color:#fff;border:none;font-size:12px;font-weight:600;outline:none}
 .sv{font-size:18px;font-weight:700}
 .sl{font-size:11px;color:#aaa}
 
@@ -96,18 +110,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 .inv-field label{display:block;font-size:10px;font-weight:700;color:#888;text-transform:uppercase;margin-bottom:4px}
 .inv-field input{width:100%;padding:8px 4px;font-size:16px;font-weight:700;text-align:center;border:1.5px solid #e0e0e0;border-radius:8px;-webkit-appearance:none;outline:none}
 .inv-field input:focus{border-color:#1a1a1a}
-.inv-field input.has-value{border-color:#1A7A3C;background:#f0fff4}
-.inv-field input.has-order{border-color:#1a1a1a;background:#f8f8f8}
+.inv-field input.has-v{border-color:#1A7A3C;background:#f0fff4}
+.inv-field input.has-o{border-color:#1a1a1a;background:#f8f8f8}
 
 .appr-item{background:#fff;border-radius:10px;padding:13px;margin-bottom:8px;border:1.5px solid #e5e5e5}
 .appr-name{font-size:14px;font-weight:700}
-.appr-vendor{font-size:11px;color:#888;margin-bottom:8px}
+.appr-meta{font-size:11px;color:#888;margin-bottom:8px}
 .appr-row{display:flex;gap:8px;align-items:center}
 .appr-stat{flex:1;text-align:center;font-size:11px;color:#888}
-.appr-stat strong{display:block;font-size:16px;font-weight:700;color:#1a1a1a}
+.appr-stat strong{display:block;font-size:15px;font-weight:700;color:#1a1a1a}
 .appr-input{width:80px;padding:8px;font-size:18px;font-weight:700;text-align:center;border:2px solid #1a1a1a;border-radius:8px;-webkit-appearance:none;outline:none}
 
 .vhdr{font-size:11px;font-weight:700;color:#888;letter-spacing:0.8px;text-transform:uppercase;padding:8px 0 4px;border-bottom:1px solid #eee;margin:12px 0 6px}
+
+/* Edit SKU modal */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:500;display:flex;align-items:flex-end}
+.modal{background:#fff;border-radius:16px 16px 0 0;padding:20px 16px 32px;width:100%;max-width:560px;margin:0 auto}
+.modal h3{font-size:16px;font-weight:700;margin-bottom:14px}
 
 .inact-item{background:#fff;border-radius:10px;padding:11px 13px;border:1.5px solid #ffd0d0;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
 .inact-btns{display:flex;gap:6px}
@@ -158,6 +177,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 </div>
 <div id="toast" class="toast"></div>
 
+<!-- SKU Edit Modal -->
+<div class="modal-bg" id="sku-modal" style="display:none" onclick="closeSkuModal(event)">
+  <div class="modal">
+    <h3 id="sku-modal-name">Edit SKU</h3>
+    <div class="form-field">
+      <label>Case Pack Size (units per case)</label>
+      <input type="number" id="sku-modal-unitcount" min="1" step="1" placeholder="e.g. 12">
+    </div>
+    <div class="form-field">
+      <label>Order Unit Label</label>
+      <input type="text" id="sku-modal-orderunit" placeholder="e.g. Case">
+    </div>
+    <button class="btn btn-dark" onclick="saveSkuEdit()">Save Changes</button>
+    <button class="btn btn-outline" onclick="document.getElementById('sku-modal').style.display='none'">Cancel</button>
+  </div>
+</div>
+
 <!-- HOME -->
 <div id="screen-home" class="screen active">
   <div class="sec-label">Staff</div>
@@ -199,14 +235,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
     <div class="scan-line"></div>
     <div class="scan-hint">Point camera at barcode</div>
   </div>
-
-  <!-- Product found panel -->
   <div id="intake-found-panel" class="panel" style="display:none">
     <div class="panel-name" id="ifp-name"></div>
     <div class="panel-meta" id="ifp-meta"></div>
     <div class="panel-row">
       <label>Qty Received</label>
-      <input type="number" id="ifp-qty" value="1" min="0" step="0.25">
+      <input type="number" id="ifp-qty" value="1" min="0" step="1">
       <div class="qty-steps">
         <button onclick="adj('ifp-qty',1)">+</button>
         <button onclick="adj('ifp-qty',-1)">−</button>
@@ -215,23 +249,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
     <button class="btn btn-green" onclick="doIntake()">✓ Log Intake</button>
     <button class="btn btn-outline" onclick="clearIntakePanel()">Cancel</button>
   </div>
-
-  <!-- New SKU panel -->
   <div id="intake-new-panel" class="new-sku-section" style="display:none">
     <div class="nss-title">⚠ Product not in system — add it?</div>
     <div class="form-field"><label>Product Name *</label><input type="text" id="inp-name" placeholder="e.g. Heinz Ketchup"></div>
     <div class="form-field"><label>Vendor *</label><input type="text" id="inp-vendor" placeholder="e.g. Nassau Candy"></div>
+    <div class="form-field"><label>Case Pack Size</label><input type="number" id="inp-unitcount" placeholder="e.g. 12" min="1" step="1"></div>
     <div class="form-field"><label>Order Unit</label>
       <select id="inp-unit"><option>Case</option><option>Box</option><option>Bag</option><option>Tub</option><option>Each</option><option>Other</option></select>
     </div>
-    <div class="form-field"><label>Qty Received</label>
-      <input type="number" id="inp-qty" value="1" min="0" step="0.25">
+    <div class="form-field"><label>Qty Received (cases)</label>
+      <input type="number" id="inp-qty" value="1" min="0" step="1">
     </div>
     <button class="btn btn-dark" onclick="addAndLogIntake()">+ Add to System &amp; Log Intake</button>
     <button class="btn btn-outline" onclick="clearIntakePanel()">Cancel</button>
   </div>
-
-  <div class="search-wrap" id="intake-search-wrap">
+  <div id="intake-search-wrap" class="search-wrap">
     <span class="search-icon">🔍</span>
     <input type="text" id="intake-search" placeholder="Or search by name…" oninput="renderIntakeList()" autocomplete="off">
   </div>
@@ -246,7 +278,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
     <div class="staff-btn" id="vs-leo" onclick="setStaff('inv','Leo')">Leo</div>
     <div class="staff-btn" id="vs-other" onclick="setStaff('inv','Other')">Other</div>
   </div>
-  <p style="font-size:13px;color:#555;line-height:1.5;margin-bottom:14px">Walk the store, scan each product, enter quantity on hand and proposed order quantity. Submit when done.</p>
+  <p style="font-size:13px;color:#555;line-height:1.5;margin-bottom:14px">Scan each product, enter units on hand and cases to order. Submit when done.</p>
   <button class="btn btn-dark" onclick="startInv()">Start Inventory →</button>
 </div>
 
@@ -254,42 +286,42 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 <div id="screen-inv" class="screen">
   <div class="sumbar">
     <div><div class="sl">Items counted</div><div class="sv" id="inv-prog">0</div></div>
-    <div><div class="sl">Vendor</div>
-      <select id="inv-vendor" onchange="renderInvList()"><option value="">All</option></select>
-    </div>
+    <div><div class="sl">Items to order</div><div class="sv" id="inv-order-cnt">0</div></div>
   </div>
-
+  <div class="vendor-roller" id="inv-vendor-roller"></div>
   <button class="scan-btn" id="inv-scan-btn" onclick="toggleScan('inv')">📷 Scan Product</button>
   <div class="scanner-box" id="inv-scanner">
     <video id="inv-video" autoplay playsinline muted webkit-playsinline></video>
     <div class="scan-line"></div>
     <div class="scan-hint">Point camera at barcode</div>
   </div>
-
-  <!-- Scan result panel -->
   <div id="inv-panel" class="panel" style="display:none">
     <div class="panel-name" id="ivp-name"></div>
     <div class="panel-meta" id="ivp-meta"></div>
+    <div class="panel-stats" id="ivp-stats"></div>
+    <div id="ivp-missing-unit" class="missing-unit" style="display:none">
+      <span>⚠ Case pack size unknown</span>
+      <button onclick="openSkuModal()">Edit SKU</button>
+    </div>
     <div class="panel-row">
-      <label>In Store Now</label>
-      <input type="number" id="ivp-stock" value="0" min="0" step="0.25">
+      <label>Units in Store</label>
+      <input type="number" id="ivp-stock" value="0" min="0" step="1">
       <div class="qty-steps">
         <button onclick="adj('ivp-stock',1)">+</button>
         <button onclick="adj('ivp-stock',-1)">−</button>
       </div>
     </div>
     <div class="panel-row">
-      <label>Propose Order</label>
-      <input type="number" id="ivp-order" value="0" min="0" step="1">
+      <label>Cases to Order</label>
+      <input type="number" id="ivp-order" value="0" min="0" step="0.5">
       <div class="qty-steps">
-        <button onclick="adj('ivp-order',1)">+</button>
-        <button onclick="adj('ivp-order',-1)">−</button>
+        <button onclick="adj('ivp-order',0.5)">+</button>
+        <button onclick="adj('ivp-order',-0.5)">−</button>
       </div>
     </div>
     <button class="btn btn-green" onclick="saveInvItem()">✓ Save &amp; Scan Next</button>
     <button class="btn btn-outline" onclick="skipInvItem()">Skip</button>
   </div>
-
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
     <input type="text" id="inv-search" placeholder="Or search by name…" oninput="renderInvList()" autocomplete="off">
@@ -310,7 +342,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 
 <!-- APPROVE -->
 <div id="screen-approve" class="screen">
-  <p style="font-size:13px;color:#555;margin-bottom:12px">Adjust quantities. Set to 0 to reject.</p>
+  <p style="font-size:13px;color:#555;margin-bottom:12px">Adjust quantities in cases. Set to 0 to reject.</p>
   <div id="appr-list"></div>
   <button class="btn btn-green" onclick="submitApproval()">✓ Submit Approved Order</button>
 </div>
@@ -327,27 +359,27 @@ var API = "https://script.google.com/a/macros/shelskys.com/s/AKfycbxWAh8V4zkSTTP
 var PIN = "1984";
 
 var S = {
-  products:[], counts:{},
-  staff:{intake:"Ethan", inv:"Ethan"},
+  products:[], counts:{}, consumption:{},
+  staff:{intake:"Ethan",inv:"Ethan"},
   intakeSel:null, intakeBarcode:"",
-  invData:{},   // {name: {stock, order, vendor, orderUnit}}
-  invSel:null,
+  invData:{}, invSel:null, invVendor:"All",
   apprItems:[],
   scanning:false, scanCtx:null,
-  history:["home"]
+  history:["home"],
+  skuEditRowIndex:null
 };
-var _zxing = null;
+var _zxing=null;
 
 // ── PIN ──────────────────────────────────────────────────
-var _pin = "";
+var _pin="";
 function pinKey(d){
-  if(_pin.length>=4) return;
+  if(_pin.length>=4)return;
   _pin+=d;
   document.getElementById("d"+(_pin.length-1)).classList.add("filled");
-  if(_pin.length===4) setTimeout(checkPin,120);
+  if(_pin.length===4)setTimeout(checkPin,120);
 }
 function pinDel(){
-  if(!_pin.length) return;
+  if(!_pin.length)return;
   _pin=_pin.slice(0,-1);
   document.getElementById("d"+_pin.length).classList.remove("filled");
   document.getElementById("pin-err").textContent="";
@@ -356,17 +388,21 @@ function checkPin(){
   if(_pin===PIN){
     document.getElementById("pin-screen").style.display="none";
     init();
-  } else {
+  }else{
     document.getElementById("pin-err").textContent="Incorrect PIN";
     _pin="";
-    for(var i=0;i<4;i++) document.getElementById("d"+i).classList.remove("filled");
+    for(var i=0;i<4;i++)document.getElementById("d"+i).classList.remove("filled");
   }
 }
 
 // ── Init ─────────────────────────────────────────────────
 function init(){
-  api("getProducts",{},function(d){ S.products=d||[]; renderIntakeList(); });
+  api("getProducts",{},function(d){
+    S.products=d||[];
+    renderIntakeList();
+  });
   api("getLatestCounts",{},function(d){ S.counts=d||{}; },function(){ S.counts={}; });
+  api("getRollingConsumption",{},function(d){ S.consumption=d||{}; },function(){ S.consumption={}; });
 }
 
 // ── API ──────────────────────────────────────────────────
@@ -377,21 +413,21 @@ function api(fn,params,cb,errCb){
   var cbName="_cb"+(++_cbc);
   p.callback=cbName;
   var timer=setTimeout(function(){
-    if(window[cbName]){ delete window[cbName]; var s=document.getElementById(cbName); if(s)s.remove(); }
+    if(window[cbName]){delete window[cbName];var s=document.getElementById(cbName);if(s)s.remove();}
   },20000);
   window[cbName]=function(d){
     clearTimeout(timer);
     delete window[cbName];
-    var s=document.getElementById(cbName); if(s)s.remove();
-    if(d&&d.error){ if(errCb)errCb(d.error); return; }
-    if(cb) cb(d&&d.result!==undefined?d.result:d);
+    var s=document.getElementById(cbName);if(s)s.remove();
+    if(d&&d.error){if(errCb)errCb(d.error);return;}
+    if(cb)cb(d&&d.result!==undefined?d.result:d);
   };
   var url=API+"?"+Object.keys(p).map(function(k){
     return encodeURIComponent(k)+"="+encodeURIComponent(typeof p[k]==="object"?JSON.stringify(p[k]):p[k]);
   }).join("&");
   var s=document.createElement("script");
-  s.id=cbName; s.src=url;
-  s.onerror=function(){ clearTimeout(timer); delete window[cbName]; s.remove(); if(errCb)errCb("network error"); };
+  s.id=cbName;s.src=url;
+  s.onerror=function(){clearTimeout(timer);delete window[cbName];s.remove();if(errCb)errCb("network error");};
   document.head.appendChild(s);
 }
 function apiPost(fn,body,cb,errCb){
@@ -407,7 +443,7 @@ function go(id){
   S.history.push(id);
   document.getElementById("hdr-title").textContent=_titles[id]||"Shelsky's";
   document.getElementById("back-btn").style.display=id==="home"?"none":"block";
-  if(id==="inactive") loadInactive();
+  if(id==="inactive")loadInactive();
 }
 function goBack(){
   stopScan();
@@ -423,19 +459,18 @@ function setStaff(ctx,name){
   var prefix=ctx==="intake"?"is":"vs";
   ["ethan","leo","other"].forEach(function(n){
     var el=document.getElementById(prefix+"-"+n);
-    if(el) el.classList.toggle("on",n===name.toLowerCase());
+    if(el)el.classList.toggle("on",n===name.toLowerCase());
   });
 }
 
 // ── Scanner ──────────────────────────────────────────────
 function toggleScan(ctx){
-  if(S.scanning&&S.scanCtx===ctx){ stopScan(); return; }
+  if(S.scanning&&S.scanCtx===ctx){stopScan();return;}
   stopScan();
   S.scanCtx=ctx;
-  var videoId = ctx==="intake"?"intake-video":ctx==="inv"?"inv-video":"";
-  var boxId   = ctx==="intake"?"intake-scanner":ctx==="inv"?"inv-scanner":"";
-  var btnId   = ctx==="intake"?"intake-scan-btn":ctx==="inv"?"inv-scan-btn":"";
-  if(!videoId) return;
+  var videoId=ctx==="intake"?"intake-video":"inv-video";
+  var boxId=ctx==="intake"?"intake-scanner":"inv-scanner";
+  var btnId=ctx==="intake"?"intake-scan-btn":"inv-scan-btn";
   document.getElementById(boxId).style.display="block";
   document.getElementById(btnId).textContent="⏹ Stop Scanner";
   document.getElementById(btnId).classList.add("red");
@@ -443,61 +478,55 @@ function toggleScan(ctx){
   try{
     _zxing=new ZXing.BrowserMultiFormatReader();
     _zxing.decodeFromVideoDevice(null,videoId,function(result,err){
-      if(result){
-        var code=result.getText();
-        stopScan();
-        handleScan(code,ctx);
-      }
+      if(result){var code=result.getText();stopScan();handleScan(code,ctx);}
     });
-  }catch(e){ toast("Camera error","err"); stopScan(); }
+  }catch(e){toast("Camera error","err");stopScan();}
 }
 
 function stopScan(){
-  if(!S.scanning) return;
-  if(_zxing){ try{_zxing.reset();}catch(e){} _zxing=null; }
+  if(!S.scanning)return;
+  if(_zxing){try{_zxing.reset();}catch(e){}_zxing=null;}
   S.scanning=false;
   ["intake-scanner","inv-scanner"].forEach(function(id){
-    var el=document.getElementById(id); if(el) el.style.display="none";
+    var el=document.getElementById(id);if(el)el.style.display="none";
   });
   [{id:"intake-scan-btn",label:"📷 Scan Product Barcode"},
    {id:"inv-scan-btn",label:"📷 Scan Product"}
   ].forEach(function(b){
     var el=document.getElementById(b.id);
-    if(el){ el.textContent=b.label; el.classList.remove("red"); }
+    if(el){el.textContent=b.label;el.classList.remove("red");}
   });
 }
 
 function handleScan(code,ctx){
-  // Look up barcode locally first
-  var local=S.products.find(function(p){ return p.barcode&&p.barcode.toString()===code.toString(); });
+  var local=S.products.find(function(p){return p.barcode&&p.barcode.toString()===code.toString();});
   if(local){
-    if(ctx==="intake") showIntakeFound(local,code);
-    else if(ctx==="inv") showInvPanel(local);
+    if(ctx==="intake")showIntakeFound(local,code);
+    else showInvPanel(local);
     return;
   }
-  // Not found locally — try Open Food Facts via backend
   toast("Looking up barcode…");
   api("lookupBarcode",{barcode:code},function(r){
     if(ctx==="intake"){
       if(r&&r.found&&r.source==="local"){
         var p=S.products.find(function(x){return x.name===r.name;});
-        if(p) showIntakeFound(p,code);
-      } else if(r&&r.found&&r.source==="openfoodfacts"){
+        if(p)showIntakeFound(p,code);
+      }else if(r&&r.found&&r.source==="openfoodfacts"){
         showIntakeNew(code,r.suggestedName||r.name||"",r.brand||"");
-      } else {
+      }else{
         showIntakeNew(code,"","");
       }
-    } else if(ctx==="inv"){
+    }else{
       if(r&&r.found&&r.source==="local"){
         var p=S.products.find(function(x){return x.name===r.name;});
-        if(p) showInvPanel(p);
-      } else {
-        toast("Product not found — search by name below");
-        if(r&&r.name) document.getElementById("inv-search").value=r.name;
+        if(p)showInvPanel(p);
+      }else{
+        toast("Not found — search by name below");
+        if(r&&r.name)document.getElementById("inv-search").value=r.name;
         renderInvList();
       }
     }
-  },function(){ toast("Lookup failed — search by name"); });
+  },function(){toast("Lookup failed — search by name");});
 }
 
 // ── INTAKE ───────────────────────────────────────────────
@@ -509,16 +538,16 @@ function renderIntakeList(){
   });
   if(!f.length){list.innerHTML="<div style='padding:20px;text-align:center;color:#aaa'>No products found</div>";return;}
   list.innerHTML=f.slice(0,40).map(function(p){
-    return "<div style='background:#fff;border-radius:10px;padding:11px 13px;border:1.5px solid #e5e5e5;cursor:pointer' onclick='showIntakeFound("+JSON.stringify(p).replace(/'/g,"&#39;")+",\"\")'>"
+    return "<div style='background:#fff;border-radius:10px;padding:11px 13px;border:1.5px solid #e5e5e5;cursor:pointer;margin-bottom:6px' onclick='showIntakeFound("+JSON.stringify(p).replace(/'/g,"&#39;")+",\"\")'>"
       +"<div style='font-size:13px;font-weight:600'>"+p.name+"</div>"
       +"<div style='font-size:11px;color:#888'>"+p.vendor+" · "+(p.orderUnit||"Case")+"</div></div>";
   }).join("");
 }
 
 function showIntakeFound(p,barcode){
-  S.intakeSel=p; S.intakeBarcode=barcode;
+  S.intakeSel=p;S.intakeBarcode=barcode;
   document.getElementById("ifp-name").textContent=p.name;
-  document.getElementById("ifp-meta").textContent=p.vendor+" · "+(p.orderUnit||"Case");
+  document.getElementById("ifp-meta").textContent=p.vendor+" · "+(p.orderUnit||"Case")+(p.unitCount?" ("+p.unitCount+" per case)":"");
   document.getElementById("ifp-qty").value=1;
   document.getElementById("intake-found-panel").style.display="block";
   document.getElementById("intake-new-panel").style.display="none";
@@ -528,10 +557,11 @@ function showIntakeFound(p,barcode){
 }
 
 function showIntakeNew(barcode,name,vendor){
-  S.intakeSel=null; S.intakeBarcode=barcode;
+  S.intakeSel=null;S.intakeBarcode=barcode;
   document.getElementById("inp-name").value=name;
   document.getElementById("inp-vendor").value=vendor;
   document.getElementById("inp-qty").value=1;
+  document.getElementById("inp-unitcount").value="";
   document.getElementById("intake-new-panel").style.display="block";
   document.getElementById("intake-found-panel").style.display="none";
   document.getElementById("intake-search-wrap").style.display="none";
@@ -540,7 +570,7 @@ function showIntakeNew(barcode,name,vendor){
 }
 
 function clearIntakePanel(){
-  S.intakeSel=null; S.intakeBarcode="";
+  S.intakeSel=null;S.intakeBarcode="";
   document.getElementById("intake-found-panel").style.display="none";
   document.getElementById("intake-new-panel").style.display="none";
   document.getElementById("intake-search-wrap").style.display="block";
@@ -548,7 +578,7 @@ function clearIntakePanel(){
   document.getElementById("intake-scan-btn").style.display="flex";
   document.getElementById("intake-search").value="";
   renderIntakeList();
-  setTimeout(function(){ toggleScan("intake"); },400);
+  setTimeout(function(){toggleScan("intake");},400);
 }
 
 function doIntake(){
@@ -565,11 +595,12 @@ function addAndLogIntake(){
   var name=document.getElementById("inp-name").value.trim();
   var vendor=document.getElementById("inp-vendor").value.trim();
   var qty=parseFloat(document.getElementById("inp-qty").value)||0;
-  if(!name||!vendor){toast("Name and vendor required","err");return;}
+  var unitCount=parseInt(document.getElementById("inp-unitcount").value)||0;
   var unit=document.getElementById("inp-unit").value;
-  apiPost("addProduct",{name:name,vendor:vendor,orderUnit:unit,barcode:S.intakeBarcode,category:"GROCERY"},function(r){
+  if(!name||!vendor){toast("Name and vendor required","err");return;}
+  apiPost("addProduct",{name:name,vendor:vendor,orderUnit:unit,unitCount:unitCount,barcode:S.intakeBarcode,category:"GROCERY"},function(r){
     apiPost("logIntake",{name:name,vendor:vendor,qty:qty,staff:S.staff.intake,barcode:S.intakeBarcode},function(){
-      toast("✓ Added to system & logged intake","ok");
+      toast("✓ Added & logged","ok");
       init();
       clearIntakePanel();
     });
@@ -578,82 +609,113 @@ function addAndLogIntake(){
 
 // ── INVENTORY ────────────────────────────────────────────
 function startInv(){
-  S.invData={};
+  S.invData={};S.invVendor="All";
   go("inv");
-  var vs=[...new Set(S.products.map(function(p){return p.vendor;}))].sort();
-  var sel=document.getElementById("inv-vendor");
-  sel.innerHTML="<option value=''>All</option>"+vs.map(function(v){return"<option>"+v+"</option>";}).join("");
+  buildVendorRoller();
+  renderInvList();
+}
+
+function buildVendorRoller(){
+  var vendors=["All"].concat([...new Set(S.products.map(function(p){return p.vendor;}))].sort());
+  document.getElementById("inv-vendor-roller").innerHTML=vendors.map(function(v){
+    return "<button class='vr-btn"+(v==="All"?" on":"")+"' onclick='setInvVendor(\""+v.replace(/"/g,"&quot;")+"\")'>"
+      +(v==="All"?"All Vendors":v)+"</button>";
+  }).join("");
+}
+
+function setInvVendor(v){
+  S.invVendor=v;
+  document.querySelectorAll(".vr-btn").forEach(function(b){
+    b.classList.toggle("on",b.textContent===(v==="All"?"All Vendors":v));
+  });
   renderInvList();
 }
 
 function renderInvList(){
   var q=document.getElementById("inv-search").value.toLowerCase();
-  var v=document.getElementById("inv-vendor").value;
   var f=S.products.filter(function(p){
-    return(!q||p.name.toLowerCase().includes(q)||p.vendor.toLowerCase().includes(q))&&(!v||p.vendor===v);
+    var matchQ=!q||p.name.toLowerCase().includes(q)||p.vendor.toLowerCase().includes(q);
+    var matchV=S.invVendor==="All"||p.vendor===S.invVendor;
+    return matchQ&&matchV;
   });
   var done=Object.keys(S.invData).length;
+  var orders=Object.values(S.invData).filter(function(d){return d.order&&d.order>0;}).length;
   document.getElementById("inv-prog").textContent=done;
-  var html="",cv="";
+  document.getElementById("inv-order-cnt").textContent=orders;
+  var html="";
   f.forEach(function(p){
-    if(p.vendor!==cv){cv=p.vendor;html+="<div class='vhdr'>"+p.vendor+"</div>";}
     var d=S.invData[p.name]||{};
     var sv=d.stock!==undefined?d.stock:"";
     var ov=d.order!==undefined?d.order:"";
     html+="<div class='inv-item'>"
-      +"<div class='inv-item-top'><div class='inv-item-name'>"+p.name+"</div>"
-      +"<div class='inv-item-vendor'>"+p.vendor+"</div></div>"
+      +"<div class='inv-item-top'>"
+      +"<div class='inv-item-name'>"+p.name+"</div>"
+      +"<div style='display:flex;flex-direction:column;align-items:flex-end'>"
+      +"<div class='inv-item-vendor'>"+p.vendor+"</div>"
+      +"<button onclick='openSkuModalFor("+JSON.stringify(p).replace(/'/g,"&#39;")+")' style='background:none;border:none;font-size:10px;color:#aaa;cursor:pointer;margin-top:2px'>✏ edit SKU</button>"
+      +"</div></div>"
       +"<div class='inv-item-rows'>"
-      +"<div class='inv-field'><label>In Store</label>"
-      +"<input type='number' min='0' step='0.25' placeholder='—' value='"+sv+"' class='"+(sv!==""?"has-value":"")+"' "
-      +"onchange='setInv(\""+p.name.replace(/"/g,"&quot;")+"\",\""+p.vendor.replace(/"/g,"&quot;")+"\",\""+p.orderUnit+"\",\"stock\",this.value)' "
-      +"oninput='setInv(\""+p.name.replace(/"/g,"&quot;")+"\",\""+p.vendor.replace(/"/g,"&quot;")+"\",\""+p.orderUnit+"\",\"stock\",this.value)'></div>"
-      +"<div class='inv-field'><label>To Order</label>"
-      +"<input type='number' min='0' step='1' placeholder='—' value='"+ov+"' class='"+(ov!==""?"has-order":"")+"' "
-      +"onchange='setInv(\""+p.name.replace(/"/g,"&quot;")+"\",\""+p.vendor.replace(/"/g,"&quot;")+"\",\""+p.orderUnit+"\",\"order\",this.value)' "
-      +"oninput='setInv(\""+p.name.replace(/"/g,"&quot;")+"\",\""+p.vendor.replace(/"/g,"&quot;")+"\",\""+p.orderUnit+"\",\"order\",this.value)'></div>"
+      +"<div class='inv-field'><label>Units in Store</label>"
+      +"<input type='number' min='0' step='1' placeholder='—' value='"+sv+"' class='"+(sv!==""?"has-v":"")+"' "
+      +"onchange='setInv(\""+p.name.replace(/"/g,"&quot;")+"\",\""+p.vendor.replace(/"/g,"&quot;")+"\","+JSON.stringify(p.orderUnit||"Case")+",\"stock\",this.value)' "
+      +"oninput='setInv(\""+p.name.replace(/"/g,"&quot;")+"\",\""+p.vendor.replace(/"/g,"&quot;")+"\","+JSON.stringify(p.orderUnit||"Case")+",\"stock\",this.value)'></div>"
+      +"<div class='inv-field'><label>Cases to Order</label>"
+      +"<input type='number' min='0' step='0.5' placeholder='—' value='"+ov+"' class='"+(ov!==""?"has-o":"")+"' "
+      +"onchange='setInv(\""+p.name.replace(/"/g,"&quot;")+"\",\""+p.vendor.replace(/"/g,"&quot;")+"\","+JSON.stringify(p.orderUnit||"Case")+",\"order\",this.value)' "
+      +"oninput='setInv(\""+p.name.replace(/"/g,"&quot;")+"\",\""+p.vendor.replace(/"/g,"&quot;")+"\","+JSON.stringify(p.orderUnit||"Case")+",\"order\",this.value)'></div>"
       +"</div></div>";
   });
-  document.getElementById("inv-list").innerHTML=html;
+  document.getElementById("inv-list").innerHTML=html||"<div style='padding:20px;text-align:center;color:#aaa'>No products</div>";
 }
 
 function setInv(name,vendor,unit,field,val){
-  if(!S.invData[name]) S.invData[name]={vendor:vendor,orderUnit:unit};
+  if(!S.invData[name])S.invData[name]={vendor:vendor,orderUnit:unit};
   S.invData[name][field]=val===""?undefined:parseFloat(val)||0;
-  document.getElementById("inv-prog").textContent=Object.keys(S.invData).length;
+  var done=Object.keys(S.invData).length;
+  var orders=Object.values(S.invData).filter(function(d){return d.order&&d.order>0;}).length;
+  document.getElementById("inv-prog").textContent=done;
+  document.getElementById("inv-order-cnt").textContent=orders;
 }
 
 function showInvPanel(p){
   S.invSel=p;
   document.getElementById("ivp-name").textContent=p.name;
+  var unitCount=parseInt(p.unitCount)||0;
+  var orderUnit=p.orderUnit||"Case";
+  document.getElementById("ivp-meta").textContent=p.vendor+" · "+(unitCount?unitCount+" units per "+orderUnit:"case pack unknown");
+  // Stats: last count + 3-week avg consumption
   var last=S.counts[p.name];
-  document.getElementById("ivp-meta").textContent=p.vendor+" · "+(last?"Last count: "+last.qty:"No previous count");
-  document.getElementById("ivp-stock").value=last?last.qty:0;
+  var lastQty=last?last.qty+"u":"—";
+  var cons=S.consumption[p.name];
+  var consStr=cons?cons+"u/wk":"—";
+  document.getElementById("ivp-stats").innerHTML=
+    "<div class='pstat'><div class='ps-val'>"+lastQty+"</div><div class='ps-lbl'>Last Count</div></div>"
+    +"<div class='pstat highlight'><div class='ps-val'>"+consStr+"</div><div class='ps-lbl'>3-wk Avg Use</div></div>";
+  // Show warning if unit count missing
+  document.getElementById("ivp-missing-unit").style.display=unitCount?"none":"flex";
+  // Pre-fill
   var prev=S.invData[p.name];
+  document.getElementById("ivp-stock").value=prev&&prev.stock!==undefined?prev.stock:(last?last.qty:0);
   document.getElementById("ivp-order").value=prev&&prev.order!==undefined?prev.order:0;
   document.getElementById("inv-panel").style.display="block";
   document.getElementById("inv-scan-btn").style.display="none";
-  setTimeout(function(){ document.getElementById("ivp-stock").focus(); document.getElementById("ivp-stock").select(); },100);
+  setTimeout(function(){document.getElementById("ivp-stock").focus();document.getElementById("ivp-stock").select();},100);
 }
 
 function saveInvItem(){
-  if(!S.invSel) return;
+  if(!S.invSel)return;
   var p=S.invSel;
   var stock=parseFloat(document.getElementById("ivp-stock").value)||0;
   var order=parseFloat(document.getElementById("ivp-order").value)||0;
-  if(!S.invData[p.name]) S.invData[p.name]={vendor:p.vendor,orderUnit:p.orderUnit||"Case"};
+  if(!S.invData[p.name])S.invData[p.name]={vendor:p.vendor,orderUnit:p.orderUnit||"Case"};
   S.invData[p.name].stock=stock;
   S.invData[p.name].order=order;
-  document.getElementById("inv-prog").textContent=Object.keys(S.invData).length;
   toast("✓ "+p.name+" saved","ok");
   clearInvPanel();
-  setTimeout(function(){ toggleScan("inv"); },500);
+  setTimeout(function(){toggleScan("inv");},500);
 }
 
-function skipInvItem(){
-  clearInvPanel();
-  setTimeout(function(){ toggleScan("inv"); },300);
-}
+function skipInvItem(){clearInvPanel();setTimeout(function(){toggleScan("inv");},300);}
 
 function clearInvPanel(){
   S.invSel=null;
@@ -663,26 +725,58 @@ function clearInvPanel(){
 }
 
 function submitInv(){
-  var countEntries=[], orderEntries=[];
+  var countEntries=[],orderEntries=[];
   Object.keys(S.invData).forEach(function(name){
     var d=S.invData[name];
-    if(d.stock!==undefined) countEntries.push({name:name,vendor:d.vendor||"",qty:d.stock});
-    if(d.order!==undefined&&d.order>0) orderEntries.push({name:name,vendor:d.vendor||"",qty:d.order,orderUnit:d.orderUnit||"Case"});
+    if(d.stock!==undefined)countEntries.push({name:name,vendor:d.vendor||"",qty:d.stock});
+    if(d.order!==undefined&&d.order>0)orderEntries.push({name:name,vendor:d.vendor||"",qty:d.order,orderUnit:d.orderUnit||"Case"});
   });
   if(!countEntries.length&&!orderEntries.length){toast("Nothing to submit","err");return;}
   var staff=S.staff.inv;
-  var done=0;
-  function finish(){
-    done++;
-    if(done===2||(countEntries.length===0&&done===1)||(orderEntries.length===0&&done===1)){
-      toast("✓ Submitted to Peter","ok");
-      setTimeout(function(){goBack();goBack();},1800);
+  var pending=0;
+  if(countEntries.length)pending++;
+  if(orderEntries.length)pending++;
+  if(pending===0){toast("Nothing to submit","err");return;}
+  function done(){pending--;if(pending===0){toast("✓ Submitted to Peter","ok");setTimeout(function(){goBack();goBack();},1800);}}
+  if(countEntries.length)apiPost("logCount",{entries:countEntries,staff:staff},done,function(){toast("Count save error","err");});
+  if(orderEntries.length)apiPost("submitOrderProposal",{entries:orderEntries,staff:staff},done,function(){toast("Order save error","err");});
+}
+
+// ── SKU EDIT MODAL ────────────────────────────────────────
+function openSkuModalFor(p){
+  S.invSel=p;
+  S.skuEditRowIndex=p.rowIndex;
+  document.getElementById("sku-modal-name").textContent=p.name;
+  document.getElementById("sku-modal-unitcount").value=p.unitCount||"";
+  document.getElementById("sku-modal-orderunit").value=p.orderUnit||"Case";
+  document.getElementById("sku-modal").style.display="flex";
+}
+
+function openSkuModal(){
+  if(!S.invSel)return;
+  openSkuModalFor(S.invSel);
+}
+
+function closeSkuModal(e){
+  if(e.target===document.getElementById("sku-modal"))
+    document.getElementById("sku-modal").style.display="none";
+}
+
+function saveSkuEdit(){
+  var unitCount=parseInt(document.getElementById("sku-modal-unitcount").value)||0;
+  var orderUnit=document.getElementById("sku-modal-orderunit").value.trim();
+  if(!unitCount){toast("Enter a case pack size","err");return;}
+  apiPost("updateProductUnitCount",{rowIndex:S.skuEditRowIndex,unitCount:unitCount,orderUnit:orderUnit},function(){
+    toast("✓ SKU updated","ok");
+    document.getElementById("sku-modal").style.display="none";
+    // Update local product data
+    var p=S.products.find(function(x){return x.rowIndex===S.skuEditRowIndex;});
+    if(p){p.unitCount=unitCount;p.orderUnit=orderUnit;}
+    if(S.invSel&&S.invSel.rowIndex===S.skuEditRowIndex){
+      S.invSel.unitCount=unitCount;S.invSel.orderUnit=orderUnit;
+      showInvPanel(S.invSel);
     }
-  }
-  if(countEntries.length) apiPost("logCount",{entries:countEntries,staff:staff},finish,function(){ toast("Count save error","err"); });
-  else finish();
-  if(orderEntries.length) apiPost("submitOrderProposal",{entries:orderEntries,staff:staff},finish,function(){ toast("Order save error","err"); });
-  else finish();
+  });
 }
 
 // ── APPROVAL ─────────────────────────────────────────────
@@ -692,27 +786,30 @@ function loadApproval(){
   go("approve");
   document.getElementById("appr-list").innerHTML="<div class='loading'><div class='spinner'></div>Loading…</div>";
   api("getPendingOrders",{token:token},function(orders){
-    S.apprItems=orders;
-    if(!orders||!orders.length){
+    S.apprItems=orders||[];
+    if(!S.apprItems.length){
       document.getElementById("appr-list").innerHTML="<div style='padding:20px;text-align:center;color:#888'>No pending orders for this date.</div>";
       return;
     }
     // Group by vendor
     var byVendor={};
-    orders.forEach(function(o){ if(!byVendor[o.vendor]) byVendor[o.vendor]=[]; byVendor[o.vendor].push(o); });
+    S.apprItems.forEach(function(o){if(!byVendor[o.vendor])byVendor[o.vendor]=[];byVendor[o.vendor].push(o);});
     var html="";
     Object.keys(byVendor).sort().forEach(function(v){
       html+="<div class='vhdr'>"+v+"</div>";
       byVendor[v].forEach(function(item){
         var last=S.counts[item.name];
-        var lastQty=last?last.qty:"—";
+        var lastUnits=last?last.qty+"u":"—";
+        var cons=S.consumption[item.name];
+        var consStr=cons?cons+"u/wk avg":"—";
         html+="<div class='appr-item'>"
           +"<div class='appr-name'>"+item.name+"</div>"
-          +"<div class='appr-vendor'>"+item.vendor+"</div>"
+          +"<div class='appr-meta'>"+item.vendor+"</div>"
           +"<div class='appr-row'>"
-          +"<div class='appr-stat'><strong>"+lastQty+"</strong>In Store</div>"
+          +"<div class='appr-stat'><strong>"+lastUnits+"</strong>In Store</div>"
+          +"<div class='appr-stat'><strong>"+consStr+"</strong>3-wk Avg</div>"
           +"<div class='appr-stat'><strong>"+item.qtyProposed+"</strong>Proposed</div>"
-          +"<input class='appr-input' type='number' min='0' step='1' value='"+item.qtyProposed+"' id='ai-"+item.rowIndex+"'>"
+          +"<input class='appr-input' type='number' min='0' step='0.5' value='"+item.qtyProposed+"' id='ai-"+item.rowIndex+"'>"
           +"<div style='font-size:11px;color:#888'>"+(item.orderUnit||"Case")+"</div>"
           +"</div></div>";
       });
@@ -752,23 +849,23 @@ function loadInactive(){
     }).join("");
   });
 }
-function keepIt(id){ var el=document.getElementById("in-"+id); if(el){el.style.opacity="0.4";} }
+function keepIt(id){var el=document.getElementById("in-"+id);if(el)el.style.opacity="0.4";}
 function removeIt(id,name){
-  if(!confirm("Remove \""+name+"\"?")) return;
+  if(!confirm("Remove \""+name+"\"?"))return;
   apiPost("flagProductInactive",{skuId:id},function(){
-    var el=document.getElementById("in-"+id); if(el) el.remove();
-    toast("Removed: "+name,"ok"); init();
+    var el=document.getElementById("in-"+id);if(el)el.remove();
+    toast("Removed: "+name,"ok");init();
   });
 }
 
-function adj(id,d){ var el=document.getElementById(id); el.value=Math.max(0,(parseFloat(el.value)||0)+d); }
+function adj(id,d){var el=document.getElementById(id);el.value=Math.max(0,(parseFloat(el.value)||0)+d);}
 
 var _tt;
 function toast(msg,type){
   var el=document.getElementById("toast");
   el.textContent=msg;
   el.className="toast"+(type?" "+type:"")+" show";
-  if(_tt) clearTimeout(_tt);
+  if(_tt)clearTimeout(_tt);
   _tt=setTimeout(function(){el.classList.remove("show");},2800);
 }
 </script>
