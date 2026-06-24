@@ -178,7 +178,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
 </div>
 <div id="toast" class="toast"></div>
 
-<!-- SKU Edit Modal -->
 <div class="modal-bg" id="sku-modal" style="display:none" onclick="closeSkuModal(event)">
   <div class="modal">
     <h3 id="sku-modal-title">Edit SKU</h3>
@@ -229,7 +228,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
   </div>
 </div>
 
-<!-- HOME -->
 <div id="screen-home" class="screen active">
   <div class="sec-label">Staff</div>
   <div class="home-grid">
@@ -251,7 +249,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
   </div>
 </div>
 
-<!-- INTAKE SETUP -->
 <div id="screen-intake-setup" class="screen">
   <div class="sec-label">Who is logging?</div>
   <div class="staff-sel">
@@ -262,7 +259,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
   <button class="btn btn-dark" onclick="go('intake')">Start Intake →</button>
 </div>
 
-<!-- INTAKE -->
 <div id="screen-intake" class="screen">
   <button class="scan-btn" id="intake-scan-btn" onclick="toggleScan('intake')">📷 Scan Product Barcode</button>
   <div class="scanner-box" id="intake-scanner">
@@ -330,7 +326,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
   <div id="intake-list" style="display:flex;flex-direction:column;gap:6px;max-height:50vh;overflow-y:auto"></div>
 </div>
 
-<!-- INVENTORY SETUP -->
 <div id="screen-inv-setup" class="screen">
   <div class="sec-label">Who is counting?</div>
   <div class="staff-sel">
@@ -342,13 +337,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
   <button class="btn btn-dark" onclick="startInv()">Start Inventory →</button>
 </div>
 
-<!-- INVENTORY -->
 <div id="screen-inv" class="screen">
   <div class="sumbar">
     <div><div class="sl">Items counted</div><div class="sv" id="inv-prog">0</div></div>
     <div><div class="sl">Items to order</div><div class="sv" id="inv-order-cnt">0</div></div>
   </div>
-  <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.6px;text-transform:uppercase;margin-bottom:6px">Jump to Vendor</div>
+  <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.6px;text-transform:uppercase;margin-bottom:6px">Filter By Vendor</div>
   <div class="vendor-roller" id="inv-vendor-roller"></div>
   <button class="scan-btn" id="inv-scan-btn" onclick="toggleScan('inv')">📷 Scan Product</button>
   <div class="scanner-box" id="inv-scanner">
@@ -391,7 +385,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
   <button class="btn" id="inv-submit-btn" onclick="submitInv()" style="margin-top:12px;background:#ccc;color:#fff;cursor:not-allowed" disabled>→ Submit to Peter for Approval</button>
 </div>
 
-<!-- APPROVE SETUP -->
 <div id="screen-approve-setup" class="screen">
   <div class="sec-label">Order date</div>
   <div class="form-field" style="margin-bottom:16px">
@@ -401,14 +394,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;ba
   <button class="btn btn-dark" onclick="loadApproval()">Load Order →</button>
 </div>
 
-<!-- APPROVE -->
 <div id="screen-approve" class="screen">
   <p style="font-size:13px;color:#555;margin-bottom:12px">Adjust quantities in cases. Set to 0 to reject.</p>
   <div id="appr-list"></div>
   <button class="btn btn-green" onclick="submitApproval()">✓ Submit Approved Order</button>
 </div>
 
-<!-- INACTIVE -->
 <div id="screen-inactive" class="screen">
   <p style="font-size:13px;color:#555;margin-bottom:12px">No stock and no orders in 4+ weeks.</p>
   <div id="inact-list"><div class="loading"><div class="spinner"></div>Loading…</div></div>
@@ -595,7 +586,6 @@ function handleScan(code,ctx){
 
 // ── INTAKE ───────────────────────────────────────────────
 function renderIntakeList(){
-  // Keep vendor datalist current
   var vendors=[...new Set(S.products.map(function(p){return p.vendor;}))].filter(Boolean).sort();
   var dl=document.getElementById("inp-vendor-list");
   if(dl) dl.innerHTML=vendors.map(function(v){return"<option value='"+v.replace(/'/g,"&#39;")+"'>";}).join("");
@@ -681,7 +671,7 @@ function addAndLogIntake(){
 
 // ── INVENTORY ────────────────────────────────────────────
 function startInv(){
-  S.invData={};S.invVendor="All";
+  S.invData={}; S.invVendor="All";
   go("inv");
   buildVendorRoller();
   renderInvList();
@@ -699,49 +689,42 @@ function buildVendorRoller(){
 function setInvVendor(v){
   S.invVendor=v;
   document.querySelectorAll(".vr-btn").forEach(function(b){
-    b.classList.toggle("on",b.textContent===(v==="All"?"All Vendors":v));
+    var targetLabel = v === "All" ? "All Vendors" : v;
+    b.classList.toggle("on", b.textContent === targetLabel);
   });
-  if(v==="All"){
-    var el=document.getElementById("inv-list");
-    if(el) el.scrollIntoView({behavior:"smooth",block:"start"});
-  } else {
-    // Small delay to ensure DOM is rendered
-    setTimeout(function(){
-      var anchor=document.getElementById(vendorId(v));
-      if(anchor){
-        anchor.scrollIntoView({behavior:"smooth",block:"start"});
-      } else {
-        // fallback: re-render then scroll
-        renderInvList();
-        setTimeout(function(){
-          var a2=document.getElementById(vendorId(v));
-          if(a2) a2.scrollIntoView({behavior:"smooth",block:"start"});
-        },100);
-      }
-    },50);
-  }
+  renderInvList();
 }
 
 function renderInvList(){
   var q=document.getElementById("inv-search").value.toLowerCase();
-  var f=S.products.filter(function(p){
-    return !q||p.name.toLowerCase().includes(q)||p.vendor.toLowerCase().includes(q);
-  });
-  var done=Object.keys(S.invData).filter(function(n){ return S.invData[n].stock!==undefined; }).length;
+  var listContainer = document.getElementById("inv-list");
+  
+  var done=Object.keys(S.invData).filter(function(n){ 
+    return S.invData[n].stock!==undefined || S.invData[n].order!==undefined; 
+  }).length;
+  
   var orders=Object.values(S.invData).filter(function(d){return d.order&&d.order>0;}).length;
+  
   document.getElementById("inv-prog").textContent=done;
   document.getElementById("inv-order-cnt").textContent=orders;
-  // Submit button state
-  var allCounted=done>=S.products.length;
+  
   var submitBtn=document.getElementById("inv-submit-btn");
   if(submitBtn){
-    submitBtn.disabled=!allCounted;
-    submitBtn.style.background=allCounted?"#1A7A3C":"#ccc";
-    submitBtn.style.cursor=allCounted?"pointer":"not-allowed";
+    var canSubmit = done > 0;
+    submitBtn.disabled=!canSubmit;
+    submitBtn.style.background=canSubmit?"#1A7A3C":"#ccc";
+    submitBtn.style.cursor=canSubmit?"pointer":"not-allowed";
   }
+  
   var html="";
   var cv="";
-  f.forEach(function(p){
+  
+  S.products.forEach(function(p){
+    var matchesSearch = !q || p.name.toLowerCase().includes(q) || p.vendor.toLowerCase().includes(q);
+    var matchesVendor = S.invVendor === "All" || p.vendor === S.invVendor;
+    
+    if (!matchesSearch || !matchesVendor) return;
+    
     if(p.vendor!==cv){
       cv=p.vendor;
       html+="<div class='vhdr' id='"+vendorId(p.vendor)+"'>"+p.vendor+"</div>";
@@ -753,6 +736,11 @@ function renderInvList(){
     var size=p.size&&p.uom?(p.size+" "+p.uom):"";
     var caseLabel=(p.orderUnit||"Case")+(uc?" of "+uc:"");
     var meta=caseLabel+(size?" · "+size:"");
+    
+    var safeName = p.name.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    var safeVendor = p.vendor.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    var safeUnit = (p.orderUnit||"Case").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    
     html+="<div class='inv-item'>"
       +"<div class='inv-item-top'>"
       +"<div style='flex:1;min-width:0'>"
@@ -764,31 +752,38 @@ function renderInvList(){
       +"<div class='inv-item-rows'>"
       +"<div class='inv-field'><label>Units in Store</label>"
       +"<input type='number' min='0' step='1' placeholder='—' value='"+sv+"' class='"+(sv!==""?"has-v":"")+"' "
-      +"onchange='setInv(\""+p.name.replace(/"/g,"&quot;")+"\",\""+p.vendor.replace(/"/g,"&quot;")+"\","+JSON.stringify(p.orderUnit||"Case")+",\"stock\",this.value)' "
-      +"oninput='setInv(\""+p.name.replace(/"/g,"&quot;")+"\",\""+p.vendor.replace(/"/g,"&quot;")+"\","+JSON.stringify(p.orderUnit||"Case")+",\"stock\",this.value)'></div>"
+      +"oninput='setInv(\""+safeName+"\",\""+safeVendor+"\",\""+safeUnit+"\",\"stock\",this.value)'></div>"
       +"<div class='inv-field'><label>Cases to Order</label>"
       +"<input type='number' min='0' step='0.5' placeholder='—' value='"+ov+"' class='"+(ov!==""?"has-o":"")+"' "
-      +"onchange='setInv(\""+p.name.replace(/"/g,"&quot;")+"\",\""+p.vendor.replace(/"/g,"&quot;")+"\","+JSON.stringify(p.orderUnit||"Case")+",\"order\",this.value)' "
-      +"oninput='setInv(\""+p.name.replace(/"/g,"&quot;")+"\",\""+p.vendor.replace(/"/g,"&quot;")+"\","+JSON.stringify(p.orderUnit||"Case")+",\"order\",this.value)'></div>"
+      +"oninput='setInv(\""+safeName+"\",\""+safeVendor+"\",\""+safeUnit+"\",\"order\",this.value)'></div>"
       +"</div></div>";
   });
-  document.getElementById("inv-list").innerHTML=html||"<div style='padding:20px;text-align:center;color:#aaa'>No products</div>";
+  listContainer.innerHTML=html||"<div style='padding:20px;text-align:center;color:#aaa'>No products matching filter</div>";
 }
 
 function setInv(name,vendor,unit,field,val){
   if(!S.invData[name])S.invData[name]={vendor:vendor,orderUnit:unit};
-  S.invData[name][field]=val===""?undefined:parseFloat(val)||0;
-  var done=Object.keys(S.invData).filter(function(n){ return S.invData[n].stock!==undefined; }).length;
+  
+  if(val==="") {
+    S.invData[name][field]=undefined;
+  } else {
+    S.invData[name][field]=parseFloat(val)||0;
+  }
+  
+  var done=Object.keys(S.invData).filter(function(n){ 
+    return S.invData[n].stock!==undefined || S.invData[n].order!==undefined; 
+  }).length;
   var orders=Object.values(S.invData).filter(function(d){return d.order&&d.order>0;}).length;
+  
   document.getElementById("inv-prog").textContent=done;
   document.getElementById("inv-order-cnt").textContent=orders;
-  // Update submit button
-  var allCounted=done>=S.products.length;
+  
   var submitBtn=document.getElementById("inv-submit-btn");
   if(submitBtn){
-    submitBtn.disabled=!allCounted;
-    submitBtn.style.background=allCounted?"#1A7A3C":"#ccc";
-    submitBtn.style.cursor=allCounted?"pointer":"not-allowed";
+    var canSubmit = done > 0;
+    submitBtn.disabled=!canSubmit;
+    submitBtn.style.background=canSubmit?"#1A7A3C":"#ccc";
+    submitBtn.style.cursor=canSubmit?"pointer":"not-allowed";
   }
 }
 
@@ -799,7 +794,7 @@ function showInvPanel(p){
   var orderUnit=p.orderUnit||"Case";
   var caseLabel=(orderUnit||"Case")+(unitCount?" of "+unitCount:" (pack size unknown)");
   document.getElementById("ivp-meta").textContent=p.vendor+" · "+caseLabel;
-  // Stats: last count + 3-week avg consumption
+  
   var last=S.counts[p.name];
   var lastQty=last?last.qty+"u":"—";
   var cons=S.consumption[p.name];
@@ -807,9 +802,9 @@ function showInvPanel(p){
   document.getElementById("ivp-stats").innerHTML=
     "<div class='pstat'><div class='ps-val'>"+lastQty+"</div><div class='ps-lbl'>Last Count</div></div>"
     +"<div class='pstat highlight'><div class='ps-val'>"+consStr+"</div><div class='ps-lbl'>3-wk Avg Use</div></div>";
-  // Show warning if unit count missing
+  
   document.getElementById("ivp-missing-unit").style.display=unitCount?"none":"flex";
-  // Pre-fill
+  
   var prev=S.invData[p.name];
   document.getElementById("ivp-stock").value=prev&&prev.stock!==undefined?prev.stock:(last?last.qty:0);
   document.getElementById("ivp-order").value=prev&&prev.order!==undefined?prev.order:0;
@@ -828,14 +823,16 @@ function saveInvItem(){
   S.invData[p.name].order=order;
   toast("✓ "+p.name+" saved","ok");
   clearInvPanel();
-  // Check completion after scan save
-  var done=Object.keys(S.invData).filter(function(n){ return S.invData[n].stock!==undefined; }).length;
-  var allCounted=done>=S.products.length;
+  
+  var done=Object.keys(S.invData).filter(function(n){ 
+    return S.invData[n].stock!==undefined || S.invData[n].order!==undefined; 
+  }).length;
   var submitBtn=document.getElementById("inv-submit-btn");
   if(submitBtn){
-    submitBtn.disabled=!allCounted;
-    submitBtn.style.background=allCounted?"#1A7A3C":"#ccc";
-    submitBtn.style.cursor=allCounted?"pointer":"not-allowed";
+    var canSubmit = done > 0;
+    submitBtn.disabled=!canSubmit;
+    submitBtn.style.background=canSubmit?"#1A7A3C":"#ccc";
+    submitBtn.style.cursor=canSubmit?"pointer":"not-allowed";
   }
   setTimeout(function(){toggleScan("inv");},500);
 }
@@ -871,10 +868,8 @@ function submitInv(){
 function openSkuModalFor(p){
   S.invSel=p;
   S.skuEditRowIndex=p.rowIndex;
-  // Populate vendor datalist
   var vendors=[...new Set(S.products.map(function(x){return x.vendor;}))].filter(Boolean).sort();
   document.getElementById("vendor-list").innerHTML=vendors.map(function(v){return"<option value='"+v.replace(/'/g,"&#39;")+"'>";}).join("");
-  // Fill fields
   document.getElementById("sku-modal-title").textContent="Edit SKU";
   document.getElementById("sku-modal-name").value=p.name||"";
   document.getElementById("sku-modal-vendor").value=p.vendor||"";
@@ -890,6 +885,7 @@ function openSkuModal(){
   openSkuModalFor(S.invSel);
 }
 
+// Fixed target validation error in closing handler
 function closeSkuModal(e){
   if(e.target===document.getElementById("sku-modal"))
     document.getElementById("sku-modal").style.display="none";
@@ -910,7 +906,6 @@ function saveSkuEdit(){
   },function(){
     toast("✓ SKU updated","ok");
     document.getElementById("sku-modal").style.display="none";
-    // Update local product cache
     var p=S.products.find(function(x){return x.rowIndex===S.skuEditRowIndex;});
     if(p){p.name=name;p.vendor=vendor;p.orderUnit=orderUnit;p.unitCount=unitCount;p.size=size;p.uom=uom;}
     if(S.invSel&&S.invSel.rowIndex===S.skuEditRowIndex){
@@ -934,7 +929,6 @@ function loadApproval(){
       document.getElementById("appr-list").innerHTML="<div style='padding:20px;text-align:center;color:#888'>No pending orders for this date.</div>";
       return;
     }
-    // Group by vendor
     var byVendor={};
     S.apprItems.forEach(function(o){if(!byVendor[o.vendor])byVendor[o.vendor]=[];byVendor[o.vendor].push(o);});
     var html="";
