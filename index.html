@@ -397,6 +397,9 @@ function checkPin(){
   }
 }
 
+// ── Helpers ──────────────────────────────────────────────
+function vendorId(v){ return "vhdr_"+v.replace(/[^a-zA-Z0-9]/g,"_"); }
+
 // ── Init ─────────────────────────────────────────────────
 function init(){
   api("getProducts",{},function(d){
@@ -549,7 +552,9 @@ function renderIntakeList(){
 function showIntakeFound(p,barcode){
   S.intakeSel=p;S.intakeBarcode=barcode;
   document.getElementById("ifp-name").textContent=p.name;
-  document.getElementById("ifp-meta").textContent=p.vendor+" · "+(p.orderUnit||"Case")+(p.unitCount?" ("+p.unitCount+" per case)":"");
+  var uc=parseInt(p.unitCount)||0;
+  var cl2=(p.orderUnit||"Case")+(uc?" of "+uc:"");
+  document.getElementById("ifp-meta").textContent=p.vendor+" · "+cl2;
   document.getElementById("ifp-qty").value=1;
   document.getElementById("intake-found-panel").style.display="block";
   document.getElementById("intake-new-panel").style.display="none";
@@ -618,10 +623,11 @@ function startInv(){
 }
 
 function buildVendorRoller(){
-  var vendors=["All"].concat([...new Set(S.products.map(function(p){return p.vendor;}))].sort());
+  var vendors=["All"].concat([...new Set(S.products.map(function(p){return p.vendor;}))].filter(Boolean).sort());
   document.getElementById("inv-vendor-roller").innerHTML=vendors.map(function(v){
-    return "<button class='vr-btn"+(v==="All"?" on":"")+"' onclick='setInvVendor(\""+v.replace(/"/g,"&quot;")+"\")'>"
-      +(v==="All"?"All Vendors":v)+"</button>";
+    var label=v==="All"?"All Vendors":v;
+    return "<button class='vr-btn"+(v==="All"?" on":"")+"' onclick='setInvVendor("+JSON.stringify(v)+")'>"
+      +label+"</button>";
   }).join("");
 }
 
@@ -631,39 +637,56 @@ function setInvVendor(v){
     b.classList.toggle("on",b.textContent===(v==="All"?"All Vendors":v));
   });
   if(v==="All"){
-    // scroll list to top
     var el=document.getElementById("inv-list");
-    if(el) el.scrollIntoView({behavior:"smooth"});
+    if(el) window.scrollTo({top:el.offsetTop-120,behavior:"smooth"});
   } else {
-    // jump to vendor section anchor
-    var anchor=document.getElementById("vhdr-"+v.replace(/[^a-z0-9]/gi,"_"));
-    if(anchor) anchor.scrollIntoView({behavior:"smooth",block:"start"});
+    var anchor=document.getElementById(vendorId(v));
+    if(anchor){
+      var top=anchor.getBoundingClientRect().top+window.pageYOffset-80;
+      window.scrollTo({top:top,behavior:"smooth"});
+    }
   }
 }
 
 function renderInvList(){
   var q=document.getElementById("inv-search").value.toLowerCase();
   var f=S.products.filter(function(p){
-    var matchQ=!q||p.name.toLowerCase().includes(q)||p.vendor.toLowerCase().includes(q);
-    var matchV=S.invVendor==="All"||p.vendor===S.invVendor;
-    return matchQ&&matchV;
+    return !q||p.name.toLowerCase().includes(q)||p.vendor.toLowerCase().includes(q);
   });
-  var done=Object.keys(S.invData).length;
+  var done=Object.keys(S.invData).filter(function(n){ return S.invData[n].stock!==undefined; }).length;
   var orders=Object.values(S.invData).filter(function(d){return d.order&&d.order>0;}).length;
   document.getElementById("inv-prog").textContent=done;
   document.getElementById("inv-order-cnt").textContent=orders;
+  // Submit button state
+  var allCounted=done>=S.products.length;
+  var submitBtn=document.getElementById("inv-submit-btn");
+  if(submitBtn){
+    submitBtn.disabled=!allCounted;
+    submitBtn.style.background=allCounted?"#1A7A3C":"#ccc";
+    submitBtn.style.cursor=allCounted?"pointer":"not-allowed";
+  }
   var html="";
+  var cv="";
   f.forEach(function(p){
+    if(p.vendor!==cv){
+      cv=p.vendor;
+      html+="<div class='vhdr' id='"+vendorId(p.vendor)+"'>"+p.vendor+"</div>";
+    }
     var d=S.invData[p.name]||{};
     var sv=d.stock!==undefined?d.stock:"";
     var ov=d.order!==undefined?d.order:"";
+    var uc=parseInt(p.unitCount)||0;
+    var size=p.size&&p.uom?(p.size+" "+p.uom):"";
+    var caseLabel=(p.orderUnit||"Case")+(uc?" of "+uc:"");
+    var meta=caseLabel+(size?" · "+size:"");
     html+="<div class='inv-item'>"
       +"<div class='inv-item-top'>"
+      +"<div style='flex:1;min-width:0'>"
       +"<div class='inv-item-name'>"+p.name+"</div>"
-      +"<div style='display:flex;flex-direction:column;align-items:flex-end'>"
-      +"<div class='inv-item-vendor'>"+p.vendor+"</div>"
-      +"<button onclick='openSkuModalFor("+JSON.stringify(p).replace(/'/g,"&#39;")+")' style='background:none;border:none;font-size:10px;color:#aaa;cursor:pointer;margin-top:2px'>✏ edit SKU</button>"
-      +"</div></div>"
+      +"<div style='font-size:11px;color:#888;margin-top:2px'>"+meta+"</div>"
+      +"</div>"
+      +"<button onclick='openSkuModalFor("+JSON.stringify(p).replace(/'/g,"&#39;")+")' style='background:none;border:none;font-size:10px;color:#aaa;cursor:pointer;flex-shrink:0;margin-left:8px;padding:4px'>✏ SKU</button>"
+      +"</div>"
       +"<div class='inv-item-rows'>"
       +"<div class='inv-field'><label>Units in Store</label>"
       +"<input type='number' min='0' step='1' placeholder='—' value='"+sv+"' class='"+(sv!==""?"has-v":"")+"' "
@@ -700,7 +723,8 @@ function showInvPanel(p){
   document.getElementById("ivp-name").textContent=p.name;
   var unitCount=parseInt(p.unitCount)||0;
   var orderUnit=p.orderUnit||"Case";
-  document.getElementById("ivp-meta").textContent=p.vendor+" · "+(unitCount?unitCount+" units per "+orderUnit:"case pack unknown");
+  var caseLabel=(orderUnit||"Case")+(unitCount?" of "+unitCount:" (pack size unknown)");
+  document.getElementById("ivp-meta").textContent=p.vendor+" · "+caseLabel;
   // Stats: last count + 3-week avg consumption
   var last=S.counts[p.name];
   var lastQty=last?last.qty+"u":"—";
