@@ -6,7 +6,6 @@
 <title>Shelsky's Inventory</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-/* Updated typography stack to closely match your brand logo geometry */
 body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f2f2f7;min-height:100vh;color:#1a1a1a}
 
 #pin-screen{position:fixed;inset:0;background:#1a1a1a;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;padding:32px}
@@ -22,7 +21,6 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .pin-key.zero{grid-column:2}
 .pin-error{color:#ff4444;font-size:13px;margin-top:12px;height:18px}
 
-/* COSMETIC CHANGE #1: Black Header updated to your #E64A2E Hex Reddish-Orange */
 .header{background:#E64A2E;color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
 .header h1{font-size:18px;font-weight:700;flex:1;letter-spacing:0.8px;text-transform:uppercase}
 .back-btn{background:rgba(255,255,255,0.22);border:none;color:#fff;padding:6px 12px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
@@ -41,7 +39,6 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .home-card.dark{background:#1a1a1a;border-color:#1a1a1a}
 .home-card.dark .label,.home-card.dark .sub{color:#fff}
 
-/* Vendor Carousel Optimization */
 .vendor-roller{display:flex;overflow-x:auto;gap:8px;padding:8px 4px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none;snap-type:x mandatory}
 .vendor-roller::-webkit-scrollbar{display:none}
 .vr-btn{flex-shrink:0;padding:10px 18px;border-radius:20px;border:1.5px solid #e5e5e5;background:#fff;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;color:#1a1a1a;box-shadow:0 1px 3px rgba(0,0,0,0.05);transition:all 0.15s ease;snap-align:start}
@@ -119,7 +116,6 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .inv-field input.has-v{border-color:#1A7A3C;background:#f0fff4}
 .inv-field input.has-o{border-color:#1a1a1a;background:#f8f8f8}
 
-/* Added design element for inline utilization info on product nodes */
 .inv-util-badge{display:inline-block;font-size:10px;font-weight:700;color:#b8860b;background:#fff8e8;border:1px solid #f5c842;padding:2px 6px;border-radius:4px;margin-top:4px}
 
 .appr-item{background:#fff;border-radius:10px;padding:13px;margin-bottom:8px;border:1.5px solid #e5e5e5}
@@ -132,7 +128,6 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 
 .vhdr{font-size:11px;font-weight:700;color:#888;letter-spacing:0.8px;text-transform:uppercase;padding:8px 0 4px;border-bottom:1px solid #eee;margin:12px 0 6px}
 
-/* Edit SKU modal */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:500;display:flex;align-items:flex-end}
 .modal{background:#fff;border-radius:16px 16px 0 0;padding:20px 16px 32px;width:100%;max-width:560px;margin:0 auto}
 .modal h3{font-size:16px;font-weight:700;margin-bottom:14px}
@@ -195,7 +190,7 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
     </div>
     <div class="form-field">
       <label>Vendor *</label>
-      <input type="text" id="sku-modal-vendor" placeholder="e.g. Nassau Candy" list="vendor-list" autocomplete="off">
+      <input type="text" id="sku-modal-vendor" placeholder="e.g. Acme" list="vendor-list" autocomplete="off">
       <datalist id="vendor-list"></datalist>
     </div>
     <div class="form-field">
@@ -206,6 +201,12 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
         <option>Bag</option>
         <option>Tub</option>
         <option>Each</option>
+        <option>Side</option>
+        <option>Pail</option>
+        <option>Fish</option>
+        <option>Piece</option>
+        <option>Plate</option>
+        <option>Jar</option>
         <option>Other</option>
       </select>
     </div>
@@ -237,15 +238,23 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 </div>
 
 <div id="screen-home" class="screen active">
-  <div class="sec-label">Staff</div>
+  <div class="sec-label">Grocery Section</div>
   <div class="home-grid">
-    <div class="home-card" onclick="go('intake-setup')">
-      <div class="icon">📦</div><div class="label">Intake</div><div class="sub">Log received delivery</div>
+    <div class="home-card" onclick="startInv('GROCERY')">
+      <div class="icon">📦</div><div class="label">Grocery Intake</div><div class="sub">Log delivery</div>
     </div>
-    <div class="home-card" onclick="go('inv-setup')">
-      <div class="icon">🔢</div><div class="label">Inventory</div><div class="sub">Count + propose order</div>
+    <div class="home-card" onclick="startInv('GROCERY')">
+      <div class="icon">🔢</div><div class="label">Grocery Stock</div><div class="sub">Count + propose</div>
     </div>
   </div>
+  
+  <div class="sec-label">Fish Section</div>
+  <div class="home-grid">
+    <div class="home-card full" onclick="startInv('FISH')" style="border-left: 5px solid #E64A2E;">
+      <div class="icon">🐟</div><div class="label">Fish Inventory &amp; Order</div><div class="sub">Count slices, sides, pails &amp; propose order</div>
+    </div>
+  </div>
+  
   <div class="sec-label">Management</div>
   <div class="home-grid">
     <div class="home-card" onclick="go('inactive')">
@@ -297,7 +306,7 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
       <datalist id="inp-vendor-list"></datalist>
     </div>
     <div class="form-field"><label>Order Unit</label>
-      <select id="inp-unit"><option>Case</option><option>Box</option><option>Bag</option><option>Tub</option><option>Each</option><option>Other</option></select>
+      <select id="inp-unit"><option>Case</option><option>Box</option><option>Bag</option><option>Tub</option><option>Each</option><option>Side</option><option>Pail</option><option>Other</option></select>
     </div>
     <div style="display:flex;gap:10px">
       <div class="form-field" style="flex:1">
@@ -334,17 +343,6 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
   <div id="intake-list" style="display:flex;flex-direction:column;gap:6px;max-height:50vh;overflow-y:auto"></div>
 </div>
 
-<div id="screen-inv-setup" class="screen">
-  <div class="sec-label">Who is counting?</div>
-  <div class="staff-sel">
-    <div class="staff-btn on" id="vs-ethan" onclick="setStaff('inv','Ethan')">Ethan</div>
-    <div class="staff-btn" id="vs-leo" onclick="setStaff('inv','Leo')">Leo</div>
-    <div class="staff-btn" id="vs-other" onclick="setStaff('inv','Other')">Other</div>
-  </div>
-  <p style="font-size:13px;color:#555;line-height:1.5;margin-bottom:14px">Scan each product, enter units on hand and cases to order. Submit when done.</p>
-  <button class="btn btn-dark" onclick="startInv()">Start Inventory →</button>
-</div>
-
 <div id="screen-inv" class="screen">
   <div class="sumbar">
     <div><div class="sl">Items counted</div><div class="sv" id="inv-prog">0</div></div>
@@ -352,7 +350,7 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
   </div>
   <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.6px;text-transform:uppercase;margin-bottom:6px">Filter By Vendor</div>
   <div class="vendor-roller" id="inv-vendor-roller"></div>
-  <button class="scan-btn" id="inv-scan-btn" onclick="toggleScan('inv')">📷 Scan Product</button>
+  <button class="scan-btn" id="inv-scan-btn" onclick="toggleScan('inv')">📷 Scan Product Barcode</button>
   <div class="scanner-box" id="inv-scanner">
     <video id="inv-video" autoplay playsinline muted webkit-playsinline></video>
     <div class="scan-line"></div>
@@ -423,6 +421,7 @@ var S = {
   staff:{intake:"Ethan",inv:"Ethan"},
   intakeSel:null, intakeBarcode:"",
   invData:{}, invSel:null, invVendor:"All",
+  currentCategory: "GROCERY", // Runtime filtering switch tracking variable
   apprItems:[],
   scanning:false, scanCtx:null,
   history:["home"],
@@ -430,8 +429,6 @@ var S = {
 };
 var _zxing=null;
 
-// ── PIN ──────────────────────────────────────────────────
-var _pin="";
 function pinKey(d){
   if(_pin.length>=4)return;
   _pin+=d;
@@ -455,10 +452,8 @@ function checkPin(){
   }
 }
 
-// ── Helpers ──────────────────────────────────────────────
 function vendorId(v){ return "vhdr_"+v.replace(/[^a-zA-Z0-9]/g,"_"); }
 
-// ── Init ─────────────────────────────────────────────────
 function init(){
   api("getProducts",{},function(d){
     S.products=d||[];
@@ -469,8 +464,6 @@ function init(){
   api("getRollingConsumption",{},function(d){ S.consumption=d||{}; renderInvList(); },function(){ S.consumption={}; });
 }
 
-// ── API ──────────────────────────────────────────────────
-var _cbc=0;
 function api(fn,params,cb,errCb){
   var p=params||{};
   p.fn=fn;
@@ -498,8 +491,6 @@ function apiPost(fn,body,cb,errCb){
   api(fn,{data:JSON.stringify(body)},cb,errCb);
 }
 
-// ── Nav ──────────────────────────────────────────────────
-var _titles={home:"Shelsky's Inventory","intake-setup":"Intake","intake":"Scan & Log Intake","inv-setup":"Inventory","inv":"Inventory & Order","approve-setup":"Approve Order","approve":"Order Approval","inactive":"Inactive Products"};
 function go(id){
   stopScan();
   document.querySelectorAll(".screen").forEach(function(s){s.classList.remove("active");});
@@ -517,7 +508,6 @@ function goBack(){
   go(prev);
 }
 
-// ── Staff ────────────────────────────────────────────────
 function setStaff(ctx,name){
   S.staff[ctx]=name;
   var prefix=ctx==="intake"?"is":"vs";
@@ -527,7 +517,6 @@ function setStaff(ctx,name){
   });
 }
 
-// ── Scanner ──────────────────────────────────────────────
 function toggleScan(ctx){
   if(S.scanning&&S.scanCtx===ctx){stopScan();return;}
   stopScan();
@@ -593,14 +582,14 @@ function handleScan(code,ctx){
   },function(){toast("Lookup failed — search by name");});
 }
 
-// ── INTAKE ───────────────────────────────────────────────
 function renderIntakeList(){
-  var vendors=[...new Set(S.products.map(function(p){return p.vendor;}))].filter(Boolean).sort();
+  var activeCategoryProducts = S.products.filter(function(p) { return p.category === S.currentCategory; });
+  var vendors=[...new Set(activeCategoryProducts.map(function(p){return p.vendor;}))].filter(Boolean).sort();
   var dl=document.getElementById("inp-vendor-list");
   if(dl) dl.innerHTML=vendors.map(function(v){return"<option value='"+v.replace(/'/g,"&#39;")+"'>";}).join("");
   var q=document.getElementById("intake-search").value.toLowerCase();
   var list=document.getElementById("intake-list");
-  var f=S.products.filter(function(p){
+  var f=activeCategoryProducts.filter(function(p){
     return !q||p.name.toLowerCase().includes(q)||p.vendor.toLowerCase().includes(q);
   });
   if(!f.length){list.innerHTML="<div style='padding:20px;text-align:center;color:#aaa'>No products found</div>";return;}
@@ -669,7 +658,7 @@ function addAndLogIntake(){
   var uom=document.getElementById("inp-uom").value;
   var unit=document.getElementById("inp-unit").value;
   if(!name||!vendor){toast("Name and vendor required","err");return;}
-  apiPost("addProduct",{name:name,vendor:vendor,orderUnit:unit,unitCount:unitCount,size:size,uom:uom,barcode:S.intakeBarcode,category:"GROCERY"},function(r){
+  apiPost("addProduct",{name:name,vendor:vendor,orderUnit:unit,unitCount:unitCount,size:size,uom:uom,barcode:S.intakeBarcode,category:S.currentCategory},function(r){
     apiPost("logIntake",{name:name,vendor:vendor,qty:qty,staff:S.staff.intake,barcode:S.intakeBarcode},function(){
       toast("✓ Added & logged","ok");
       init();
@@ -678,10 +667,11 @@ function addAndLogIntake(){
   });
 }
 
-// ── INVENTORY ────────────────────────────────────────────
-function startInv(){
+// ── INVENTORY CONFIG OVERRIDES ───────────────────────────
+function startInv(categoryTarget){
   S.invData={}; 
   S.invVendor="All";
+  S.currentCategory = categoryTarget || "GROCERY"; // Stores active flow category type dynamically
   go("inv");
   buildVendorRoller();
   renderInvList();
@@ -691,7 +681,10 @@ function buildVendorRoller(){
   var container = document.getElementById("inv-vendor-roller");
   if (!container) return;
   
-  var unclassifiedCount = S.products.filter(function(p) {
+  // Filter products by the active category first
+  var activeCategoryProducts = S.products.filter(function(p) { return p.category === S.currentCategory; });
+  
+  var unclassifiedCount = activeCategoryProducts.filter(function(p) {
     var v = (p.vendor || "").toString().trim().toUpperCase();
     return !v || v === "" || v === "TBD" || v === "UNKNOWN";
   }).length;
@@ -699,7 +692,7 @@ function buildVendorRoller(){
   var vendors=["All"];
   if (unclassifiedCount > 0) vendors.push("Needs Vendor");
   
-  var validVendors = [...new Set(S.products.map(function(p){return p.vendor;}))]
+  var validVendors = [...new Set(activeCategoryProducts.map(function(p){return p.vendor;}))]
     .filter(Boolean)
     .filter(function(v) {
       var u = v.toString().trim().toUpperCase();
@@ -740,27 +733,27 @@ function renderInvList(){
   var listContainer = document.getElementById("inv-list");
   if (!listContainer) return;
   
-  var done=Object.keys(S.invData).filter(function(n){ 
-    return S.invData[n].stock!==undefined || S.invData[n].order!==undefined; 
-  }).length;
+  // Isolates products down to target group category context
+  var activeCategoryProducts = S.products.filter(function(p) { return p.category === S.currentCategory; });
   
+  var done=Object.keys(S.invData).filter(function(n){ return S.invData[n].stock!==undefined; }).length;
   var orders=Object.values(S.invData).filter(function(d){return d.order&&d.order>0;}).length;
   
   document.getElementById("inv-prog").textContent=done;
   document.getElementById("inv-order-cnt").textContent=orders;
   
+  var allCounted=done >= activeCategoryProducts.length;
   var submitBtn=document.getElementById("inv-submit-btn");
   if(submitBtn){
-    var canSubmit = done > 0;
-    submitBtn.disabled=!canSubmit;
-    submitBtn.style.background=canSubmit?"#1A7A3C":"#ccc";
-    submitBtn.style.cursor=canSubmit?"pointer":"not-allowed";
+    submitBtn.disabled=!allCounted;
+    submitBtn.style.background=allCounted?"#1A7A3C":"#ccc";
+    submitBtn.style.cursor=allCounted?"pointer":"not-allowed";
   }
   
   var html="";
   var cv="";
   
-  S.products.forEach(function(p){
+  activeCategoryProducts.forEach(function(p){
     var matchesSearch = !q || p.name.toLowerCase().includes(q) || p.vendor.toLowerCase().includes(q);
     
     var matchesVendor = false;
@@ -793,7 +786,6 @@ function renderInvList(){
     var caseLabel=(p.orderUnit||"Case")+(uc?" of "+uc:"");
     var meta=caseLabel+(size?" · "+size:"");
     
-    // MODIFICATION: Fetching 3-week avg utilization string for dynamic inline insert
     var inlineCons = S.consumption[p.name];
     var inlineConsStr = inlineCons !== undefined ? inlineCons + "u/wk" : "0u/wk";
     
@@ -806,16 +798,15 @@ function renderInvList(){
       +"<div style='flex:1;min-width:0'>"
       +"<div class='inv-item-name'>"+p.name+"</div>"
       +"<div style='font-size:11px;color:#888;margin-top:2px'>"+meta+"</div>"
-      // Inserted visual badge layout component highlighting runtime 3-week utilization rates
       +"<div class='inv-util-badge'>⚡ 3-Wk Avg: "+inlineConsStr+"</div>"
       +"</div>"
       +"<button onclick='openSkuModalFor("+JSON.stringify(p).replace(/'/g,"&#39;")+")' style='background:none;border:none;font-size:10px;color:#aaa;cursor:pointer;flex-shrink:0;margin-left:8px;padding:4px'>✏ SKU</button>"
       +"</div>"
       +"<div class='inv-item-rows'>"
-      +"<div class='inv-field'><label>Units in Store</label>"
+      +"<div class='inv-field'><label>Units On Hand</label>"
       +"<input type='number' min='0' step='1' placeholder='—' value='"+sv+"' class='"+(sv!==""?"has-v":"")+"' "
       +"oninput='setInv(\""+safeName+"\",\""+safeVendor+"\",\""+safeUnit+"\",\"stock\",this.value)'></div>"
-      +"<div class='inv-field'><label>Cases to Order</label>"
+      +"<div class='inv-field'><label>Units To Order</label>"
       +"<input type='number' min='0' step='0.5' placeholder='—' value='"+ov+"' class='"+(ov!==""?"has-o":"")+"' "
       +"oninput='setInv(\""+safeName+"\",\""+safeVendor+"\",\""+safeUnit+"\",\"order\",this.value)'></div>"
       +"</div></div>";
@@ -825,28 +816,13 @@ function renderInvList(){
 
 function setInv(name,vendor,unit,field,val){
   if(!S.invData[name])S.invData[name]={vendor:vendor,orderUnit:unit};
+  if(val==="") { S.invData[name][field]=undefined; } else { S.invData[name][field]=parseFloat(val)||0; }
   
-  if(val==="") {
-    S.invData[name][field]=undefined;
-  } else {
-    S.invData[name][field]=parseFloat(val)||0;
-  }
-  
-  var done=Object.keys(S.invData).filter(function(n){ 
-    return S.invData[n].stock!==undefined || S.invData[n].order!==undefined; 
-  }).length;
+  var done=Object.keys(S.invData).filter(function(n){ return S.invData[n].stock!==undefined; }).length;
   var orders=Object.values(S.invData).filter(function(d){return d.order&&d.order>0;}).length;
   
   document.getElementById("inv-prog").textContent=done;
   document.getElementById("inv-order-cnt").textContent=orders;
-  
-  var submitBtn=document.getElementById("inv-submit-btn");
-  if(submitBtn){
-    var canSubmit = done > 0;
-    submitBtn.disabled=!canSubmit;
-    submitBtn.style.background=canSubmit?"#1A7A3C":"#ccc";
-    submitBtn.style.cursor=canSubmit?"pointer":"not-allowed";
-  }
 }
 
 function showInvPanel(p){
@@ -885,21 +861,9 @@ function saveInvItem(){
   S.invData[p.name].order=order;
   toast("✓ "+p.name+" saved","ok");
   clearInvPanel();
-  
-  var done=Object.keys(S.invData).filter(function(n){ 
-    return S.invData[n].stock!==undefined || S.invData[n].order!==undefined; 
-  }).length;
-  var submitBtn=document.getElementById("inv-submit-btn");
-  if(submitBtn){
-    var canSubmit = done > 0;
-    submitBtn.disabled=!canSubmit;
-    submitBtn.style.background=canSubmit?"#1A7A3C":"#ccc";
-    submitBtn.style.cursor=canSubmit?"pointer":"not-allowed";
-  }
-  setTimeout(function(){toggleScan("inv");},500);
 }
 
-function skipInvItem(){clearInvPanel();setTimeout(function(){toggleScan("inv");},300);}
+function skipInvItem(){clearInvPanel();}
 
 function clearInvPanel(){
   S.invSel=null;
@@ -920,13 +884,11 @@ function submitInv(){
   var pending=0;
   if(countEntries.length)pending++;
   if(orderEntries.length)pending++;
-  if(pending===0){toast("Nothing to submit","err");return;}
-  function done(){pending--;if(pending===0){toast("✓ Submitted to Peter","ok");setTimeout(function(){goBack();goBack();},1800);}}
+  function done(){pending--;if(pending===0){toast("✓ Submitted for Approval","ok");setTimeout(function(){goBack();},1500);}}
   if(countEntries.length)apiPost("logCount",{entries:countEntries,staff:staff},done,function(){toast("Count save error","err");});
-  if(orderEntries.length)apiPost("submitOrderProposal",{entries:orderEntries,staff:staff},done,function(){toast("Order save error","err");});
+  if(orderEntries.length)apiPost("submitOrderProposal",{entries:orderEntries,staff:staff,category:S.currentCategory},done,function(){toast("Order save error","err");});
 }
 
-// ── SKU EDIT MODAL ────────────────────────────────────────
 function openSkuModalFor(p){
   S.invSel=p;
   S.skuEditRowIndex=p.rowIndex;
@@ -940,11 +902,6 @@ function openSkuModalFor(p){
   document.getElementById("sku-modal-size").value=p.size||"";
   document.getElementById("sku-modal-uom").value=p.uom||"";
   document.getElementById("sku-modal").style.display="flex";
-}
-
-function closeSkuModal(e){
-  if(e.target===document.getElementById("sku-modal"))
-    document.getElementById("sku-modal").style.display="none";
 }
 
 function saveSkuEdit(){
@@ -964,17 +921,11 @@ function saveSkuEdit(){
     document.getElementById("sku-modal").style.display="none";
     var p=S.products.find(function(x){return x.rowIndex===S.skuEditRowIndex;});
     if(p){p.name=name;p.vendor=vendor;p.orderUnit=orderUnit;p.unitCount=unitCount;p.size=size;p.uom=uom;}
-    if(S.invSel&&S.invSel.rowIndex===S.skuEditRowIndex){
-      S.invSel.name=name;S.invSel.vendor=vendor;S.invSel.orderUnit=orderUnit;
-      S.invSel.unitCount=unitCount;S.invSel.size=size;S.invSel.uom=uom;
-      showInvPanel(S.invSel);
-    }
     buildVendorRoller(); 
     renderInvList();
   });
 }
 
-// ── APPROVAL ─────────────────────────────────────────────
 function loadApproval(){
   var token=document.getElementById("appr-date").value;
   if(!token){toast("Select a date","err");return;}
@@ -994,8 +945,6 @@ function loadApproval(){
       byVendor[v].forEach(function(item){
         var last=S.counts[item.name];
         var lastUnits=last?last.qty+"u":"—";
-        
-        // CONFIRMATION FIX: Syncing Peter's Approval Module with identical 3-Week Avg context tracking
         var cons=S.consumption[item.name];
         var consStr=cons!==undefined?cons+"u/wk":"0u/wk";
         
@@ -1028,7 +977,6 @@ function submitApproval(){
   });
 }
 
-// ── INACTIVE ─────────────────────────────────────────────
 function loadInactive(){
   document.getElementById("inact-list").innerHTML="<div class='loading'><div class='spinner'></div>Loading…</div>";
   api("getInactiveProducts",{},function(items){
