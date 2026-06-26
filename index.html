@@ -38,15 +38,15 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .home-card.full{grid-column:1/-1}
 .home-card.dark{background:#1a1a1a;border-color:#1a1a1a}
 .home-card.dark .label,.home-card.dark .sub{color:#fff}
+.home-card.fish{background:#fff;border-color:#E64A2E;border-width:2px}
 
 .vendor-roller{display:flex;overflow-x:auto;gap:8px;padding:8px 4px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none;snap-type:x mandatory}
 .vendor-roller::-webkit-scrollbar{display:none}
 .vr-btn{flex-shrink:0;padding:10px 18px;border-radius:20px;border:1.5px solid #e5e5e5;background:#fff;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;color:#1a1a1a;box-shadow:0 1px 3px rgba(0,0,0,0.05);transition:all 0.15s ease;snap-align:start}
 .vr-btn:active{transform:scale(0.96)}
 .vr-btn.on{background:#1a1a1a;color:#fff;border-color:#1a1a1a;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
-
-.vr-btn.needs-classification {border-color:#f5c842;background:#fff8e8;color:#b8860b}
-.vr-btn.needs-classification.on {background:#f5c842;color:#fff;border-color:#f5c842}
+.vr-btn.needs-classification{border-color:#f5c842;background:#fff8e8;color:#b8860b}
+.vr-btn.needs-classification.on{background:#f5c842;color:#fff;border-color:#f5c842}
 
 .scan-btn{width:100%;padding:14px;background:#1a1a1a;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
 .scan-btn:active{opacity:0.85}
@@ -82,8 +82,9 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .new-sku-section .nss-title{font-size:13px;font-weight:700;color:#b8860b;margin-bottom:10px}
 .form-field{margin-bottom:10px}
 .form-field label{display:block;font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:3px}
-.form-field input,.form-field select{width:100%;padding:11px 13px;border:1.5px solid #e0e0e0;border-radius:10px;font-size:14px;-webkit-appearance:none;background:#fff;outline:none}
-.form-field input:focus,.form-field select:focus{border-color:#1a1a1a}
+.form-field input,.form-field select,.form-field textarea{width:100%;padding:11px 13px;border:1.5px solid #e0e0e0;border-radius:10px;font-size:14px;-webkit-appearance:none;background:#fff;outline:none;font-family:inherit}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:#1a1a1a}
+.form-field textarea{resize:none;min-height:60px;line-height:1.4}
 
 .search-wrap{position:relative;margin-bottom:10px}
 .search-wrap input{width:100%;padding:12px 14px 12px 38px;border-radius:10px;border:1.5px solid #e0e0e0;font-size:15px;background:#fff;outline:none;-webkit-appearance:none}
@@ -102,6 +103,7 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .btn:active{opacity:0.85}
 .btn-dark{background:#1a1a1a;color:#fff}
 .btn-green{background:#1A7A3C;color:#fff}
+.btn-red{background:#E64A2E;color:#fff}
 .btn-outline{background:#fff;color:#1a1a1a;border:1.5px solid #e0e0e0}
 
 .inv-item{background:#fff;border-radius:10px;padding:12px 13px;border:1.5px solid #e5e5e5;margin-bottom:8px}
@@ -115,8 +117,38 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .inv-field input:focus{border-color:#1a1a1a}
 .inv-field input.has-v{border-color:#1A7A3C;background:#f0fff4}
 .inv-field input.has-o{border-color:#1a1a1a;background:#f8f8f8}
-
 .inv-util-badge{display:inline-block;font-size:10px;font-weight:700;color:#b8860b;background:#fff8e8;border:1px solid #f5c842;padding:2px 6px;border-radius:4px;margin-top:4px}
+
+/* Fish-specific item card */
+.fish-item{background:#fff;border-radius:10px;padding:13px;border:1.5px solid #e5e5e5;margin-bottom:10px}
+.fish-item-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.fish-item-name{font-size:14px;font-weight:700;flex:1;margin-right:8px}
+.fish-item-meta{font-size:11px;color:#888;margin-bottom:6px}
+.fish-item-rows{display:flex;gap:8px;margin-bottom:8px}
+.fish-field{flex:1;text-align:center}
+.fish-field label{display:block;font-size:10px;font-weight:700;color:#888;text-transform:uppercase;margin-bottom:4px}
+.fish-field input{width:100%;padding:9px 4px;font-size:17px;font-weight:700;text-align:center;border:1.5px solid #e0e0e0;border-radius:8px;-webkit-appearance:none;outline:none}
+.fish-field input:focus{border-color:#1a1a1a}
+.fish-field input.has-s{border-color:#1A7A3C;background:#f0fff4}
+.fish-field input.has-p{border-color:#E64A2E;background:#fff5f3}
+.fish-note-wrap{margin-top:4px}
+.fish-note{width:100%;padding:8px 10px;font-size:12px;border:1.5px solid #e0e0e0;border-radius:8px;-webkit-appearance:none;outline:none;font-family:inherit;resize:none;min-height:48px;color:#555;background:#fafafa}
+.fish-note:focus{border-color:#1a1a1a;background:#fff}
+.fish-note.has-note{border-color:#888;background:#f9f9f9}
+
+/* Fish approval item */
+.fish-appr-item{background:#fff;border-radius:10px;padding:13px;margin-bottom:10px;border:1.5px solid #e5e5e5}
+.fish-appr-name{font-size:14px;font-weight:700}
+.fish-appr-meta{font-size:11px;color:#888;margin-bottom:8px}
+.fish-appr-stats{display:flex;gap:6px;margin-bottom:10px}
+.fish-appr-stat{flex:1;text-align:center;font-size:11px;color:#888;background:#f5f5f5;border-radius:6px;padding:6px 4px}
+.fish-appr-stat strong{display:block;font-size:14px;font-weight:700;color:#1a1a1a}
+.fish-appr-stat.highlight{background:#fff8e8}
+.fish-appr-note-in{font-size:12px;color:#555;background:#f0f0f0;border-radius:6px;padding:6px 8px;margin-bottom:8px;font-style:italic;line-height:1.4}
+.fish-appr-controls{display:flex;gap:8px;align-items:center}
+.appr-input{width:80px;padding:8px;font-size:18px;font-weight:700;text-align:center;border:2px solid #1a1a1a;border-radius:8px;-webkit-appearance:none;outline:none}
+.fish-peter-note{flex:1;padding:9px 10px;font-size:12px;border:1.5px solid #e0e0e0;border-radius:8px;font-family:inherit;-webkit-appearance:none;outline:none}
+.fish-peter-note:focus{border-color:#1a1a1a}
 
 .appr-item{background:#fff;border-radius:10px;padding:13px;margin-bottom:8px;border:1.5px solid #e5e5e5}
 .appr-name{font-size:14px;font-weight:700}
@@ -124,7 +156,6 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .appr-row{display:flex;gap:8px;align-items:center}
 .appr-stat{flex:1;text-align:center;font-size:11px;color:#888}
 .appr-stat strong{display:block;font-size:15px;font-weight:700;color:#1a1a1a}
-.appr-input{width:80px;padding:8px;font-size:18px;font-weight:700;text-align:center;border:2px solid #1a1a1a;border-radius:8px;-webkit-appearance:none;outline:none}
 
 .vhdr{font-size:11px;font-weight:700;color:#888;letter-spacing:0.8px;text-transform:uppercase;padding:8px 0 4px;border-bottom:1px solid #eee;margin:12px 0 6px}
 
@@ -138,6 +169,8 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .inact-keep{background:#f0f0f0;color:#333}
 .inact-rem{background:#CC0000;color:#fff}
 
+.week-badge{display:inline-block;background:#E64A2E;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;letter-spacing:0.4px;margin-bottom:10px}
+
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;color:#fff;padding:11px 20px;border-radius:24px;font-size:14px;font-weight:600;transition:transform 0.3s;z-index:9998;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,0.25);pointer-events:none}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .toast.ok{background:#1A7A3C}
@@ -150,6 +183,7 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 </head>
 <body>
 
+<!-- ── PIN SCREEN ────────────────────────────────────────── -->
 <div id="pin-screen">
   <h1>Shelsky's Inventory</h1>
   <p>Enter your PIN to continue</p>
@@ -175,12 +209,14 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
   <div class="pin-error" id="pin-err"></div>
 </div>
 
+<!-- ── HEADER ────────────────────────────────────────────── -->
 <div class="header">
   <button class="back-btn" id="back-btn" onclick="goBack()" style="display:none">← Back</button>
   <h1 id="hdr-title">Shelsky's Inventory</h1>
 </div>
 <div id="toast" class="toast"></div>
 
+<!-- ── SKU EDIT MODAL ────────────────────────────────────── -->
 <div class="modal-bg" id="sku-modal" style="display:none" onclick="closeSkuModal(event)">
   <div class="modal">
     <h3 id="sku-modal-title">Edit SKU</h3>
@@ -196,18 +232,10 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
     <div class="form-field">
       <label>Order Unit</label>
       <select id="sku-modal-orderunit">
-        <option>Case</option>
-        <option>Box</option>
-        <option>Bag</option>
-        <option>Tub</option>
-        <option>Each</option>
-        <option>Side</option>
-        <option>Pail</option>
-        <option>Fish</option>
-        <option>Piece</option>
-        <option>Plate</option>
-        <option>Jar</option>
-        <option>Other</option>
+        <option>Case</option><option>Box</option><option>Bag</option><option>Tub</option>
+        <option>Each</option><option>Side</option><option>Pail</option><option>Fish</option>
+        <option>Piece</option><option>Plate</option><option>Jar</option><option>Loin</option>
+        <option>Pack</option><option>LBs</option><option>Other</option>
       </select>
     </div>
     <div style="display:flex;gap:10px">
@@ -222,13 +250,8 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
       <div class="form-field" style="flex:1">
         <label>UOM</label>
         <select id="sku-modal-uom">
-          <option value="">—</option>
-          <option>oz</option>
-          <option>gram</option>
-          <option>ml</option>
-          <option>lb</option>
-          <option>kg</option>
-          <option>liter</option>
+          <option value="">—</option><option>oz</option><option>gram</option>
+          <option>ml</option><option>lb</option><option>kg</option><option>liter</option>
         </select>
       </div>
     </div>
@@ -237,6 +260,10 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
   </div>
 </div>
 
+
+<!-- ════════════════════════════════════════════════════════
+     HOME
+═════════════════════════════════════════════════════════ -->
 <div id="screen-home" class="screen active">
   <div class="sec-label">Grocery Section</div>
   <div class="home-grid">
@@ -247,35 +274,49 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
       <div class="icon">🔢</div><div class="label">Grocery Stock</div><div class="sub">Count + propose</div>
     </div>
   </div>
-  
+
   <div class="sec-label">Fish Section</div>
   <div class="home-grid">
-    <div class="home-card full" onclick="startInv('FISH')" style="border-left: 5px solid #E64A2E;">
-      <div class="icon">🐟</div><div class="label">Fish Inventory &amp; Order</div><div class="sub">Count slices, sides, pails &amp; propose order</div>
+    <div class="home-card full fish" onclick="startFishInv()">
+      <div class="icon">🐟</div><div class="label">Fish Inventory &amp; Order</div>
+      <div class="sub">Count sides, pails, pieces &amp; propose order</div>
     </div>
   </div>
-  
+
   <div class="sec-label">Management</div>
   <div class="home-grid">
     <div class="home-card" onclick="go('inactive')">
       <div class="icon">🗑️</div><div class="label">Inactive</div><div class="sub">Stale products</div>
     </div>
-    <div class="home-card dark full" onclick="go('approve-setup')">
-      <div class="icon">✅</div><div class="label">Approve Order</div><div class="sub">Peter's screen</div>
+    <div class="home-card dark" onclick="go('approve-setup')">
+      <div class="icon">✅</div><div class="label">Approve Grocery</div><div class="sub">Peter's screen</div>
+    </div>
+    <div class="home-card full" style="background:#E64A2E;border-color:#E64A2E" onclick="go('fish-approve-setup')">
+      <div class="icon" style="color:#fff">🐟</div>
+      <div class="label" style="color:#fff">Approve Fish Order</div>
+      <div class="sub" style="color:rgba(255,255,255,0.75)">Peter's fish screen</div>
     </div>
   </div>
 </div>
 
+
+<!-- ════════════════════════════════════════════════════════
+     GROCERY INTAKE SETUP
+═════════════════════════════════════════════════════════ -->
 <div id="screen-intake-setup" class="screen">
   <div class="sec-label">Who is logging?</div>
   <div class="staff-sel">
     <div class="staff-btn on" id="is-ethan" onclick="setStaff('intake','Ethan')">Ethan</div>
-    <div class="staff-btn" id="is-leo" onclick="setStaff('intake','Leo')">Leo</div>
+    <div class="staff-btn" id="is-leo"   onclick="setStaff('intake','Leo')">Leo</div>
     <div class="staff-btn" id="is-other" onclick="setStaff('intake','Other')">Other</div>
   </div>
   <button class="btn btn-dark" onclick="go('intake')">Start Intake →</button>
 </div>
 
+
+<!-- ════════════════════════════════════════════════════════
+     GROCERY INTAKE
+═════════════════════════════════════════════════════════ -->
 <div id="screen-intake" class="screen">
   <button class="scan-btn" id="intake-scan-btn" onclick="toggleScan('intake')">📷 Scan Product Barcode</button>
   <div class="scanner-box" id="intake-scanner">
@@ -309,30 +350,13 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
       <select id="inp-unit"><option>Case</option><option>Box</option><option>Bag</option><option>Tub</option><option>Each</option><option>Side</option><option>Pail</option><option>Other</option></select>
     </div>
     <div style="display:flex;gap:10px">
-      <div class="form-field" style="flex:1">
-        <label>Unit Count</label>
-        <input type="number" id="inp-unitcount" placeholder="e.g. 12" min="1" step="1">
-      </div>
-      <div class="form-field" style="flex:1">
-        <label>Size</label>
-        <input type="number" id="inp-size" placeholder="e.g. 3.5" min="0" step="0.1">
-      </div>
-      <div class="form-field" style="flex:1">
-        <label>UOM</label>
-        <select id="inp-uom">
-          <option value="">—</option>
-          <option>oz</option>
-          <option>gram</option>
-          <option>ml</option>
-          <option>lb</option>
-          <option>kg</option>
-          <option>liter</option>
-        </select>
+      <div class="form-field" style="flex:1"><label>Unit Count</label><input type="number" id="inp-unitcount" placeholder="e.g. 12" min="1" step="1"></div>
+      <div class="form-field" style="flex:1"><label>Size</label><input type="number" id="inp-size" placeholder="e.g. 3.5" min="0" step="0.1"></div>
+      <div class="form-field" style="flex:1"><label>UOM</label>
+        <select id="inp-uom"><option value="">—</option><option>oz</option><option>gram</option><option>ml</option><option>lb</option><option>kg</option><option>liter</option></select>
       </div>
     </div>
-    <div class="form-field"><label>Qty Received</label>
-      <input type="number" id="inp-qty" value="1" min="0" step="1">
-    </div>
+    <div class="form-field"><label>Qty Received</label><input type="number" id="inp-qty" value="1" min="0" step="1"></div>
     <button class="btn btn-dark" onclick="addAndLogIntake()">+ Add to System &amp; Log Intake</button>
     <button class="btn btn-outline" onclick="clearIntakePanel()">Cancel</button>
   </div>
@@ -343,6 +367,10 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
   <div id="intake-list" style="display:flex;flex-direction:column;gap:6px;max-height:50vh;overflow-y:auto"></div>
 </div>
 
+
+<!-- ════════════════════════════════════════════════════════
+     GROCERY INVENTORY
+═════════════════════════════════════════════════════════ -->
 <div id="screen-inv" class="screen">
   <div class="sumbar">
     <div><div class="sl">Items counted</div><div class="sv" id="inv-prog">0</div></div>
@@ -380,7 +408,7 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
         <button onclick="adj('ivp-order',-0.5)">−</button>
       </div>
     </div>
-    <button class="btn btn-green" onclick="saveInvItem()">✓ Save &amp; Scan Next</button>
+    <button class="btn btn-green" onclick="saveInvItem()">✓ Save &amp; Next</button>
     <button class="btn btn-outline" onclick="skipInvItem()">Skip</button>
   </div>
   <div class="search-wrap">
@@ -391,6 +419,43 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
   <button class="btn" id="inv-submit-btn" onclick="submitInv()" style="margin-top:12px;background:#ccc;color:#fff;cursor:not-allowed" disabled>→ Submit to Peter for Approval</button>
 </div>
 
+
+<!-- ════════════════════════════════════════════════════════
+     FISH INVENTORY & ORDER
+═════════════════════════════════════════════════════════ -->
+<div id="screen-fish-inv" class="screen">
+  <div class="week-badge" id="fish-week-badge">Week of —</div>
+  <div class="sumbar">
+    <div><div class="sl">Items counted</div><div class="sv" id="fish-inv-prog">0</div></div>
+    <div><div class="sl">Items to order</div><div class="sv" id="fish-inv-order-cnt">0</div></div>
+  </div>
+
+  <div class="sec-label">Who is logging?</div>
+  <div class="staff-sel" style="margin-bottom:12px">
+    <div class="staff-btn on" id="fis-ethan" onclick="setStaff('fish','Ethan')">Ethan</div>
+    <div class="staff-btn" id="fis-leo"   onclick="setStaff('fish','Leo')">Leo</div>
+    <div class="staff-btn" id="fis-other" onclick="setStaff('fish','Other')">Other</div>
+  </div>
+
+  <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.6px;text-transform:uppercase;margin-bottom:6px">Filter By Vendor</div>
+  <div class="vendor-roller" id="fish-vendor-roller"></div>
+
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="fish-search" placeholder="Search fish products…" oninput="renderFishList()" autocomplete="off">
+  </div>
+
+  <div id="fish-list"></div>
+
+  <button class="btn btn-red" id="fish-submit-btn" onclick="submitFishInv()" style="margin-top:12px;opacity:0.4;cursor:not-allowed" disabled>
+    🐟 Submit Fish Order to Peter
+  </button>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════
+     GROCERY APPROVE SETUP
+═════════════════════════════════════════════════════════ -->
 <div id="screen-approve-setup" class="screen">
   <div class="sec-label">Order date</div>
   <div class="form-field" style="margin-bottom:16px">
@@ -400,618 +465,978 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
   <button class="btn btn-dark" onclick="loadApproval()">Load Order →</button>
 </div>
 
+
+<!-- ════════════════════════════════════════════════════════
+     GROCERY APPROVE
+═════════════════════════════════════════════════════════ -->
 <div id="screen-approve" class="screen">
   <p style="font-size:13px;color:#555;margin-bottom:12px">Adjust quantities in cases. Set to 0 to reject.</p>
   <div id="appr-list"></div>
   <button class="btn btn-green" onclick="submitApproval()">✓ Submit Approved Order</button>
 </div>
 
+
+<!-- ════════════════════════════════════════════════════════
+     FISH APPROVE SETUP
+═════════════════════════════════════════════════════════ -->
+<div id="screen-fish-approve-setup" class="screen">
+  <div class="sec-label">Fish order week</div>
+  <p style="font-size:13px;color:#555;margin-bottom:14px">Select the week date to load the fish order for review.</p>
+  <div class="form-field" style="margin-bottom:16px">
+    <label>Week Of (Sunday)</label>
+    <input type="date" id="fish-appr-date">
+  </div>
+  <button class="btn btn-red" onclick="loadFishApproval()">🐟 Load Fish Order →</button>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════
+     FISH APPROVE
+═════════════════════════════════════════════════════════ -->
+<div id="screen-fish-approve" class="screen">
+  <p style="font-size:13px;color:#555;margin-bottom:4px">
+    Adjust approved quantities. Add a note where needed. Set to 0 to reject.
+  </p>
+  <div class="week-badge" id="fish-appr-badge" style="margin-bottom:12px">Week of —</div>
+  <div id="fish-appr-list"></div>
+  <button class="btn btn-green" onclick="submitFishApproval()">✓ Submit Approved Fish Order</button>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════
+     INACTIVE
+═════════════════════════════════════════════════════════ -->
 <div id="screen-inactive" class="screen">
   <p style="font-size:13px;color:#555;margin-bottom:12px">No stock and no orders in 4+ weeks.</p>
   <div id="inact-list"><div class="loading"><div class="spinner"></div>Loading…</div></div>
 </div>
 
+
+<!-- ════════════════════════════════════════════════════════
+     SCRIPTS
+═════════════════════════════════════════════════════════ -->
 <script src="https://cdn.jsdelivr.net/npm/@zxing/library@0.19.1/umd/index.min.js"></script>
 <script>
 var API = "https://script.google.com/a/macros/shelskys.com/s/AKfycbxWAh8V4zkSTTPRdoQiiivC4shf2LHfym6jkn_TjQ81K3582XOo4R6ZI-QLfIWo0Cz3DA/exec";
 var PIN = "1984";
 
-var S = {
-  products:[], counts:{}, consumption:{},
-  staff:{intake:"Ethan",inv:"Ethan"},
-  intakeSel:null, intakeBarcode:"",
-  invData:{}, invSel:null, invVendor:"All",
-  currentCategory: "GROCERY", // Runtime filtering switch tracking variable
-  apprItems:[],
-  scanning:false, scanCtx:null,
-  history:["home"],
-  skuEditRowIndex:null
-};
-var _zxing=null;
+var _pin = "";
+var _cbc = 0;
+var _zxing = null;
 
-function pinKey(d){
-  if(_pin.length>=4)return;
-  _pin+=d;
-  document.getElementById("d"+(_pin.length-1)).classList.add("filled");
-  if(_pin.length===4)setTimeout(checkPin,120);
+var _titles = {
+  "home":               "Shelsky's Inventory",
+  "intake-setup":       "Grocery Intake",
+  "intake":             "Grocery Intake",
+  "inv":                "Grocery Stock",
+  "fish-inv":           "Fish Inventory & Order",
+  "approve-setup":      "Approve Grocery Order",
+  "approve":            "Approve Grocery Order",
+  "fish-approve-setup": "Approve Fish Order",
+  "fish-approve":       "Approve Fish Order",
+  "inactive":           "Inactive Products"
+};
+
+var S = {
+  products: [], counts: {}, consumption: {},
+  staff: { intake: "Ethan", inv: "Ethan", fish: "Ethan" },
+  intakeSel: null, intakeBarcode: "",
+  invData: {}, invSel: null, invVendor: "All",
+  currentCategory: "GROCERY",
+  apprItems: [],
+  // Fish-specific state
+  fishData: {},      // { productName: { stock, proposed, note, vendor, unit } }
+  fishCounts: {},    // latest stock from Fish_DB
+  fishVendor: "All",
+  fishApprItems: [],
+  fishWeekOf: "",
+  scanning: false, scanCtx: null,
+  history: ["home"],
+  skuEditRowIndex: null
+};
+
+
+// ── PIN ───────────────────────────────────────────────────
+
+function pinKey(d) {
+  if (_pin.length >= 4) return;
+  _pin += d;
+  document.getElementById("d" + (_pin.length - 1)).classList.add("filled");
+  if (_pin.length === 4) setTimeout(checkPin, 120);
 }
-function pinDel(){
-  if(!_pin.length)return;
-  _pin=_pin.slice(0,-1);
-  document.getElementById("d"+_pin.length).classList.remove("filled");
-  document.getElementById("pin-err").textContent="";
+function pinDel() {
+  if (!_pin.length) return;
+  _pin = _pin.slice(0, -1);
+  document.getElementById("d" + _pin.length).classList.remove("filled");
+  document.getElementById("pin-err").textContent = "";
 }
-function checkPin(){
-  if(_pin===PIN){
-    document.getElementById("pin-screen").style.display="none";
+function checkPin() {
+  if (_pin === PIN) {
+    document.getElementById("pin-screen").style.display = "none";
     init();
-  }else{
-    document.getElementById("pin-err").textContent="Incorrect PIN";
-    _pin="";
-    for(var i=0;i<4;i++)document.getElementById("d"+i).classList.remove("filled");
+  } else {
+    document.getElementById("pin-err").textContent = "Incorrect PIN";
+    _pin = "";
+    for (var i = 0; i < 4; i++) document.getElementById("d" + i).classList.remove("filled");
   }
 }
 
-function vendorId(v){ return "vhdr_"+v.replace(/[^a-zA-Z0-9]/g,"_"); }
 
-function init(){
-  api("getProducts",{},function(d){
-    S.products=d||[];
-    buildVendorRoller(); 
+// ── INIT ──────────────────────────────────────────────────
+
+function init() {
+  api("getProducts", {}, function(d) {
+    S.products = d || [];
+    buildVendorRoller();
     renderIntakeList();
+    renderInvList();
   });
-  api("getLatestCounts",{},function(d){ S.counts=d||{}; renderInvList(); },function(){ S.counts={}; });
-  api("getRollingConsumption",{},function(d){ S.consumption=d||{}; renderInvList(); },function(){ S.consumption={}; });
+  api("getLatestCounts", {}, function(d) {
+    S.counts = d || {};
+    renderInvList();
+  }, function() { S.counts = {}; });
+  api("getRollingConsumption", {}, function(d) {
+    S.consumption = d || {};   // merged grocery + fish from backend
+    renderInvList();
+    renderFishList();
+  }, function() { S.consumption = {}; });
+  api("getFishLatestCounts", {}, function(d) {
+    S.fishCounts = d || {};
+    renderFishList();
+  }, function() { S.fishCounts = {}; });
 }
 
-function api(fn,params,cb,errCb){
-  var p=params||{};
-  p.fn=fn;
-  var cbName="_cb"+(++_cbc);
-  p.callback=cbName;
-  var timer=setTimeout(function(){
-    if(window[cbName]){delete window[cbName];var s=document.getElementById(cbName);if(s)s.remove();}
-  },20000);
-  window[cbName]=function(d){
-    clearTimeout(timer);
-    delete window[cbName];
-    var s=document.getElementById(cbName);if(s)s.remove();
-    if(d&&d.error){if(errCb)errCb(d.error);return;}
-    if(cb)cb(d&&d.result!==undefined?d.result:d);
-  };
-  var url=API+"?"+Object.keys(p).map(function(k){
-    return encodeURIComponent(k)+"="+encodeURIComponent(typeof p[k]==="object"?JSON.stringify(p[k]):p[k]);
-  }).join("&");
-  var s=document.createElement("script");
-  s.id=cbName;s.src=url;
-  s.onerror=function(){clearTimeout(timer);delete window[cbName];s.remove();if(errCb)errCb("network error");};
-  document.head.appendChild(s);
-}
-function apiPost(fn,body,cb,errCb){
-  api(fn,{data:JSON.stringify(body)},cb,errCb);
-}
 
-function go(id){
+// ── NAVIGATION ───────────────────────────────────────────
+
+function go(id) {
   stopScan();
-  document.querySelectorAll(".screen").forEach(function(s){s.classList.remove("active");});
-  document.getElementById("screen-"+id).classList.add("active");
+  document.querySelectorAll(".screen").forEach(function(s) { s.classList.remove("active"); });
+  document.getElementById("screen-" + id).classList.add("active");
   S.history.push(id);
-  document.getElementById("hdr-title").textContent=_titles[id]||"Shelsky's";
-  document.getElementById("back-btn").style.display=id==="home"?"none":"block";
-  if(id==="inactive")loadInactive();
+  document.getElementById("hdr-title").textContent = _titles[id] || "Shelsky's";
+  document.getElementById("back-btn").style.display = id === "home" ? "none" : "block";
+  if (id === "inactive") loadInactive();
 }
-function goBack(){
+
+function goBack() {
   stopScan();
   S.history.pop();
-  var prev=S.history[S.history.length-1]||"home";
+  var prev = S.history[S.history.length - 1] || "home";
   S.history.pop();
   go(prev);
 }
 
-function setStaff(ctx,name){
-  S.staff[ctx]=name;
-  var prefix=ctx==="intake"?"is":"vs";
-  ["ethan","leo","other"].forEach(function(n){
-    var el=document.getElementById(prefix+"-"+n);
-    if(el)el.classList.toggle("on",n===name.toLowerCase());
+
+// ── STAFF SELECTOR ────────────────────────────────────────
+
+function setStaff(ctx, name) {
+  S.staff[ctx] = name;
+  var prefix = ctx === "intake" ? "is" : (ctx === "fish" ? "fis" : "vs");
+  ["ethan", "leo", "other"].forEach(function(n) {
+    var el = document.getElementById(prefix + "-" + n);
+    if (el) el.classList.toggle("on", n === name.toLowerCase());
   });
 }
 
-function toggleScan(ctx){
-  if(S.scanning&&S.scanCtx===ctx){stopScan();return;}
+
+// ── VENDOR ROLLER (shared, scoped by category) ────────────
+
+function vendorId(v) { return "vhdr_" + v.replace(/[^a-zA-Z0-9]/g, "_"); }
+
+function buildVendorRoller() {
+  _buildRoller("inv-vendor-roller", "GROCERY", S.invVendor, setInvVendor);
+}
+
+function buildFishVendorRoller() {
+  _buildRoller("fish-vendor-roller", "FISH", S.fishVendor, setFishVendor);
+}
+
+function _buildRoller(containerId, category, activeVendor, setFn) {
+  var container = document.getElementById(containerId);
+  if (!container) return;
+  var catProducts = S.products.filter(function(p) { return p.category === category; });
+  var unclassified = catProducts.filter(function(p) {
+    var v = (p.vendor || "").toString().trim().toUpperCase();
+    return !v || v === "" || v === "TBD" || v === "UNKNOWN";
+  }).length;
+  var vendors = ["All"];
+  if (unclassified > 0) vendors.push("Needs Vendor");
+  var valid = [...new Set(catProducts.map(function(p) { return p.vendor; }))]
+    .filter(Boolean)
+    .filter(function(v) {
+      var u = v.toString().trim().toUpperCase();
+      return u !== "" && u !== "TBD" && u !== "UNKNOWN";
+    }).sort();
+  vendors = vendors.concat(valid);
+
+  container.innerHTML = vendors.map(function(v) {
+    var label = v === "All" ? "All Vendors" : v;
+    var isWarn = v === "Needs Vendor";
+    if (isWarn) label = "⚠️ Needs Vendor (" + unclassified + ")";
+    var active = (v === activeVendor) ? " on" : "";
+    var cls = isWarn ? " needs-classification" : "";
+    return "<button class='vr-btn" + active + cls + "' onclick='(" + setFn.toString() + ")(\"" + v.replace(/"/g, "&quot;") + "\")'>" + label + "</button>";
+  }).join("");
+}
+
+function setInvVendor(v) {
+  S.invVendor = v;
+  buildVendorRoller();
+  renderInvList();
+}
+
+function setFishVendor(v) {
+  S.fishVendor = v;
+  buildFishVendorRoller();
+  renderFishList();
+}
+
+
+// ── SCANNER ───────────────────────────────────────────────
+
+function toggleScan(ctx) {
+  if (S.scanning && S.scanCtx === ctx) { stopScan(); return; }
   stopScan();
-  S.scanCtx=ctx;
-  var videoId=ctx==="intake"?"intake-video":"inv-video";
-  var boxId=ctx==="intake"?"intake-scanner":"inv-scanner";
-  var btnId=ctx==="intake"?"intake-scan-btn":"inv-scan-btn";
-  document.getElementById(boxId).style.display="block";
-  document.getElementById(btnId).textContent="⏹ Stop Scanner";
+  S.scanCtx = ctx;
+  var videoId = ctx === "intake" ? "intake-video" : "inv-video";
+  var boxId   = ctx === "intake" ? "intake-scanner" : "inv-scanner";
+  var btnId   = ctx === "intake" ? "intake-scan-btn" : "inv-scan-btn";
+  document.getElementById(boxId).style.display = "block";
+  document.getElementById(btnId).textContent = "⏹ Stop Scanner";
   document.getElementById(btnId).classList.add("red");
-  S.scanning=true;
-  try{
-    _zxing=new ZXing.BrowserMultiFormatReader();
-    _zxing.decodeFromVideoDevice(null,videoId,function(result,err){
-      if(result){var code=result.getText();stopScan();handleScan(code,ctx);}
+  S.scanning = true;
+  try {
+    _zxing = new ZXing.BrowserMultiFormatReader();
+    _zxing.decodeFromVideoDevice(null, videoId, function(result) {
+      if (result) { var code = result.getText(); stopScan(); handleScan(code, ctx); }
     });
-  }catch(e){toast("Camera error","err");stopScan();}
+  } catch(e) { toast("Camera error", "err"); stopScan(); }
 }
 
-function stopScan(){
-  if(!S.scanning)return;
-  if(_zxing){try{_zxing.reset();}catch(e){}_zxing=null;}
-  S.scanning=false;
-  ["intake-scanner","inv-scanner"].forEach(function(id){
-    var el=document.getElementById(id);if(el)el.style.display="none";
+function stopScan() {
+  if (!S.scanning) return;
+  if (_zxing) { try { _zxing.reset(); } catch(e) {} _zxing = null; }
+  S.scanning = false;
+  ["intake-scanner", "inv-scanner"].forEach(function(id) {
+    var el = document.getElementById(id); if (el) el.style.display = "none";
   });
-  [{id:"intake-scan-btn",label:"📷 Scan Product Barcode"},
-   {id:"inv-scan-btn",label:"📷 Scan Product"}
-  ].forEach(function(b){
-    var el=document.getElementById(b.id);
-    if(el){el.textContent=b.label;el.classList.remove("red");}
+  [{ id: "intake-scan-btn", label: "📷 Scan Product Barcode" },
+   { id: "inv-scan-btn",    label: "📷 Scan Product Barcode" }
+  ].forEach(function(b) {
+    var el = document.getElementById(b.id);
+    if (el) { el.textContent = b.label; el.classList.remove("red"); }
   });
 }
 
-function handleScan(code,ctx){
-  var local=S.products.find(function(p){return p.barcode&&p.barcode.toString()===code.toString();});
-  if(local){
-    if(ctx==="intake")showIntakeFound(local,code);
+function handleScan(code, ctx) {
+  var local = S.products.find(function(p) { return p.barcode && p.barcode.toString() === code.toString(); });
+  if (local) {
+    if (ctx === "intake") showIntakeFound(local, code);
     else showInvPanel(local);
     return;
   }
   toast("Looking up barcode…");
-  api("lookupBarcode",{barcode:code},function(r){
-    if(ctx==="intake"){
-      if(r&&r.found&&r.source==="local"){
-        var p=S.products.find(function(x){return x.name===r.name;});
-        if(p)showIntakeFound(p,code);
-      }else if(r&&r.found&&r.source==="openfoodfacts"){
-        showIntakeNew(code,r.suggestedName||r.name||"",r.brand||"");
-      }else{
-        showIntakeNew(code,"","");
+  api("lookupBarcode", { barcode: code }, function(r) {
+    if (ctx === "intake") {
+      if (r && r.found && r.source === "local") {
+        var p = S.products.find(function(x) { return x.name === r.name; });
+        if (p) showIntakeFound(p, code);
+      } else if (r && r.found && r.source === "openfoodfacts") {
+        showIntakeNew(code, r.suggestedName || r.name || "", r.brand || "");
+      } else {
+        showIntakeNew(code, "", "");
       }
-    }else{
-      if(r&&r.found&&r.source==="local"){
-        var p=S.products.find(function(x){return x.name===r.name;});
-        if(p)showInvPanel(p);
-      }else{
+    } else {
+      if (r && r.found && r.source === "local") {
+        var p = S.products.find(function(x) { return x.name === r.name; });
+        if (p) showInvPanel(p);
+      } else {
         toast("Not found — search by name below");
-        if(r&&r.name)document.getElementById("inv-search").value=r.name;
+        if (r && r.name) document.getElementById("inv-search").value = r.name;
         renderInvList();
       }
     }
-  },function(){toast("Lookup failed — search by name");});
+  }, function() { toast("Lookup failed — search by name"); });
 }
 
-function renderIntakeList(){
-  var activeCategoryProducts = S.products.filter(function(p) { return p.category === S.currentCategory; });
-  var vendors=[...new Set(activeCategoryProducts.map(function(p){return p.vendor;}))].filter(Boolean).sort();
-  var dl=document.getElementById("inp-vendor-list");
-  if(dl) dl.innerHTML=vendors.map(function(v){return"<option value='"+v.replace(/'/g,"&#39;")+"'>";}).join("");
-  var q=document.getElementById("intake-search").value.toLowerCase();
-  var list=document.getElementById("intake-list");
-  var f=activeCategoryProducts.filter(function(p){
-    return !q||p.name.toLowerCase().includes(q)||p.vendor.toLowerCase().includes(q);
+
+// ════════════════════════════════════════════════════════
+//  GROCERY INTAKE
+// ════════════════════════════════════════════════════════
+
+function renderIntakeList() {
+  var active = S.products.filter(function(p) { return p.category === "GROCERY"; });
+  var vendors = [...new Set(active.map(function(p) { return p.vendor; }))].filter(Boolean).sort();
+  var dl = document.getElementById("inp-vendor-list");
+  if (dl) dl.innerHTML = vendors.map(function(v) { return "<option value='" + v.replace(/'/g, "&#39;") + "'>"; }).join("");
+  var q    = document.getElementById("intake-search").value.toLowerCase();
+  var list = document.getElementById("intake-list");
+  var f    = active.filter(function(p) {
+    return !q || p.name.toLowerCase().includes(q) || p.vendor.toLowerCase().includes(q);
   });
-  if(!f.length){list.innerHTML="<div style='padding:20px;text-align:center;color:#aaa'>No products found</div>";return;}
-  list.innerHTML=f.slice(0,40).map(function(p){
-    return "<div style='background:#fff;border-radius:10px;padding:11px 13px;border:1.5px solid #e5e5e5;cursor:pointer;margin-bottom:6px' onclick='showIntakeFound("+JSON.stringify(p).replace(/'/g,"&#39;")+",\"\")'>"
-      +"<div style='font-size:13px;font-weight:600'>"+p.name+"</div>"
-      +"<div style='font-size:11px;color:#888'>"+p.vendor+" · "+(p.orderUnit||"Case")+"</div></div>";
+  if (!f.length) { list.innerHTML = "<div style='padding:20px;text-align:center;color:#aaa'>No products found</div>"; return; }
+  list.innerHTML = f.slice(0, 40).map(function(p) {
+    return "<div style='background:#fff;border-radius:10px;padding:11px 13px;border:1.5px solid #e5e5e5;cursor:pointer;margin-bottom:6px' onclick='showIntakeFound(" + JSON.stringify(p).replace(/'/g, "&#39;") + ",\"\")'>"
+      + "<div style='font-size:13px;font-weight:600'>" + p.name + "</div>"
+      + "<div style='font-size:11px;color:#888'>" + p.vendor + " · " + (p.orderUnit || "Case") + "</div></div>";
   }).join("");
 }
 
-function showIntakeFound(p,barcode){
-  S.intakeSel=p;S.intakeBarcode=barcode;
-  document.getElementById("ifp-name").textContent=p.name;
-  var uc=parseInt(p.unitCount)||0;
-  var cl2=(p.orderUnit||"Case")+(uc?" of "+uc:"");
-  document.getElementById("ifp-meta").textContent=p.vendor+" · "+cl2;
-  document.getElementById("ifp-qty").value=1;
-  document.getElementById("intake-found-panel").style.display="block";
-  document.getElementById("intake-new-panel").style.display="none";
-  document.getElementById("intake-search-wrap").style.display="none";
-  document.getElementById("intake-list").style.display="none";
-  document.getElementById("intake-scan-btn").style.display="none";
+function showIntakeFound(p, barcode) {
+  S.intakeSel = p; S.intakeBarcode = barcode;
+  document.getElementById("ifp-name").textContent = p.name;
+  var uc = parseInt(p.unitCount) || 0;
+  document.getElementById("ifp-meta").textContent = p.vendor + " · " + (p.orderUnit || "Case") + (uc ? " of " + uc : "");
+  document.getElementById("ifp-qty").value = 1;
+  document.getElementById("intake-found-panel").style.display = "block";
+  document.getElementById("intake-new-panel").style.display = "none";
+  document.getElementById("intake-search-wrap").style.display = "none";
+  document.getElementById("intake-list").style.display = "none";
+  document.getElementById("intake-scan-btn").style.display = "none";
 }
 
-function showIntakeNew(barcode,name,vendor){
-  S.intakeSel=null;S.intakeBarcode=barcode;
-  document.getElementById("inp-name").value=name;
-  document.getElementById("inp-vendor").value=vendor;
-  document.getElementById("inp-qty").value=1;
-  document.getElementById("inp-unitcount").value="";
-  document.getElementById("intake-new-panel").style.display="block";
-  document.getElementById("intake-found-panel").style.display="none";
-  document.getElementById("intake-search-wrap").style.display="none";
-  document.getElementById("intake-list").style.display="none";
-  document.getElementById("intake-scan-btn").style.display="none";
+function showIntakeNew(barcode, name, vendor) {
+  S.intakeSel = null; S.intakeBarcode = barcode;
+  document.getElementById("inp-name").value = name;
+  document.getElementById("inp-vendor").value = vendor;
+  document.getElementById("inp-qty").value = 1;
+  document.getElementById("inp-unitcount").value = "";
+  document.getElementById("intake-new-panel").style.display = "block";
+  document.getElementById("intake-found-panel").style.display = "none";
+  document.getElementById("intake-search-wrap").style.display = "none";
+  document.getElementById("intake-list").style.display = "none";
+  document.getElementById("intake-scan-btn").style.display = "none";
 }
 
-function clearIntakePanel(){
-  S.intakeSel=null;S.intakeBarcode="";
-  document.getElementById("intake-found-panel").style.display="none";
-  document.getElementById("intake-new-panel").style.display="none";
-  document.getElementById("intake-search-wrap").style.display="block";
-  document.getElementById("intake-list").style.display="flex";
-  document.getElementById("intake-scan-btn").style.display="flex";
-  document.getElementById("intake-search").value="";
+function clearIntakePanel() {
+  S.intakeSel = null; S.intakeBarcode = "";
+  document.getElementById("intake-found-panel").style.display = "none";
+  document.getElementById("intake-new-panel").style.display = "none";
+  document.getElementById("intake-search-wrap").style.display = "block";
+  document.getElementById("intake-list").style.display = "flex";
+  document.getElementById("intake-scan-btn").style.display = "flex";
+  document.getElementById("intake-search").value = "";
   renderIntakeList();
-  setTimeout(function(){toggleScan("intake");},400);
+  setTimeout(function() { toggleScan("intake"); }, 400);
 }
 
-function doIntake(){
-  var p=S.intakeSel;
-  var qty=parseFloat(document.getElementById("ifp-qty").value)||0;
-  if(!p||qty<=0){toast("Enter a valid quantity","err");return;}
-  apiPost("logIntake",{name:p.name,vendor:p.vendor,qty:qty,staff:S.staff.intake,barcode:S.intakeBarcode},function(){
-    toast("✓ Logged "+qty+"× "+p.name,"ok");
+function doIntake() {
+  var p   = S.intakeSel;
+  var qty = parseFloat(document.getElementById("ifp-qty").value) || 0;
+  if (!p || qty <= 0) { toast("Enter a valid quantity", "err"); return; }
+  apiPost("logIntake", { name: p.name, vendor: p.vendor, qty: qty, staff: S.staff.intake, barcode: S.intakeBarcode }, function() {
+    toast("✓ Logged " + qty + "× " + p.name, "ok");
     clearIntakePanel();
   });
 }
 
-function addAndLogIntake(){
-  var name=document.getElementById("inp-name").value.trim();
-  var vendor=document.getElementById("inp-vendor").value.trim();
-  var qty=parseFloat(document.getElementById("inp-qty").value)||0;
-  var unitCount=parseInt(document.getElementById("inp-unitcount").value)||0;
-  var size=parseFloat(document.getElementById("inp-size").value)||0;
-  var uom=document.getElementById("inp-uom").value;
-  var unit=document.getElementById("inp-unit").value;
-  if(!name||!vendor){toast("Name and vendor required","err");return;}
-  apiPost("addProduct",{name:name,vendor:vendor,orderUnit:unit,unitCount:unitCount,size:size,uom:uom,barcode:S.intakeBarcode,category:S.currentCategory},function(r){
-    apiPost("logIntake",{name:name,vendor:vendor,qty:qty,staff:S.staff.intake,barcode:S.intakeBarcode},function(){
-      toast("✓ Added & logged","ok");
+function addAndLogIntake() {
+  var name      = document.getElementById("inp-name").value.trim();
+  var vendor    = document.getElementById("inp-vendor").value.trim();
+  var qty       = parseFloat(document.getElementById("inp-qty").value) || 0;
+  var unitCount = parseInt(document.getElementById("inp-unitcount").value) || 0;
+  var size      = parseFloat(document.getElementById("inp-size").value) || 0;
+  var uom       = document.getElementById("inp-uom").value;
+  var unit      = document.getElementById("inp-unit").value;
+  if (!name || !vendor) { toast("Name and vendor required", "err"); return; }
+  apiPost("addProduct", { name: name, vendor: vendor, orderUnit: unit, unitCount: unitCount, size: size, uom: uom, barcode: S.intakeBarcode, category: "GROCERY" }, function() {
+    apiPost("logIntake", { name: name, vendor: vendor, qty: qty, staff: S.staff.intake, barcode: S.intakeBarcode }, function() {
+      toast("✓ Added & logged", "ok");
       init();
       clearIntakePanel();
     });
   });
 }
 
-// ── INVENTORY CONFIG OVERRIDES ───────────────────────────
-function startInv(categoryTarget){
-  S.invData={}; 
-  S.invVendor="All";
-  S.currentCategory = categoryTarget || "GROCERY"; // Stores active flow category type dynamically
+
+// ════════════════════════════════════════════════════════
+//  GROCERY INVENTORY
+// ════════════════════════════════════════════════════════
+
+function startInv(categoryTarget) {
+  S.invData = {};
+  S.invVendor = "All";
+  S.currentCategory = categoryTarget || "GROCERY";
   go("inv");
   buildVendorRoller();
   renderInvList();
 }
 
-function buildVendorRoller(){
-  var container = document.getElementById("inv-vendor-roller");
-  if (!container) return;
-  
-  // Filter products by the active category first
-  var activeCategoryProducts = S.products.filter(function(p) { return p.category === S.currentCategory; });
-  
-  var unclassifiedCount = activeCategoryProducts.filter(function(p) {
-    var v = (p.vendor || "").toString().trim().toUpperCase();
-    return !v || v === "" || v === "TBD" || v === "UNKNOWN";
-  }).length;
-  
-  var vendors=["All"];
-  if (unclassifiedCount > 0) vendors.push("Needs Vendor");
-  
-  var validVendors = [...new Set(activeCategoryProducts.map(function(p){return p.vendor;}))]
-    .filter(Boolean)
-    .filter(function(v) {
-      var u = v.toString().trim().toUpperCase();
-      return u !== "" && u !== "TBD" && u !== "UNKNOWN";
-    })
-    .sort();
-    
-  vendors = vendors.concat(validVendors);
-  
-  container.innerHTML=vendors.map(function(v){
-    var label=v==="All"?"All Vendors":v;
-    var isWarningPill = v === "Needs Vendor";
-    if (isWarningPill) label = "⚠️ Needs Vendor (" + unclassifiedCount + ")";
-    
-    var activeClass = (v === S.invVendor) ? " on" : "";
-    var customPillClass = isWarningPill ? " needs-classification" : "";
-    
-    return "<button class='vr-btn" + activeClass + customPillClass + "' onclick='setInvVendor(" + JSON.stringify(v) + ")'>"
-      + label + "</button>";
-  }).join("");
-}
-
-function setInvVendor(v){
-  S.invVendor=v;
-  document.querySelectorAll(".vr-btn").forEach(function(b){
-    var targetLabel = v === "All" ? "All Vendors" : v;
-    if (v === "Needs Vendor") {
-      b.classList.toggle("on", b.textContent.includes("Needs Vendor"));
-    } else {
-      b.classList.toggle("on", b.textContent === targetLabel);
-    }
-  });
-  renderInvList();
-}
-
-function renderInvList(){
-  var q=document.getElementById("inv-search").value.toLowerCase();
+function renderInvList() {
+  var q             = document.getElementById("inv-search") ? document.getElementById("inv-search").value.toLowerCase() : "";
   var listContainer = document.getElementById("inv-list");
   if (!listContainer) return;
-  
-  // Isolates products down to target group category context
-  var activeCategoryProducts = S.products.filter(function(p) { return p.category === S.currentCategory; });
-  
-  var done=Object.keys(S.invData).filter(function(n){ return S.invData[n].stock!==undefined; }).length;
-  var orders=Object.values(S.invData).filter(function(d){return d.order&&d.order>0;}).length;
-  
-  document.getElementById("inv-prog").textContent=done;
-  document.getElementById("inv-order-cnt").textContent=orders;
-  
-  var allCounted=done >= activeCategoryProducts.length;
-  var submitBtn=document.getElementById("inv-submit-btn");
-  if(submitBtn){
-    submitBtn.disabled=!allCounted;
-    submitBtn.style.background=allCounted?"#1A7A3C":"#ccc";
-    submitBtn.style.cursor=allCounted?"pointer":"not-allowed";
+  var active = S.products.filter(function(p) { return p.category === "GROCERY"; });
+  var done   = Object.keys(S.invData).filter(function(n) { return S.invData[n].stock !== undefined; }).length;
+  var orders = Object.values(S.invData).filter(function(d) { return d.order && d.order > 0; }).length;
+  var el = document.getElementById("inv-prog"); if (el) el.textContent = done;
+  var eo = document.getElementById("inv-order-cnt"); if (eo) eo.textContent = orders;
+  var allCounted = done >= active.length;
+  var submitBtn = document.getElementById("inv-submit-btn");
+  if (submitBtn) {
+    submitBtn.disabled = !allCounted;
+    submitBtn.style.background = allCounted ? "#1A7A3C" : "#ccc";
+    submitBtn.style.cursor = allCounted ? "pointer" : "not-allowed";
   }
-  
-  var html="";
-  var cv="";
-  
-  activeCategoryProducts.forEach(function(p){
-    var matchesSearch = !q || p.name.toLowerCase().includes(q) || p.vendor.toLowerCase().includes(q);
-    
-    var matchesVendor = false;
-    if (S.invVendor === "All") {
-      matchesVendor = true;
-    } else if (S.invVendor === "Needs Vendor") {
+  var html = "", cv = "";
+  active.forEach(function(p) {
+    var matchSearch = !q || p.name.toLowerCase().includes(q) || p.vendor.toLowerCase().includes(q);
+    var matchVendor = false;
+    if (S.invVendor === "All") { matchVendor = true; }
+    else if (S.invVendor === "Needs Vendor") {
       var vCheck = (p.vendor || "").toString().trim().toUpperCase();
-      matchesVendor = !vCheck || vCheck === "" || vCheck === "TBD" || vCheck === "UNKNOWN";
-    } else {
-      matchesVendor = p.vendor === S.invVendor;
-    }
-    
-    if (!matchesSearch || !matchesVendor) return;
-    
+      matchVendor = !vCheck || vCheck === "" || vCheck === "TBD" || vCheck === "UNKNOWN";
+    } else { matchVendor = p.vendor === S.invVendor; }
+    if (!matchSearch || !matchVendor) return;
     var headerLabel = p.vendor;
-    var vCheckUpper = (p.vendor || "").toString().trim().toUpperCase();
-    if (!vCheckUpper || vCheckUpper === "" || vCheckUpper === "TBD" || vCheckUpper === "UNKNOWN") {
-      headerLabel = "⚠️ UNCLASSIFIED SKUS";
+    var vUp = (p.vendor || "").toString().trim().toUpperCase();
+    if (!vUp || vUp === "TBD" || vUp === "UNKNOWN") headerLabel = "⚠️ UNCLASSIFIED SKUS";
+    if (headerLabel !== cv) {
+      cv = headerLabel;
+      html += "<div class='vhdr' id='" + vendorId(p.vendor || "unclassified") + "'>" + headerLabel + "</div>";
     }
-    
-    if(headerLabel!==cv){
-      cv=headerLabel;
-      html+="<div class='vhdr' id='"+vendorId(p.vendor || "unclassified")+"'>"+headerLabel+"</div>";
-    }
-    var d=S.invData[p.name]||{};
-    var sv=d.stock!==undefined?d.stock:"";
-    var ov=d.order!==undefined?d.order:"";
-    var uc=parseInt(p.unitCount)||0;
-    var size=p.size&&p.uom?(p.size+" "+p.uom):"";
-    var caseLabel=(p.orderUnit||"Case")+(uc?" of "+uc:"");
-    var meta=caseLabel+(size?" · "+size:"");
-    
-    var inlineCons = S.consumption[p.name];
-    var inlineConsStr = inlineCons !== undefined ? inlineCons + "u/wk" : "0u/wk";
-    
-    var safeName = p.name.replace(/'/g, "\\'").replace(/"/g, "&quot;");
-    var safeVendor = p.vendor.replace(/'/g, "\\'").replace(/"/g, "&quot;");
-    var safeUnit = (p.orderUnit||"Case").replace(/'/g, "\\'").replace(/"/g, "&quot;");
-    
-    html+="<div class='inv-item'>"
-      +"<div class='inv-item-top'>"
-      +"<div style='flex:1;min-width:0'>"
-      +"<div class='inv-item-name'>"+p.name+"</div>"
-      +"<div style='font-size:11px;color:#888;margin-top:2px'>"+meta+"</div>"
-      +"<div class='inv-util-badge'>⚡ 3-Wk Avg: "+inlineConsStr+"</div>"
-      +"</div>"
-      +"<button onclick='openSkuModalFor("+JSON.stringify(p).replace(/'/g,"&#39;")+")' style='background:none;border:none;font-size:10px;color:#aaa;cursor:pointer;flex-shrink:0;margin-left:8px;padding:4px'>✏ SKU</button>"
-      +"</div>"
-      +"<div class='inv-item-rows'>"
-      +"<div class='inv-field'><label>Units On Hand</label>"
-      +"<input type='number' min='0' step='1' placeholder='—' value='"+sv+"' class='"+(sv!==""?"has-v":"")+"' "
-      +"oninput='setInv(\""+safeName+"\",\""+safeVendor+"\",\""+safeUnit+"\",\"stock\",this.value)'></div>"
-      +"<div class='inv-field'><label>Units To Order</label>"
-      +"<input type='number' min='0' step='0.5' placeholder='—' value='"+ov+"' class='"+(ov!==""?"has-o":"")+"' "
-      +"oninput='setInv(\""+safeName+"\",\""+safeVendor+"\",\""+safeUnit+"\",\"order\",this.value)'></div>"
-      +"</div></div>";
+    var d         = S.invData[p.name] || {};
+    var sv        = d.stock !== undefined ? d.stock : "";
+    var ov        = d.order !== undefined ? d.order : "";
+    var uc        = parseInt(p.unitCount) || 0;
+    var size      = p.size && p.uom ? (p.size + " " + p.uom) : "";
+    var caseLabel = (p.orderUnit || "Case") + (uc ? " of " + uc : "");
+    var meta      = caseLabel + (size ? " · " + size : "");
+    var cons      = S.consumption[p.name];
+    var consStr   = cons !== undefined ? cons + "u/wk" : "0u/wk";
+    var safeName  = p.name.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    var safeVendor= p.vendor.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    var safeUnit  = (p.orderUnit || "Case").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    html += "<div class='inv-item'>"
+      + "<div class='inv-item-top'>"
+      + "<div style='flex:1;min-width:0'>"
+      + "<div class='inv-item-name'>" + p.name + "</div>"
+      + "<div style='font-size:11px;color:#888;margin-top:2px'>" + meta + "</div>"
+      + "<div class='inv-util-badge'>⚡ 3-Wk Avg: " + consStr + "</div>"
+      + "</div>"
+      + "<button onclick='openSkuModalFor(" + JSON.stringify(p).replace(/'/g, "&#39;") + ")' style='background:none;border:none;font-size:10px;color:#aaa;cursor:pointer;flex-shrink:0;margin-left:8px;padding:4px'>✏ SKU</button>"
+      + "</div>"
+      + "<div class='inv-item-rows'>"
+      + "<div class='inv-field'><label>Units On Hand</label>"
+      + "<input type='number' min='0' step='1' placeholder='—' value='" + sv + "' class='" + (sv !== "" ? "has-v" : "") + "' "
+      + "oninput='setInv(\"" + safeName + "\",\"" + safeVendor + "\",\"" + safeUnit + "\",\"stock\",this.value)'></div>"
+      + "<div class='inv-field'><label>Units To Order</label>"
+      + "<input type='number' min='0' step='0.5' placeholder='—' value='" + ov + "' class='" + (ov !== "" ? "has-o" : "") + "' "
+      + "oninput='setInv(\"" + safeName + "\",\"" + safeVendor + "\",\"" + safeUnit + "\",\"order\",this.value)'></div>"
+      + "</div></div>";
   });
-  listContainer.innerHTML=html||"<div style='padding:20px;text-align:center;color:#aaa'>No products matching filter</div>";
+  listContainer.innerHTML = html || "<div style='padding:20px;text-align:center;color:#aaa'>No products matching filter</div>";
 }
 
-function setInv(name,vendor,unit,field,val){
-  if(!S.invData[name])S.invData[name]={vendor:vendor,orderUnit:unit};
-  if(val==="") { S.invData[name][field]=undefined; } else { S.invData[name][field]=parseFloat(val)||0; }
-  
-  var done=Object.keys(S.invData).filter(function(n){ return S.invData[n].stock!==undefined; }).length;
-  var orders=Object.values(S.invData).filter(function(d){return d.order&&d.order>0;}).length;
-  
-  document.getElementById("inv-prog").textContent=done;
-  document.getElementById("inv-order-cnt").textContent=orders;
+function setInv(name, vendor, unit, field, val) {
+  if (!S.invData[name]) S.invData[name] = { vendor: vendor, orderUnit: unit };
+  S.invData[name][field] = (val === "") ? undefined : (parseFloat(val) || 0);
+  var done   = Object.keys(S.invData).filter(function(n) { return S.invData[n].stock !== undefined; }).length;
+  var orders = Object.values(S.invData).filter(function(d) { return d.order && d.order > 0; }).length;
+  var ep = document.getElementById("inv-prog"); if (ep) ep.textContent = done;
+  var eo = document.getElementById("inv-order-cnt"); if (eo) eo.textContent = orders;
 }
 
-function showInvPanel(p){
-  S.invSel=p;
-  document.getElementById("ivp-name").textContent=p.name;
-  var unitCount=parseInt(p.unitCount)||0;
-  var orderUnit=p.orderUnit||"Case";
-  var caseLabel=(orderUnit||"Case")+(unitCount?" of "+unitCount:" (pack size unknown)");
-  document.getElementById("ivp-meta").textContent=p.vendor+" · "+caseLabel;
-  
-  var last=S.counts[p.name];
-  var lastQty=last?last.qty+"u":"—";
-  var cons=S.consumption[p.name];
-  var consStr=cons?cons+"u/wk":"—";
-  document.getElementById("ivp-stats").innerHTML=
-    "<div class='pstat'><div class='ps-val'>"+lastQty+"</div><div class='ps-lbl'>Last Count</div></div>"
-    +"<div class='pstat highlight'><div class='ps-val'>"+consStr+"</div><div class='ps-lbl'>3-wk Avg Use</div></div>";
-  
-  document.getElementById("ivp-missing-unit").style.display=unitCount?"none":"flex";
-  
-  var prev=S.invData[p.name];
-  document.getElementById("ivp-stock").value=prev&&prev.stock!==undefined?prev.stock:(last?last.qty:0);
-  document.getElementById("ivp-order").value=prev&&prev.order!==undefined?prev.order:0;
-  document.getElementById("inv-panel").style.display="block";
-  document.getElementById("inv-scan-btn").style.display="none";
-  setTimeout(function(){document.getElementById("ivp-stock").focus();document.getElementById("ivp-stock").select();},100);
+function showInvPanel(p) {
+  S.invSel = p;
+  document.getElementById("ivp-name").textContent = p.name;
+  var unitCount = parseInt(p.unitCount) || 0;
+  var orderUnit = p.orderUnit || "Case";
+  document.getElementById("ivp-meta").textContent = p.vendor + " · " + orderUnit + (unitCount ? " of " + unitCount : " (pack size unknown)");
+  var last    = S.counts[p.name];
+  var lastQty = last ? last.qty + "u" : "—";
+  var cons    = S.consumption[p.name];
+  var consStr = cons ? cons + "u/wk" : "—";
+  document.getElementById("ivp-stats").innerHTML =
+    "<div class='pstat'><div class='ps-val'>" + lastQty + "</div><div class='ps-lbl'>Last Count</div></div>"
+    + "<div class='pstat highlight'><div class='ps-val'>" + consStr + "</div><div class='ps-lbl'>3-wk Avg Use</div></div>";
+  document.getElementById("ivp-missing-unit").style.display = unitCount ? "none" : "flex";
+  var prev = S.invData[p.name];
+  document.getElementById("ivp-stock").value = prev && prev.stock !== undefined ? prev.stock : (last ? last.qty : 0);
+  document.getElementById("ivp-order").value = prev && prev.order !== undefined ? prev.order : 0;
+  document.getElementById("inv-panel").style.display = "block";
+  document.getElementById("inv-scan-btn").style.display = "none";
+  setTimeout(function() { document.getElementById("ivp-stock").focus(); document.getElementById("ivp-stock").select(); }, 100);
 }
 
-function saveInvItem(){
-  if(!S.invSel)return;
-  var p=S.invSel;
-  var stock=parseFloat(document.getElementById("ivp-stock").value)||0;
-  var order=parseFloat(document.getElementById("ivp-order").value)||0;
-  if(!S.invData[p.name])S.invData[p.name]={vendor:p.vendor,orderUnit:p.orderUnit||"Case"};
-  S.invData[p.name].stock=stock;
-  S.invData[p.name].order=order;
-  toast("✓ "+p.name+" saved","ok");
+function saveInvItem() {
+  if (!S.invSel) return;
+  var p     = S.invSel;
+  var stock = parseFloat(document.getElementById("ivp-stock").value) || 0;
+  var order = parseFloat(document.getElementById("ivp-order").value) || 0;
+  if (!S.invData[p.name]) S.invData[p.name] = { vendor: p.vendor, orderUnit: p.orderUnit || "Case" };
+  S.invData[p.name].stock = stock;
+  S.invData[p.name].order = order;
+  toast("✓ " + p.name + " saved", "ok");
   clearInvPanel();
 }
 
-function skipInvItem(){clearInvPanel();}
+function skipInvItem() { clearInvPanel(); }
 
-function clearInvPanel(){
-  S.invSel=null;
-  document.getElementById("inv-panel").style.display="none";
-  document.getElementById("inv-scan-btn").style.display="flex";
+function clearInvPanel() {
+  S.invSel = null;
+  document.getElementById("inv-panel").style.display = "none";
+  document.getElementById("inv-scan-btn").style.display = "flex";
   renderInvList();
 }
 
-function submitInv(){
-  var countEntries=[],orderEntries=[];
-  Object.keys(S.invData).forEach(function(name){
-    var d=S.invData[name];
-    if(d.stock!==undefined)countEntries.push({name:name,vendor:d.vendor||"",qty:d.stock});
-    if(d.order!==undefined&&d.order>0)orderEntries.push({name:name,vendor:d.vendor||"",qty:d.order,orderUnit:d.orderUnit||"Case"});
+function submitInv() {
+  var countEntries = [], orderEntries = [];
+  Object.keys(S.invData).forEach(function(name) {
+    var d = S.invData[name];
+    if (d.stock !== undefined) countEntries.push({ name: name, vendor: d.vendor || "", qty: d.stock });
+    if (d.order !== undefined && d.order > 0) orderEntries.push({ name: name, vendor: d.vendor || "", qty: d.order, orderUnit: d.orderUnit || "Case" });
   });
-  if(!countEntries.length&&!orderEntries.length){toast("Nothing to submit","err");return;}
-  var staff=S.staff.inv;
-  var pending=0;
-  if(countEntries.length)pending++;
-  if(orderEntries.length)pending++;
-  function done(){pending--;if(pending===0){toast("✓ Submitted for Approval","ok");setTimeout(function(){goBack();},1500);}}
-  if(countEntries.length)apiPost("logCount",{entries:countEntries,staff:staff},done,function(){toast("Count save error","err");});
-  if(orderEntries.length)apiPost("submitOrderProposal",{entries:orderEntries,staff:staff,category:S.currentCategory},done,function(){toast("Order save error","err");});
+  if (!countEntries.length && !orderEntries.length) { toast("Nothing to submit", "err"); return; }
+  var staff   = S.staff.inv;
+  var pending = 0;
+  if (countEntries.length) pending++;
+  if (orderEntries.length) pending++;
+  function done() { pending--; if (pending === 0) { toast("✓ Submitted for Approval", "ok"); setTimeout(function() { goBack(); }, 1500); } }
+  if (countEntries.length) apiPost("logCount", { entries: countEntries, staff: staff }, done, function() { toast("Count save error", "err"); });
+  if (orderEntries.length) apiPost("submitOrderProposal", { entries: orderEntries, staff: staff, category: "GROCERY" }, done, function() { toast("Order save error", "err"); });
 }
 
-function openSkuModalFor(p){
-  S.invSel=p;
-  S.skuEditRowIndex=p.rowIndex;
-  var vendors=[...new Set(S.products.map(function(x){return x.vendor;}))].filter(Boolean).sort();
-  document.getElementById("vendor-list").innerHTML=vendors.map(function(v){return"<option value='"+v.replace(/'/g,"&#39;")+"'>";}).join("");
-  document.getElementById("sku-modal-title").textContent="Edit SKU";
-  document.getElementById("sku-modal-name").value=p.name||"";
-  document.getElementById("sku-modal-vendor").value=p.vendor||"";
-  document.getElementById("sku-modal-orderunit").value=p.orderUnit||"Case";
-  document.getElementById("sku-modal-unitcount").value=p.unitCount||"";
-  document.getElementById("sku-modal-size").value=p.size||"";
-  document.getElementById("sku-modal-uom").value=p.uom||"";
-  document.getElementById("sku-modal").style.display="flex";
+
+// ════════════════════════════════════════════════════════
+//  FISH INVENTORY & ORDER
+// ════════════════════════════════════════════════════════
+
+function getThisSunday() {
+  var d   = new Date();
+  var day = d.getDay();   // 0=Sun
+  d.setDate(d.getDate() - day);
+  var mm  = String(d.getMonth() + 1).padStart(2, "0");
+  var dd  = String(d.getDate()).padStart(2, "0");
+  return d.getFullYear() + "-" + mm + "-" + dd;
 }
 
-function saveSkuEdit(){
-  var name=document.getElementById("sku-modal-name").value.trim();
-  var vendor=document.getElementById("sku-modal-vendor").value.trim();
-  var orderUnit=document.getElementById("sku-modal-orderunit").value;
-  var unitCount=parseInt(document.getElementById("sku-modal-unitcount").value)||0;
-  var size=parseFloat(document.getElementById("sku-modal-size").value)||0;
-  var uom=document.getElementById("sku-modal-uom").value;
-  if(!name||!vendor){toast("Name and vendor required","err");return;}
-  apiPost("updateProductFull",{
-    rowIndex:S.skuEditRowIndex,
-    name:name,vendor:vendor,orderUnit:orderUnit,
-    unitCount:unitCount,size:size,uom:uom
-  },function(){
-    toast("✓ SKU updated","ok");
-    document.getElementById("sku-modal").style.display="none";
-    var p=S.products.find(function(x){return x.rowIndex===S.skuEditRowIndex;});
-    if(p){p.name=name;p.vendor=vendor;p.orderUnit=orderUnit;p.unitCount=unitCount;p.size=size;p.uom=uom;}
-    buildVendorRoller(); 
-    renderInvList();
+function startFishInv() {
+  S.fishData   = {};
+  S.fishVendor = "All";
+  S.fishWeekOf = getThisSunday();
+  go("fish-inv");
+  var badge = document.getElementById("fish-week-badge");
+  if (badge) badge.textContent = "Week of " + S.fishWeekOf;
+  buildFishVendorRoller();
+  renderFishList();
+}
+
+function renderFishList() {
+  var q    = document.getElementById("fish-search") ? document.getElementById("fish-search").value.toLowerCase() : "";
+  var list = document.getElementById("fish-list");
+  if (!list) return;
+  var fishProducts = S.products.filter(function(p) { return p.category === "FISH"; });
+  var counted = Object.keys(S.fishData).filter(function(n) { return S.fishData[n].stock !== undefined; }).length;
+  var ordering= Object.values(S.fishData).filter(function(d) { return d.proposed && d.proposed > 0; }).length;
+  var ep = document.getElementById("fish-inv-prog");      if (ep) ep.textContent = counted;
+  var eo = document.getElementById("fish-inv-order-cnt"); if (eo) eo.textContent = ordering;
+  var allCounted = fishProducts.length > 0 && counted >= fishProducts.length;
+  var submitBtn  = document.getElementById("fish-submit-btn");
+  if (submitBtn) {
+    submitBtn.disabled = !allCounted;
+    submitBtn.style.opacity = allCounted ? "1" : "0.4";
+    submitBtn.style.cursor  = allCounted ? "pointer" : "not-allowed";
+  }
+
+  var html = "", cv = "";
+  fishProducts.forEach(function(p) {
+    var matchSearch = !q || p.name.toLowerCase().includes(q) || (p.vendor || "").toLowerCase().includes(q);
+    var matchVendor = false;
+    if (S.fishVendor === "All") { matchVendor = true; }
+    else if (S.fishVendor === "Needs Vendor") {
+      var vCheck = (p.vendor || "").toString().trim().toUpperCase();
+      matchVendor = !vCheck || vCheck === "TBD" || vCheck === "UNKNOWN";
+    } else { matchVendor = p.vendor === S.fishVendor; }
+    if (!matchSearch || !matchVendor) return;
+
+    var vLabel = (p.vendor || "").toString().trim().toUpperCase();
+    var headerLabel = (!vLabel || vLabel === "TBD" || vLabel === "UNKNOWN") ? "⚠️ UNCLASSIFIED" : p.vendor;
+    if (headerLabel !== cv) {
+      cv = headerLabel;
+      html += "<div class='vhdr'>" + headerLabel + "</div>";
+    }
+
+    var d        = S.fishData[p.name] || {};
+    var sv       = d.stock    !== undefined ? d.stock    : "";
+    var pv       = d.proposed !== undefined ? d.proposed : "";
+    var noteVal  = d.note     || "";
+    var lastCount= S.fishCounts[p.name];
+    var lastQty  = lastCount  !== undefined ? lastCount.qty : "—";
+    var cons     = S.consumption[p.name];
+    var consStr  = cons !== undefined ? cons + " " + (p.orderUnit || "unit") + "/wk" : "—";
+
+    var safeName = p.name.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    var safeVendor=(p.vendor||"").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    var safeUnit = (p.orderUnit||"Each").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+
+    html += "<div class='fish-item' id='fi-" + safeName.replace(/\s/g,"_") + "'>"
+      + "<div class='fish-item-top'>"
+      + "<div style='flex:1;min-width:0'>"
+      + "<div class='fish-item-name'>" + p.name + "</div>"
+      + "<div class='fish-item-meta'>" + (p.vendor || "—") + " · " + (p.orderUnit || "Each") + "</div>"
+      + "</div>"
+      + "<button onclick='openSkuModalFor(" + JSON.stringify(p).replace(/'/g,"&#39;") + ")' style='background:none;border:none;font-size:10px;color:#aaa;cursor:pointer;padding:4px'>✏ SKU</button>"
+      + "</div>"
+
+      // Stats row
+      + "<div style='display:flex;gap:6px;margin-bottom:8px'>"
+      + "<div class='pstat' style='flex:1'><div class='ps-val' style='font-size:13px'>" + lastQty + "</div><div class='ps-lbl'>Last Count</div></div>"
+      + "<div class='pstat highlight' style='flex:1'><div class='ps-val' style='font-size:13px'>" + consStr + "</div><div class='ps-lbl'>Avg/Week</div></div>"
+      + "</div>"
+
+      // Count + Proposed inputs
+      + "<div class='fish-item-rows'>"
+      + "<div class='fish-field'><label>In Stock</label>"
+      + "<input type='number' min='0' step='0.5' placeholder='—' value='" + sv + "' class='" + (sv !== "" ? "has-s" : "") + "' "
+      + "oninput='setFish(\"" + safeName + "\",\"" + safeVendor + "\",\"" + safeUnit + "\",\"stock\",this.value,\"fi-" + safeName.replace(/\s/g,"_") + "\")'>"
+      + "</div>"
+      + "<div class='fish-field'><label>To Order</label>"
+      + "<input type='number' min='0' step='0.5' placeholder='—' value='" + pv + "' class='" + (pv !== "" ? "has-p" : "") + "' "
+      + "oninput='setFish(\"" + safeName + "\",\"" + safeVendor + "\",\"" + safeUnit + "\",\"proposed\",this.value,\"fi-" + safeName.replace(/\s/g,"_") + "\")'>"
+      + "</div>"
+      + "</div>"
+
+      // Note field
+      + "<div class='fish-note-wrap'>"
+      + "<textarea class='fish-note" + (noteVal ? " has-note" : "") + "' placeholder='Note for Peter (optional)…' "
+      + "oninput='setFishNote(\"" + safeName + "\",this.value)'>" + noteVal + "</textarea>"
+      + "</div>"
+      + "</div>";
+  });
+
+  list.innerHTML = html || "<div style='padding:20px;text-align:center;color:#aaa'>No fish products found.<br><small>Run importFishSkusToProducts in Apps Script first.</small></div>";
+}
+
+function setFish(name, vendor, unit, field, val, cardId) {
+  if (!S.fishData[name]) S.fishData[name] = { vendor: vendor, unit: unit, note: "" };
+  S.fishData[name][field] = (val === "") ? undefined : (parseFloat(val) || 0);
+  // Update input highlight class without full re-render
+  var card = document.getElementById(cardId);
+  if (card) {
+    var inputs = card.querySelectorAll(".fish-field input");
+    if (inputs[0]) inputs[0].className = "fish-field input " + (S.fishData[name].stock !== undefined ? "has-s" : "");
+    if (inputs[1]) inputs[1].className = "fish-field input " + (S.fishData[name].proposed !== undefined ? "has-p" : "");
+  }
+  // Update summary counters
+  var counted  = Object.keys(S.fishData).filter(function(n) { return S.fishData[n].stock !== undefined; }).length;
+  var ordering = Object.values(S.fishData).filter(function(d) { return d.proposed && d.proposed > 0; }).length;
+  var fishTotal= S.products.filter(function(p) { return p.category === "FISH"; }).length;
+  var ep = document.getElementById("fish-inv-prog");      if (ep) ep.textContent = counted;
+  var eo = document.getElementById("fish-inv-order-cnt"); if (eo) eo.textContent = ordering;
+  var submitBtn = document.getElementById("fish-submit-btn");
+  if (submitBtn) {
+    var allDone = fishTotal > 0 && counted >= fishTotal;
+    submitBtn.disabled      = !allDone;
+    submitBtn.style.opacity = allDone ? "1" : "0.4";
+    submitBtn.style.cursor  = allDone ? "pointer" : "not-allowed";
+  }
+}
+
+function setFishNote(name, val) {
+  if (!S.fishData[name]) S.fishData[name] = { note: "" };
+  S.fishData[name].note = val;
+}
+
+function submitFishInv() {
+  var entries = [];
+  S.products.filter(function(p) { return p.category === "FISH"; }).forEach(function(p) {
+    var d = S.fishData[p.name] || {};
+    entries.push({
+      name:     p.name,
+      vendor:   p.vendor    || "",
+      unit:     p.orderUnit || "Each",
+      stock:    d.stock    !== undefined ? d.stock    : 0,
+      proposed: d.proposed !== undefined ? d.proposed : 0,
+      note:     d.note     || ""
+    });
+  });
+  if (!entries.length) { toast("Nothing to submit", "err"); return; }
+  var btn = document.getElementById("fish-submit-btn");
+  if (btn) { btn.textContent = "Submitting…"; btn.disabled = true; }
+  apiPost("submitFishInventory", { entries: entries, staff: S.staff.fish, weekOf: S.fishWeekOf }, function() {
+    toast("✓ Fish order submitted to Peter", "ok");
+    setTimeout(function() { goBack(); }, 1600);
+  }, function() {
+    toast("Submit failed — try again", "err");
+    if (btn) { btn.textContent = "🐟 Submit Fish Order to Peter"; btn.disabled = false; }
   });
 }
 
-function loadApproval(){
-  var token=document.getElementById("appr-date").value;
-  if(!token){toast("Select a date","err");return;}
+
+// ════════════════════════════════════════════════════════
+//  GROCERY APPROVAL
+// ════════════════════════════════════════════════════════
+
+function loadApproval() {
+  var token = document.getElementById("appr-date").value;
+  if (!token) { toast("Select a date", "err"); return; }
   go("approve");
-  document.getElementById("appr-list").innerHTML="<div class='loading'><div class='spinner'></div>Loading…</div>";
-  api("getPendingOrders",{token:token},function(orders){
-    S.apprItems=orders||[];
-    if(!S.apprItems.length){
-      document.getElementById("appr-list").innerHTML="<div style='padding:20px;text-align:center;color:#888'>No pending orders for this date.</div>";
+  document.getElementById("appr-list").innerHTML = "<div class='loading'><div class='spinner'></div>Loading…</div>";
+  api("getPendingOrders", { token: token }, function(orders) {
+    S.apprItems = orders || [];
+    if (!S.apprItems.length) {
+      document.getElementById("appr-list").innerHTML = "<div style='padding:20px;text-align:center;color:#888'>No pending orders for this date.</div>";
       return;
     }
-    var byVendor={};
-    S.apprItems.forEach(function(o){if(!byVendor[o.vendor])byVendor[o.vendor]=[];byVendor[o.vendor].push(o);});
-    var html="";
-    Object.keys(byVendor).sort().forEach(function(v){
-      html+="<div class='vhdr'>"+v+"</div>";
-      byVendor[v].forEach(function(item){
-        var last=S.counts[item.name];
-        var lastUnits=last?last.qty+"u":"—";
-        var cons=S.consumption[item.name];
-        var consStr=cons!==undefined?cons+"u/wk":"0u/wk";
-        
-        html+="<div class='appr-item'>"
-          +"<div class='appr-name'>"+item.name+"</div>"
-          +"<div class='appr-meta'>"+item.vendor+"</div>"
-          +"<div class='appr-row'>"
-          +"<div class='appr-stat'><strong>"+lastUnits+"</strong>In Store</div>"
-          +"<div class='appr-stat' style='background:#fff8e8;border-radius:4px;padding:2px 0;'><strong>"+consStr+"</strong>3-wk Avg</div>"
-          +"<div class='appr-stat'><strong>"+item.qtyProposed+"</strong>Proposed</div>"
-          +"<input class='appr-input' type='number' min='0' step='0.5' value='"+item.qtyProposed+"' id='ai-"+item.rowIndex+"'>"
-          +"<div style='font-size:11px;color:#888'>"+(item.orderUnit||"Case")+"</div>"
-          +"</div></div>";
+    var byVendor = {};
+    S.apprItems.forEach(function(o) { if (!byVendor[o.vendor]) byVendor[o.vendor] = []; byVendor[o.vendor].push(o); });
+    var html = "";
+    Object.keys(byVendor).sort().forEach(function(v) {
+      html += "<div class='vhdr'>" + v + "</div>";
+      byVendor[v].forEach(function(item) {
+        var last    = S.counts[item.name];
+        var lastUnits = last ? last.qty + "u" : "—";
+        var cons    = S.consumption[item.name];
+        var consStr = cons !== undefined ? cons + "u/wk" : "0u/wk";
+        html += "<div class='appr-item'>"
+          + "<div class='appr-name'>" + item.name + "</div>"
+          + "<div class='appr-meta'>" + item.vendor + "</div>"
+          + "<div class='appr-row'>"
+          + "<div class='appr-stat'><strong>" + lastUnits + "</strong>In Store</div>"
+          + "<div class='appr-stat' style='background:#fff8e8;border-radius:4px;padding:2px 0'><strong>" + consStr + "</strong>3-wk Avg</div>"
+          + "<div class='appr-stat'><strong>" + item.qtyProposed + "</strong>Proposed</div>"
+          + "<input class='appr-input' type='number' min='0' step='0.5' value='" + item.qtyProposed + "' id='ai-" + item.rowIndex + "'>"
+          + "<div style='font-size:11px;color:#888'>" + (item.orderUnit || "Case") + "</div>"
+          + "</div></div>";
       });
     });
-    document.getElementById("appr-list").innerHTML=html;
+    document.getElementById("appr-list").innerHTML = html;
   });
 }
 
-function submitApproval(){
-  var token=document.getElementById("appr-date").value;
-  var approvals=S.apprItems.map(function(item){
-    var el=document.getElementById("ai-"+item.rowIndex);
-    return{rowIndex:item.rowIndex,name:item.name,vendor:item.vendor,
-      qtyProposed:item.qtyProposed,qtyApproved:el?el.value:0,orderUnit:item.orderUnit};
+function submitApproval() {
+  var token    = document.getElementById("appr-date").value;
+  var approvals= S.apprItems.map(function(item) {
+    var el = document.getElementById("ai-" + item.rowIndex);
+    return { rowIndex: item.rowIndex, name: item.name, vendor: item.vendor,
+             qtyProposed: item.qtyProposed, qtyApproved: el ? el.value : 0, orderUnit: item.orderUnit };
   });
-  apiPost("submitApprovals",{approvals:approvals,weekDate:token},function(){
-    toast("✓ Order approved — report sent","ok");
-    setTimeout(function(){goBack();goBack();},2000);
+  apiPost("submitApprovals", { approvals: approvals, weekDate: token }, function() {
+    toast("✓ Order approved — report sent", "ok");
+    setTimeout(function() { goBack(); goBack(); }, 2000);
   });
 }
 
-function loadInactive(){
-  document.getElementById("inact-list").innerHTML="<div class='loading'><div class='spinner'></div>Loading…</div>";
-  api("getInactiveProducts",{},function(items){
-    if(!items||!items.length){
-      document.getElementById("inact-list").innerHTML="<div style='padding:20px;text-align:center;color:#1A7A3C;font-weight:600'>✓ No inactive products</div>";
+
+// ════════════════════════════════════════════════════════
+//  FISH APPROVAL
+// ════════════════════════════════════════════════════════
+
+function loadFishApproval() {
+  var token = document.getElementById("fish-appr-date").value;
+  if (!token) { toast("Select a date", "err"); return; }
+  go("fish-approve");
+  var badge = document.getElementById("fish-appr-badge");
+  if (badge) badge.textContent = "Week of " + token;
+  document.getElementById("fish-appr-list").innerHTML = "<div class='loading'><div class='spinner'></div>Loading…</div>";
+  api("getFishPendingOrders", { token: token }, function(orders) {
+    S.fishApprItems = orders || [];
+    if (!S.fishApprItems.length) {
+      document.getElementById("fish-appr-list").innerHTML = "<div style='padding:20px;text-align:center;color:#888'>No fish inventory submitted for this week yet.</div>";
       return;
     }
-    document.getElementById("inact-list").innerHTML=items.map(function(item){
-      return "<div class='inact-item' id='in-"+item.skuId+"'>"
-        +"<div><strong style='font-size:13px;display:block'>"+item.name+"</strong><span style='font-size:11px;color:#888'>"+item.vendor+"</span></div>"
-        +"<div class='inact-btns'>"
-        +"<button class='inact-btn inact-keep' onclick='keepIt(\""+item.skuId+"\")'>Keep</button>"
-        +"<button class='inact-btn inact-rem' onclick='removeIt(\""+item.skuId+"\",\""+item.name.replace(/"/g,"&quot;")+"\")'>Remove</button>"
-        +"</div></div>";
+    var byVendor = {};
+    S.fishApprItems.forEach(function(o) {
+      if (!byVendor[o.vendor]) byVendor[o.vendor] = [];
+      byVendor[o.vendor].push(o);
+    });
+    var html = "";
+    Object.keys(byVendor).sort().forEach(function(v) {
+      html += "<div class='vhdr'>🐟 " + v + "</div>";
+      byVendor[v].forEach(function(item) {
+        var parAvg  = item.parAvg !== undefined && item.parAvg !== "" ? item.parAvg : "—";
+        var note    = item.proposedNote ? item.proposedNote.toString().trim() : "";
+        var stockDisp = item.qtyInStock !== undefined ? item.qtyInStock : "—";
+        html += "<div class='fish-appr-item'>"
+          + "<div class='fish-appr-name'>" + item.name + "</div>"
+          + "<div class='fish-appr-meta'>" + item.vendor + " · " + (item.unit || "") + "</div>"
+
+          // Stats
+          + "<div class='fish-appr-stats'>"
+          + "<div class='fish-appr-stat'><strong>" + stockDisp + "</strong>In Stock</div>"
+          + "<div class='fish-appr-stat highlight'><strong>" + parAvg + "</strong>4-wk Avg</div>"
+          + "<div class='fish-appr-stat'><strong>" + item.qtyProposed + "</strong>Proposed</div>"
+          + "</div>"
+
+          // Staff note (read-only display)
+          + (note ? "<div class='fish-appr-note-in'>💬 " + note + "</div>" : "")
+
+          // Approved qty + Peter's note
+          + "<div class='fish-appr-controls'>"
+          + "<div style='text-align:center;flex-shrink:0'>"
+          + "<div style='font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px'>Approved</div>"
+          + "<input class='appr-input' type='number' min='0' step='0.5' value='" + item.qtyApproved + "' id='fa-" + item.rowIndex + "'>"
+          + "<div style='font-size:10px;color:#888;margin-top:3px'>" + (item.unit || "") + "</div>"
+          + "</div>"
+          + "<input class='fish-peter-note' type='text' placeholder=\"Peter's note…\" id='fn-" + item.rowIndex + "' "
+          + "style='flex:1;margin-left:8px'>"
+          + "</div>"
+          + "</div>";
+      });
+    });
+    document.getElementById("fish-appr-list").innerHTML = html;
+  });
+}
+
+function submitFishApproval() {
+  var token    = document.getElementById("fish-appr-date").value;
+  var approvals= S.fishApprItems.map(function(item) {
+    var qtyEl   = document.getElementById("fa-" + item.rowIndex);
+    var noteEl  = document.getElementById("fn-" + item.rowIndex);
+    return {
+      rowIndex:    item.rowIndex,
+      name:        item.name,
+      vendor:      item.vendor,
+      unit:        item.unit,
+      qtyProposed: item.qtyProposed,
+      qtyApproved: qtyEl  ? parseFloat(qtyEl.value)  || 0 : 0,
+      peterNote:   noteEl ? noteEl.value.trim() : ""
+    };
+  });
+  apiPost("submitFishApprovals", { approvals: approvals, weekDate: token }, function() {
+    toast("✓ Fish order approved — team notified", "ok");
+    setTimeout(function() { goBack(); goBack(); }, 2000);
+  }, function() {
+    toast("Submit failed — try again", "err");
+  });
+}
+
+
+// ════════════════════════════════════════════════════════
+//  SKU MODAL
+// ════════════════════════════════════════════════════════
+
+function openSkuModalFor(p) {
+  S.invSel = p;
+  S.skuEditRowIndex = p.rowIndex;
+  var vendors = [...new Set(S.products.map(function(x) { return x.vendor; }))].filter(Boolean).sort();
+  document.getElementById("vendor-list").innerHTML = vendors.map(function(v) { return "<option value='" + v.replace(/'/g, "&#39;") + "'>"; }).join("");
+  document.getElementById("sku-modal-title").textContent = "Edit SKU";
+  document.getElementById("sku-modal-name").value      = p.name       || "";
+  document.getElementById("sku-modal-vendor").value    = p.vendor     || "";
+  document.getElementById("sku-modal-orderunit").value = p.orderUnit  || "Case";
+  document.getElementById("sku-modal-unitcount").value = p.unitCount  || "";
+  document.getElementById("sku-modal-size").value      = p.size       || "";
+  document.getElementById("sku-modal-uom").value       = p.uom        || "";
+  document.getElementById("sku-modal").style.display   = "flex";
+}
+
+function closeSkuModal(event) {
+  if (event.target === document.getElementById("sku-modal")) {
+    document.getElementById("sku-modal").style.display = "none";
+  }
+}
+
+function saveSkuEdit() {
+  var name      = document.getElementById("sku-modal-name").value.trim();
+  var vendor    = document.getElementById("sku-modal-vendor").value.trim();
+  var orderUnit = document.getElementById("sku-modal-orderunit").value;
+  var unitCount = parseInt(document.getElementById("sku-modal-unitcount").value) || 0;
+  var size      = parseFloat(document.getElementById("sku-modal-size").value) || 0;
+  var uom       = document.getElementById("sku-modal-uom").value;
+  if (!name || !vendor) { toast("Name and vendor required", "err"); return; }
+  apiPost("updateProductFull", {
+    rowIndex: S.skuEditRowIndex,
+    name: name, vendor: vendor, orderUnit: orderUnit,
+    unitCount: unitCount, size: size, uom: uom
+  }, function() {
+    toast("✓ SKU updated", "ok");
+    document.getElementById("sku-modal").style.display = "none";
+    var p = S.products.find(function(x) { return x.rowIndex === S.skuEditRowIndex; });
+    if (p) { p.name = name; p.vendor = vendor; p.orderUnit = orderUnit; p.unitCount = unitCount; p.size = size; p.uom = uom; }
+    buildVendorRoller();
+    buildFishVendorRoller();
+    renderInvList();
+    renderFishList();
+  });
+}
+
+
+// ════════════════════════════════════════════════════════
+//  INACTIVE
+// ════════════════════════════════════════════════════════
+
+function loadInactive() {
+  document.getElementById("inact-list").innerHTML = "<div class='loading'><div class='spinner'></div>Loading…</div>";
+  api("getInactiveProducts", {}, function(items) {
+    if (!items || !items.length) {
+      document.getElementById("inact-list").innerHTML = "<div style='padding:20px;text-align:center;color:#1A7A3C;font-weight:600'>✓ No inactive products</div>";
+      return;
+    }
+    document.getElementById("inact-list").innerHTML = items.map(function(item) {
+      return "<div class='inact-item' id='in-" + item.skuId + "'>"
+        + "<div><strong style='font-size:13px;display:block'>" + item.name + "</strong><span style='font-size:11px;color:#888'>" + item.vendor + "</span></div>"
+        + "<div class='inact-btns'>"
+        + "<button class='inact-btn inact-keep' onclick='keepIt(\"" + item.skuId + "\")'>Keep</button>"
+        + "<button class='inact-btn inact-rem' onclick='removeIt(\"" + item.skuId + "\",\"" + item.name.replace(/"/g, "&quot;") + "\")'>Remove</button>"
+        + "</div></div>";
     }).join("");
   });
 }
-function keepIt(id){var el=document.getElementById("in-"+id);if(el)el.style.opacity="0.4";}
-function removeIt(id,name){
-  if(!confirm("Remove \""+name+"\"?"))return;
-  apiPost("flagProductInactive",{skuId:id},function(){
-    var el=document.getElementById("in-"+id);if(el)el.remove();
-    toast("Removed: "+name,"ok");init();
+
+function keepIt(id) { var el = document.getElementById("in-" + id); if (el) el.style.opacity = "0.4"; }
+
+function removeIt(id, name) {
+  if (!confirm("Remove \"" + name + "\"?")) return;
+  apiPost("flagProductInactive", { skuId: id }, function() {
+    var el = document.getElementById("in-" + id); if (el) el.remove();
+    toast("Removed: " + name, "ok");
+    init();
   });
 }
 
-function adj(id,d){var el=document.getElementById(id);el.value=Math.max(0,(parseFloat(el.value)||0)+d);}
+
+// ════════════════════════════════════════════════════════
+//  UTILITIES
+// ════════════════════════════════════════════════════════
+
+function adj(id, d) {
+  var el = document.getElementById(id);
+  el.value = Math.max(0, (parseFloat(el.value) || 0) + d);
+}
 
 var _tt;
-function toast(msg,type){
-  var el=document.getElementById("toast");
-  el.textContent=msg;
-  el.className="toast"+(type?" "+type:"")+" show";
-  if(_tt)clearTimeout(_tt);
-  _tt=setTimeout(function(){el.classList.remove("show");},2800);
+function toast(msg, type) {
+  var el = document.getElementById("toast");
+  el.textContent = msg;
+  el.className = "toast" + (type ? " " + type : "") + " show";
+  if (_tt) clearTimeout(_tt);
+  _tt = setTimeout(function() { el.classList.remove("show"); }, 2800);
+}
+
+
+// ════════════════════════════════════════════════════════
+//  API TRANSPORT  (JSONP via script tag)
+// ════════════════════════════════════════════════════════
+
+function api(fn, params, cb, errCb) {
+  var p = params || {};
+  p.fn = fn;
+  var cbName = "_cb" + (++_cbc);
+  p.callback = cbName;
+  var timer = setTimeout(function() {
+    if (window[cbName]) { delete window[cbName]; var s = document.getElementById(cbName); if (s) s.remove(); }
+  }, 20000);
+  window[cbName] = function(d) {
+    clearTimeout(timer);
+    delete window[cbName];
+    var s = document.getElementById(cbName); if (s) s.remove();
+    if (d && d.error) { if (errCb) errCb(d.error); return; }
+    if (cb) cb(d && d.result !== undefined ? d.result : d);
+  };
+  var url = API + "?" + Object.keys(p).map(function(k) {
+    return encodeURIComponent(k) + "=" + encodeURIComponent(typeof p[k] === "object" ? JSON.stringify(p[k]) : p[k]);
+  }).join("&");
+  var s = document.createElement("script");
+  s.id = cbName; s.src = url;
+  s.onerror = function() { clearTimeout(timer); delete window[cbName]; s.remove(); if (errCb) errCb("network error"); };
+  document.head.appendChild(s);
+}
+
+function apiPost(fn, body, cb, errCb) {
+  api(fn, { data: JSON.stringify(body) }, cb, errCb);
 }
 </script>
 </body>
