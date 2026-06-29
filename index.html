@@ -106,31 +106,35 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .btn-red{background:#E64A2E;color:#fff}
 .btn-outline{background:#fff;color:#1a1a1a;border:1.5px solid #e0e0e0}
 
-.inv-item{background:#fff;border-radius:10px;padding:12px 13px;border:1.5px solid #e5e5e5;margin-bottom:8px}
+.inv-item{background:#fff;border-radius:10px;padding:12px 13px;border:1.5px solid #e5e5e5;margin-bottom:8px;transition:border-color 0.2s,background 0.2s}
+.inv-item.error-highlight{border:2px solid #CC0000 !important;background:#fff5f5 !important}
 .inv-item-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
 .inv-item-name{font-size:14px;font-weight:700;flex:1;margin-right:8px;letter-spacing:0.2px}
 .inv-item-vendor{font-size:11px;color:#888}
 .inv-item-rows{display:flex;gap:8px}
 .inv-field{flex:1;text-align:center}
 .inv-field label{display:block;font-size:10px;font-weight:700;color:#888;text-transform:uppercase;margin-bottom:4px}
-.inv-field input{width:100%;padding:8px 4px;font-size:16px;font-weight:700;text-align:center;border:1.5px solid #e0e0e0;border-radius:8px;-webkit-appearance:none;outline:none}
+.inv-field input{width:100%;padding:8px 4px;font-size:16px;font-weight:700;text-align:center;border:1.5px solid #e0e0e0;border-radius:8px;-webkit-appearance:none;outline:none;transition:border-color 0.2s,background 0.2s}
 .inv-field input:focus{border-color:#1a1a1a}
 .inv-field input.has-v{border-color:#1A7A3C;background:#f0fff4}
 .inv-field input.has-o{border-color:#1a1a1a;background:#f8f8f8}
+.inv-field input.error-field{border-color:#CC0000 !important;background:#fff0f0 !important}
 .inv-util-badge{display:inline-block;font-size:10px;font-weight:700;color:#b8860b;background:#fff8e8;border:1px solid #f5c842;padding:2px 6px;border-radius:4px;margin-top:4px}
 
 /* Fish-specific item card */
-.fish-item{background:#fff;border-radius:10px;padding:13px;border:1.5px solid #e5e5e5;margin-bottom:10px}
+.fish-item{background:#fff;border-radius:10px;padding:13px;border:1.5px solid #e5e5e5;margin-bottom:10px;transition:border-color 0.2s,background 0.2s}
+.fish-item.error-highlight{border:2px solid #CC0000 !important;background:#fff5f5 !important}
 .fish-item-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
 .fish-item-name{font-size:14px;font-weight:700;flex:1;margin-right:8px}
 .fish-item-meta{font-size:11px;color:#888;margin-bottom:6px}
 .fish-item-rows{display:flex;gap:8px;margin-bottom:8px}
 .fish-field{flex:1;text-align:center}
 .fish-field label{display:block;font-size:10px;font-weight:700;color:#888;text-transform:uppercase;margin-bottom:4px}
-.fish-field input{width:100%;padding:9px 4px;font-size:17px;font-weight:700;text-align:center;border:1.5px solid #e0e0e0;border-radius:8px;-webkit-appearance:none;outline:none}
+.fish-field input{width:100%;padding:9px 4px;font-size:17px;font-weight:700;text-align:center;border:1.5px solid #e0e0e0;border-radius:8px;-webkit-appearance:none;outline:none;transition:border-color 0.2s,background 0.2s}
 .fish-field input:focus{border-color:#1a1a1a}
 .fish-field input.has-s{border-color:#1A7A3C;background:#f0fff4}
 .fish-field input.has-p{border-color:#E64A2E;background:#fff5f3}
+.fish-field input.error-field{border-color:#CC0000 !important;background:#fff0f0 !important}
 .fish-note-wrap{margin-top:4px}
 .fish-note{width:100%;padding:8px 10px;font-size:12px;border:1.5px solid #e0e0e0;border-radius:8px;-webkit-appearance:none;outline:none;font-family:inherit;resize:none;min-height:48px;color:#555;background:#fafafa}
 .fish-note:focus{border-color:#1a1a1a;background:#fff}
@@ -171,7 +175,7 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 
 .week-badge{display:inline-block;background:#E64A2E;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;letter-spacing:0.4px;margin-bottom:10px}
 
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;color:#fff;padding:11px 20px;border-radius:24px;font-size:14px;font-weight:600;transition:transform 0.3s;z-index:9998;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,0.25);pointer-events:none}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;color:#fff;padding:11px 20px;border-radius:24px;font-size:14px;font-weight:600;transition:transform 0.3s;z-index:9998;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,0.25);pointer-events:none;max-width:90vw;white-space:normal;text-align:center}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .toast.ok{background:#1A7A3C}
 .toast.err{background:#CC0000}
@@ -544,9 +548,8 @@ var S = {
   invData: {}, invSel: null, invVendor: "All",
   currentCategory: "GROCERY",
   apprItems: [],
-  // Fish-specific state
-  fishData: {},      // { productName: { stock, proposed, note, vendor, unit } }
-  fishCounts: {},    // latest stock from Fish_DB
+  fishData: {},
+  fishCounts: {},
   fishVendor: "All",
   fishApprItems: [],
   fishWeekOf: "",
@@ -596,7 +599,7 @@ function init() {
     renderInvList();
   }, function() { S.counts = {}; });
   api("getRollingConsumption", {}, function(d) {
-    S.consumption = d || {};   // merged grocery + fish from backend
+    S.consumption = d || {};
     renderInvList();
     renderFishList();
   }, function() { S.consumption = {}; });
@@ -640,7 +643,7 @@ function setStaff(ctx, name) {
 }
 
 
-// ── VENDOR ROLLER (shared, scoped by category) ────────────
+// ── VENDOR ROLLER ─────────────────────────────────────────
 
 function vendorId(v) { return "vhdr_" + v.replace(/[^a-zA-Z0-9]/g, "_"); }
 
@@ -757,7 +760,7 @@ function handleScan(code, ctx) {
         renderInvList();
       }
     }
-  }, function() { toast("Lookup failed — search by name"); });
+  }, function() { toast("Barcode lookup failed — search by name below", "err"); });
 }
 
 
@@ -872,12 +875,13 @@ function renderInvList() {
   var orders = Object.values(S.invData).filter(function(d) { return d.order && d.order > 0; }).length;
   var el = document.getElementById("inv-prog"); if (el) el.textContent = done;
   var eo = document.getElementById("inv-order-cnt"); if (eo) eo.textContent = orders;
+  var hasAny    = done > 0;
   var allCounted = done >= active.length;
   var submitBtn = document.getElementById("inv-submit-btn");
   if (submitBtn) {
-    submitBtn.disabled = !allCounted;
-    submitBtn.style.background = allCounted ? "#1A7A3C" : "#ccc";
-    submitBtn.style.cursor = allCounted ? "pointer" : "not-allowed";
+    submitBtn.disabled = !hasAny;
+    submitBtn.style.background = hasAny ? "#1A7A3C" : "#ccc";
+    submitBtn.style.cursor = hasAny ? "pointer" : "not-allowed";
   }
   var html = "", cv = "";
   active.forEach(function(p) {
@@ -908,7 +912,8 @@ function renderInvList() {
     var safeName  = p.name.replace(/'/g, "\\'").replace(/"/g, "&quot;");
     var safeVendor= p.vendor.replace(/'/g, "\\'").replace(/"/g, "&quot;");
     var safeUnit  = (p.orderUnit || "Case").replace(/'/g, "\\'").replace(/"/g, "&quot;");
-    html += "<div class='inv-item'>"
+    var itemId    = "inv-item-" + p.name.replace(/[^a-zA-Z0-9]/g, "_");
+    html += "<div class='inv-item' id='" + itemId + "'>"
       + "<div class='inv-item-top'>"
       + "<div style='flex:1;min-width:0'>"
       + "<div class='inv-item-name'>" + p.name + "</div>"
@@ -920,22 +925,39 @@ function renderInvList() {
       + "<div class='inv-item-rows'>"
       + "<div class='inv-field'><label>Units On Hand</label>"
       + "<input type='number' min='0' step='1' placeholder='—' value='" + sv + "' class='" + (sv !== "" ? "has-v" : "") + "' "
-      + "oninput='setInv(\"" + safeName + "\",\"" + safeVendor + "\",\"" + safeUnit + "\",\"stock\",this.value)'></div>"
+      + "oninput='setInv(\"" + safeName + "\",\"" + safeVendor + "\",\"" + safeUnit + "\",\"stock\",this.value,\"" + itemId + "\")'></div>"
       + "<div class='inv-field'><label>Units To Order</label>"
       + "<input type='number' min='0' step='0.5' placeholder='—' value='" + ov + "' class='" + (ov !== "" ? "has-o" : "") + "' "
-      + "oninput='setInv(\"" + safeName + "\",\"" + safeVendor + "\",\"" + safeUnit + "\",\"order\",this.value)'></div>"
+      + "oninput='setInv(\"" + safeName + "\",\"" + safeVendor + "\",\"" + safeUnit + "\",\"order\",this.value,\"" + itemId + "\")'></div>"
       + "</div></div>";
   });
   listContainer.innerHTML = html || "<div style='padding:20px;text-align:center;color:#aaa'>No products matching filter</div>";
 }
 
-function setInv(name, vendor, unit, field, val) {
+function setInv(name, vendor, unit, field, val, itemId) {
   if (!S.invData[name]) S.invData[name] = { vendor: vendor, orderUnit: unit };
   S.invData[name][field] = (val === "") ? undefined : (parseFloat(val) || 0);
+  // Clear error highlight when stock field is filled
+  if (field === "stock" && S.invData[name].stock !== undefined && itemId) {
+    var card = document.getElementById(itemId);
+    if (card) {
+      card.classList.remove("error-highlight");
+      var stockInput = card.querySelectorAll(".inv-field input")[0];
+      if (stockInput) stockInput.classList.remove("error-field");
+    }
+  }
   var done   = Object.keys(S.invData).filter(function(n) { return S.invData[n].stock !== undefined; }).length;
   var orders = Object.values(S.invData).filter(function(d) { return d.order && d.order > 0; }).length;
   var ep = document.getElementById("inv-prog"); if (ep) ep.textContent = done;
   var eo = document.getElementById("inv-order-cnt"); if (eo) eo.textContent = orders;
+  var active = S.products.filter(function(p) { return p.category === "GROCERY"; });
+  var hasAny = done > 0;
+  var submitBtn = document.getElementById("inv-submit-btn");
+  if (submitBtn) {
+    submitBtn.disabled = !hasAny;
+    submitBtn.style.background = hasAny ? "#1A7A3C" : "#ccc";
+    submitBtn.style.cursor = hasAny ? "pointer" : "not-allowed";
+  }
 }
 
 function showInvPanel(p) {
@@ -982,6 +1004,42 @@ function clearInvPanel() {
 }
 
 function submitInv() {
+  var active = S.products.filter(function(p) { return p.category === "GROCERY"; });
+
+  // Validate: find any product missing a stock count
+  var missing = [];
+  active.forEach(function(p) {
+    var d = S.invData[p.name];
+    if (!d || d.stock === undefined) {
+      missing.push(p.name);
+    }
+  });
+
+  if (missing.length) {
+    // Highlight missing items red
+    var listEl = document.getElementById("inv-list");
+    var firstCard = null;
+    if (listEl) {
+      active.forEach(function(p) {
+        if (missing.indexOf(p.name) === -1) return;
+        var itemId = "inv-item-" + p.name.replace(/[^a-zA-Z0-9]/g, "_");
+        var card = document.getElementById(itemId);
+        if (card) {
+          card.classList.add("error-highlight");
+          var stockInput = card.querySelectorAll(".inv-field input")[0];
+          if (stockInput) stockInput.classList.add("error-field");
+          if (!firstCard) firstCard = card;
+        }
+      });
+    }
+    if (firstCard) firstCard.scrollIntoView({ behavior: "smooth", block: "center" });
+    toast(missing.length === 1
+      ? "⚠ 1 item still needs a count — highlighted in red"
+      : "⚠ " + missing.length + " items still need a count — highlighted in red",
+      "err");
+    return;
+  }
+
   var countEntries = [], orderEntries = [];
   Object.keys(S.invData).forEach(function(name) {
     var d = S.invData[name];
@@ -989,13 +1047,29 @@ function submitInv() {
     if (d.order !== undefined && d.order > 0) orderEntries.push({ name: name, vendor: d.vendor || "", qty: d.order, orderUnit: d.orderUnit || "Case" });
   });
   if (!countEntries.length && !orderEntries.length) { toast("Nothing to submit", "err"); return; }
+
+  var submitBtn = document.getElementById("inv-submit-btn");
+  if (submitBtn) { submitBtn.textContent = "Submitting…"; submitBtn.disabled = true; }
+
   var staff   = S.staff.inv;
   var pending = 0;
   if (countEntries.length) pending++;
   if (orderEntries.length) pending++;
-  function done() { pending--; if (pending === 0) { toast("✓ Submitted for Approval", "ok"); setTimeout(function() { goBack(); }, 1500); } }
-  if (countEntries.length) apiPost("logCount", { entries: countEntries, staff: staff }, done, function() { toast("Count save error", "err"); });
-  if (orderEntries.length) apiPost("submitOrderProposal", { entries: orderEntries, staff: staff, category: "GROCERY" }, done, function() { toast("Order save error", "err"); });
+
+  function done() {
+    pending--;
+    if (pending === 0) {
+      toast("✓ Submitted for Approval", "ok");
+      setTimeout(function() { goBack(); }, 1500);
+    }
+  }
+  function fail(err) {
+    toast(friendlyError(err), "err");
+    if (submitBtn) { submitBtn.textContent = "→ Submit to Peter for Approval"; submitBtn.disabled = false; }
+  }
+
+  if (countEntries.length)  apiPostReal("logCount",             { entries: countEntries, staff: staff }, done, fail);
+  if (orderEntries.length)  apiPostReal("submitOrderProposal",  { entries: orderEntries, staff: staff, category: "GROCERY" }, done, fail);
 }
 
 
@@ -1005,7 +1079,7 @@ function submitInv() {
 
 function getThisSunday() {
   var d   = new Date();
-  var day = d.getDay();   // 0=Sun
+  var day = d.getDay();
   d.setDate(d.getDate() - day);
   var mm  = String(d.getMonth() + 1).padStart(2, "0");
   var dd  = String(d.getDate()).padStart(2, "0");
@@ -1028,16 +1102,18 @@ function renderFishList() {
   var list = document.getElementById("fish-list");
   if (!list) return;
   var fishProducts = S.products.filter(function(p) { return p.category === "FISH"; });
-  var counted = Object.keys(S.fishData).filter(function(n) { return S.fishData[n].stock !== undefined; }).length;
-  var ordering= Object.values(S.fishData).filter(function(d) { return d.proposed && d.proposed > 0; }).length;
+  var counted  = Object.keys(S.fishData).filter(function(n) { return S.fishData[n].stock !== undefined; }).length;
+  var ordering = Object.values(S.fishData).filter(function(d) { return d.proposed && d.proposed > 0; }).length;
   var ep = document.getElementById("fish-inv-prog");      if (ep) ep.textContent = counted;
   var eo = document.getElementById("fish-inv-order-cnt"); if (eo) eo.textContent = ordering;
+  var hasAny    = counted > 0;
   var allCounted = fishProducts.length > 0 && counted >= fishProducts.length;
   var submitBtn  = document.getElementById("fish-submit-btn");
   if (submitBtn) {
-    submitBtn.disabled = !allCounted;
-    submitBtn.style.opacity = allCounted ? "1" : "0.4";
-    submitBtn.style.cursor  = allCounted ? "pointer" : "not-allowed";
+    submitBtn.disabled = !hasAny;
+    submitBtn.style.opacity = hasAny ? "1" : "0.4";
+    submitBtn.style.cursor  = hasAny ? "pointer" : "not-allowed";
+    submitBtn.style.background = allCounted ? "#E64A2E" : "#c0392b";
   }
 
   var html = "", cv = "";
@@ -1067,11 +1143,12 @@ function renderFishList() {
     var cons     = S.consumption[p.name];
     var consStr  = cons !== undefined ? cons + " " + (p.orderUnit || "unit") + "/wk" : "—";
 
-    var safeName = p.name.replace(/'/g, "\\'").replace(/"/g, "&quot;");
-    var safeVendor=(p.vendor||"").replace(/'/g, "\\'").replace(/"/g, "&quot;");
-    var safeUnit = (p.orderUnit||"Each").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    var safeName   = p.name.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    var safeVendor = (p.vendor||"").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    var safeUnit   = (p.orderUnit||"Each").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    var cardId     = "fi-" + p.name.replace(/[^a-zA-Z0-9]/g, "_");
 
-    html += "<div class='fish-item' id='fi-" + safeName.replace(/\s/g,"_") + "'>"
+    html += "<div class='fish-item' id='" + cardId + "'>"
       + "<div class='fish-item-top'>"
       + "<div style='flex:1;min-width:0'>"
       + "<div class='fish-item-name'>" + p.name + "</div>"
@@ -1090,11 +1167,11 @@ function renderFishList() {
       + "<div class='fish-item-rows'>"
       + "<div class='fish-field'><label>In Stock</label>"
       + "<input type='number' min='0' step='0.5' placeholder='—' value='" + sv + "' class='" + (sv !== "" ? "has-s" : "") + "' "
-      + "oninput='setFish(\"" + safeName + "\",\"" + safeVendor + "\",\"" + safeUnit + "\",\"stock\",this.value,\"fi-" + safeName.replace(/\s/g,"_") + "\")'>"
+      + "oninput='setFish(\"" + safeName + "\",\"" + safeVendor + "\",\"" + safeUnit + "\",\"stock\",this.value,\"" + cardId + "\")'>"
       + "</div>"
       + "<div class='fish-field'><label>To Order</label>"
       + "<input type='number' min='0' step='0.5' placeholder='—' value='" + pv + "' class='" + (pv !== "" ? "has-p" : "") + "' "
-      + "oninput='setFish(\"" + safeName + "\",\"" + safeVendor + "\",\"" + safeUnit + "\",\"proposed\",this.value,\"fi-" + safeName.replace(/\s/g,"_") + "\")'>"
+      + "oninput='setFish(\"" + safeName + "\",\"" + safeVendor + "\",\"" + safeUnit + "\",\"proposed\",this.value,\"" + cardId + "\")'>"
       + "</div>"
       + "</div>"
 
@@ -1112,25 +1189,37 @@ function renderFishList() {
 function setFish(name, vendor, unit, field, val, cardId) {
   if (!S.fishData[name]) S.fishData[name] = { vendor: vendor, unit: unit, note: "" };
   S.fishData[name][field] = (val === "") ? undefined : (parseFloat(val) || 0);
-  // Update input highlight class without full re-render
+
+  // Update input highlight + clear error state if stock just filled
   var card = document.getElementById(cardId);
   if (card) {
     var inputs = card.querySelectorAll(".fish-field input");
-    if (inputs[0]) inputs[0].className = "fish-field input " + (S.fishData[name].stock !== undefined ? "has-s" : "");
-    if (inputs[1]) inputs[1].className = "fish-field input " + (S.fishData[name].proposed !== undefined ? "has-p" : "");
+    if (inputs[0]) {
+      inputs[0].className = (S.fishData[name].stock !== undefined ? "has-s" : "");
+      if (field === "stock" && S.fishData[name].stock !== undefined) {
+        inputs[0].classList.remove("error-field");
+        card.classList.remove("error-highlight");
+      }
+    }
+    if (inputs[1]) {
+      inputs[1].className = (S.fishData[name].proposed !== undefined ? "has-p" : "");
+    }
   }
+
   // Update summary counters
-  var counted  = Object.keys(S.fishData).filter(function(n) { return S.fishData[n].stock !== undefined; }).length;
-  var ordering = Object.values(S.fishData).filter(function(d) { return d.proposed && d.proposed > 0; }).length;
-  var fishTotal= S.products.filter(function(p) { return p.category === "FISH"; }).length;
+  var counted   = Object.keys(S.fishData).filter(function(n) { return S.fishData[n].stock !== undefined; }).length;
+  var ordering  = Object.values(S.fishData).filter(function(d) { return d.proposed && d.proposed > 0; }).length;
+  var fishTotal = S.products.filter(function(p) { return p.category === "FISH"; }).length;
   var ep = document.getElementById("fish-inv-prog");      if (ep) ep.textContent = counted;
   var eo = document.getElementById("fish-inv-order-cnt"); if (eo) eo.textContent = ordering;
   var submitBtn = document.getElementById("fish-submit-btn");
   if (submitBtn) {
+    var hasAny  = counted > 0;
     var allDone = fishTotal > 0 && counted >= fishTotal;
-    submitBtn.disabled      = !allDone;
-    submitBtn.style.opacity = allDone ? "1" : "0.4";
-    submitBtn.style.cursor  = allDone ? "pointer" : "not-allowed";
+    submitBtn.disabled      = !hasAny;
+    submitBtn.style.opacity = hasAny ? "1" : "0.4";
+    submitBtn.style.cursor  = hasAny ? "pointer" : "not-allowed";
+    submitBtn.style.background = allDone ? "#E64A2E" : "#c0392b";
   }
 }
 
@@ -1140,8 +1229,43 @@ function setFishNote(name, val) {
 }
 
 function submitFishInv() {
+  var fishProducts = S.products.filter(function(p) { return p.category === "FISH"; });
+
+  // Validate: highlight any SKU missing a stock count
+  var missing = [];
+  fishProducts.forEach(function(p) {
+    var d = S.fishData[p.name];
+    var cardId = "fi-" + p.name.replace(/[^a-zA-Z0-9]/g, "_");
+    var card = document.getElementById(cardId);
+    if (!d || d.stock === undefined) {
+      missing.push({ name: p.name, cardId: cardId });
+      if (card) {
+        card.classList.add("error-highlight");
+        var stockInput = card.querySelectorAll(".fish-field input")[0];
+        if (stockInput) stockInput.classList.add("error-field");
+      }
+    } else {
+      // Clear any stale error highlight
+      if (card) {
+        card.classList.remove("error-highlight");
+        var stockInput = card.querySelectorAll(".fish-field input")[0];
+        if (stockInput) stockInput.classList.remove("error-field");
+      }
+    }
+  });
+
+  if (missing.length) {
+    var firstCard = document.getElementById(missing[0].cardId);
+    if (firstCard) firstCard.scrollIntoView({ behavior: "smooth", block: "center" });
+    toast(missing.length === 1
+      ? "⚠ 1 item still needs a stock count — highlighted in red"
+      : "⚠ " + missing.length + " items still need a stock count — highlighted in red",
+      "err");
+    return;
+  }
+
   var entries = [];
-  S.products.filter(function(p) { return p.category === "FISH"; }).forEach(function(p) {
+  fishProducts.forEach(function(p) {
     var d = S.fishData[p.name] || {};
     entries.push({
       name:     p.name,
@@ -1152,14 +1276,17 @@ function submitFishInv() {
       note:     d.note     || ""
     });
   });
+
   if (!entries.length) { toast("Nothing to submit", "err"); return; }
   var btn = document.getElementById("fish-submit-btn");
   if (btn) { btn.textContent = "Submitting…"; btn.disabled = true; }
-  apiPost("submitFishInventory", { entries: entries, staff: S.staff.fish, weekOf: S.fishWeekOf }, function() {
+
+  // Use real fetch POST — avoids URL-length limit that causes silent failures on JSONP transport
+  apiPostReal("submitFishInventory", { entries: entries, staff: S.staff.fish, weekOf: S.fishWeekOf }, function() {
     toast("✓ Fish order submitted to Peter", "ok");
     setTimeout(function() { goBack(); }, 1600);
-  }, function() {
-    toast("Submit failed — try again", "err");
+  }, function(err) {
+    toast(friendlyError(err), "err");
     if (btn) { btn.textContent = "🐟 Submit Fish Order to Peter"; btn.disabled = false; }
   });
 }
@@ -1213,9 +1340,11 @@ function submitApproval() {
     return { rowIndex: item.rowIndex, name: item.name, vendor: item.vendor,
              qtyProposed: item.qtyProposed, qtyApproved: el ? el.value : 0, orderUnit: item.orderUnit };
   });
-  apiPost("submitApprovals", { approvals: approvals, weekDate: token }, function() {
+  apiPostReal("submitApprovals", { approvals: approvals, weekDate: token }, function() {
     toast("✓ Order approved — report sent", "ok");
     setTimeout(function() { goBack(); goBack(); }, 2000);
+  }, function(err) {
+    toast(friendlyError(err), "err");
   });
 }
 
@@ -1246,24 +1375,21 @@ function loadFishApproval() {
     Object.keys(byVendor).sort().forEach(function(v) {
       html += "<div class='vhdr'>🐟 " + v + "</div>";
       byVendor[v].forEach(function(item) {
-        var parAvg  = item.parAvg !== undefined && item.parAvg !== "" ? item.parAvg : "—";
-        var note    = item.proposedNote ? item.proposedNote.toString().trim() : "";
+        var parAvg    = item.parAvg !== undefined && item.parAvg !== "" ? item.parAvg : "—";
+        var note      = item.proposedNote ? item.proposedNote.toString().trim() : "";
         var stockDisp = item.qtyInStock !== undefined ? item.qtyInStock : "—";
         html += "<div class='fish-appr-item'>"
           + "<div class='fish-appr-name'>" + item.name + "</div>"
           + "<div class='fish-appr-meta'>" + item.vendor + " · " + (item.unit || "") + "</div>"
 
-          // Stats
           + "<div class='fish-appr-stats'>"
           + "<div class='fish-appr-stat'><strong>" + stockDisp + "</strong>In Stock</div>"
           + "<div class='fish-appr-stat highlight'><strong>" + parAvg + "</strong>4-wk Avg</div>"
           + "<div class='fish-appr-stat'><strong>" + item.qtyProposed + "</strong>Proposed</div>"
           + "</div>"
 
-          // Staff note (read-only display)
           + (note ? "<div class='fish-appr-note-in'>💬 " + note + "</div>" : "")
 
-          // Approved qty + Peter's note
           + "<div class='fish-appr-controls'>"
           + "<div style='text-align:center;flex-shrink:0'>"
           + "<div style='font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px'>Approved</div>"
@@ -1283,8 +1409,8 @@ function loadFishApproval() {
 function submitFishApproval() {
   var token    = document.getElementById("fish-appr-date").value;
   var approvals= S.fishApprItems.map(function(item) {
-    var qtyEl   = document.getElementById("fa-" + item.rowIndex);
-    var noteEl  = document.getElementById("fn-" + item.rowIndex);
+    var qtyEl  = document.getElementById("fa-" + item.rowIndex);
+    var noteEl = document.getElementById("fn-" + item.rowIndex);
     return {
       rowIndex:    item.rowIndex,
       name:        item.name,
@@ -1295,11 +1421,11 @@ function submitFishApproval() {
       peterNote:   noteEl ? noteEl.value.trim() : ""
     };
   });
-  apiPost("submitFishApprovals", { approvals: approvals, weekDate: token }, function() {
+  apiPostReal("submitFishApprovals", { approvals: approvals, weekDate: token }, function() {
     toast("✓ Fish order approved — team notified", "ok");
     setTimeout(function() { goBack(); goBack(); }, 2000);
-  }, function() {
-    toast("Submit failed — try again", "err");
+  }, function(err) {
+    toast(friendlyError(err), "err");
   });
 }
 
@@ -1403,14 +1529,43 @@ function toast(msg, type) {
   el.textContent = msg;
   el.className = "toast" + (type ? " " + type : "") + " show";
   if (_tt) clearTimeout(_tt);
-  _tt = setTimeout(function() { el.classList.remove("show"); }, 2800);
+  _tt = setTimeout(function() { el.classList.remove("show"); }, 3400);
 }
 
 
 // ════════════════════════════════════════════════════════
-//  API TRANSPORT  (JSONP via script tag)
+//  ERROR TRANSLATOR — plain English, no tech-speak
 // ════════════════════════════════════════════════════════
 
+function friendlyError(raw) {
+  var r = (raw || "").toString().toLowerCase();
+  if (r.includes("networkerror") || r.includes("failed to fetch") || r.includes("load failed") || r.includes("http 0")) {
+    return "Can't reach the server. Check your connection and try again.";
+  }
+  if (r.includes("http 5") || r.includes("500") || r.includes("502") || r.includes("503")) {
+    return "The server ran into a problem. Wait 30 seconds and try again.";
+  }
+  if (r.includes("timeout") || r.includes("timed out")) {
+    return "The request took too long — your connection may be slow. Try again.";
+  }
+  if (r.includes("fish_db") || r.includes("not found")) {
+    return "The fish database sheet couldn't be found. Ask Rudi to check the sheet setup.";
+  }
+  if (r.includes("quota") || r.includes("rate limit")) {
+    return "Too many requests right now. Wait a minute and try again.";
+  }
+  if (r.includes("permission") || r.includes("unauthorized") || r.includes("403")) {
+    return "Permission denied — the sheet may need to be reshared. Let Rudi know.";
+  }
+  return "Something went wrong. Try again, or let Rudi know if it keeps happening.";
+}
+
+
+// ════════════════════════════════════════════════════════
+//  API TRANSPORT
+// ════════════════════════════════════════════════════════
+
+// JSONP GET — used for read-only calls (small payloads)
 function api(fn, params, cb, errCb) {
   var p = params || {};
   p.fn = fn;
@@ -1435,9 +1590,35 @@ function api(fn, params, cb, errCb) {
   document.head.appendChild(s);
 }
 
+// Legacy alias — small write calls still use JSONP (intake, add product, SKU edits)
 function apiPost(fn, body, cb, errCb) {
   api(fn, { data: JSON.stringify(body) }, cb, errCb);
 }
+
+// True HTTP POST — used for all large write payloads (inventory submit, approvals)
+// Prevents URL-length overflow that caused "Submit failed" on JSONP transport
+function apiPostReal(fn, body, cb, errCb) {
+  fetch(API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ fn: fn, data: body })
+  })
+  .then(function(r) {
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    return r.json();
+  })
+  .then(function(d) {
+    if (d && d.error) {
+      if (errCb) errCb(d.error);
+    } else {
+      if (cb) cb(d && d.result !== undefined ? d.result : d);
+    }
+  })
+  .catch(function(err) {
+    if (errCb) errCb(err.toString());
+  });
+}
+
 </script>
 </body>
 </html>
