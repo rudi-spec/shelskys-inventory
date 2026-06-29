@@ -8,6 +8,7 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f2f2f7;min-height:100vh;color:#1a1a1a}
 
+/* ── PIN ── */
 #pin-screen{position:fixed;inset:0;background:#1a1a1a;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;padding:32px}
 #pin-screen h1{color:#fff;font-size:22px;font-weight:700;margin-bottom:6px;letter-spacing:0.5px}
 #pin-screen p{color:#888;font-size:14px;margin-bottom:32px}
@@ -21,13 +22,16 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .pin-key.zero{grid-column:2}
 .pin-error{color:#ff4444;font-size:13px;margin-top:12px;height:18px}
 
+/* ── HEADER ── */
 .header{background:#E64A2E;color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
 .header h1{font-size:18px;font-weight:700;flex:1;letter-spacing:0.8px;text-transform:uppercase}
 .back-btn{background:rgba(255,255,255,0.22);border:none;color:#fff;padding:6px 12px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
 
+/* ── SCREENS ── */
 .screen{display:none;padding:14px;max-width:560px;margin:0 auto;padding-bottom:40px}
 .screen.active{display:block}
 
+/* ── HOME ── */
 .sec-label{font-size:11px;font-weight:700;color:#888;letter-spacing:1px;text-transform:uppercase;margin:16px 0 8px}
 .home-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .home-card{background:#fff;border-radius:14px;padding:18px 14px;text-align:center;cursor:pointer;border:1.5px solid #e5e5e5;transition:transform 0.12s}
@@ -38,26 +42,39 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .home-card.full{grid-column:1/-1}
 .home-card.dark{background:#1a1a1a;border-color:#1a1a1a}
 .home-card.dark .label,.home-card.dark .sub{color:#fff}
-.home-card.fish{background:#fff;border-color:#E64A2E;border-width:2px}
 
-.vendor-roller{display:flex;overflow-x:auto;gap:8px;padding:8px 4px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none;snap-type:x mandatory}
+/* Category accent cards */
+.home-card.fish{background:#fff;border-color:#E64A2E;border-width:2px}
+.home-card.cc{background:#fff;border-color:#7B4F9E;border-width:2px}
+.home-card.paper{background:#fff;border-color:#2E7D9E;border-width:2px}
+.home-card.kitchen{background:#fff;border-color:#2E7A47;border-width:2px}
+
+/* Full-width approve buttons */
+.appr-btn-fish{background:#E64A2E;border-color:#E64A2E}
+.appr-btn-cc{background:#7B4F9E;border-color:#7B4F9E}
+.appr-btn-paper{background:#2E7D9E;border-color:#2E7D9E}
+.appr-btn-kitchen{background:#2E7A47;border-color:#2E7A47}
+
+/* ── VENDOR ROLLER ── */
+.vendor-roller{display:flex;overflow-x:auto;gap:8px;padding:8px 4px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .vendor-roller::-webkit-scrollbar{display:none}
-.vr-btn{flex-shrink:0;padding:10px 18px;border-radius:20px;border:1.5px solid #e5e5e5;background:#fff;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;color:#1a1a1a;box-shadow:0 1px 3px rgba(0,0,0,0.05);transition:all 0.15s ease;snap-align:start}
+.vr-btn{flex-shrink:0;padding:10px 18px;border-radius:20px;border:1.5px solid #e5e5e5;background:#fff;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;color:#1a1a1a;transition:all 0.15s ease}
 .vr-btn:active{transform:scale(0.96)}
-.vr-btn.on{background:#1a1a1a;color:#fff;border-color:#1a1a1a;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.vr-btn.on{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
 .vr-btn.needs-classification{border-color:#f5c842;background:#fff8e8;color:#b8860b}
 .vr-btn.needs-classification.on{background:#f5c842;color:#fff;border-color:#f5c842}
 
+/* ── SCANNER ── */
 .scan-btn{width:100%;padding:14px;background:#1a1a1a;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
 .scan-btn:active{opacity:0.85}
 .scan-btn.red{background:#CC0000}
-
 .scanner-box{width:100%;max-width:400px;margin:0 auto 12px;border-radius:12px;overflow:hidden;background:#000;display:none;position:relative}
 .scanner-box video{width:100%;height:240px;object-fit:cover;display:block}
 .scan-line{position:absolute;top:30%;left:10%;right:10%;height:2px;background:#ff0;opacity:0.8;animation:scanmove 1.5s ease-in-out infinite}
 @keyframes scanmove{0%,100%{top:30%}50%{top:70%}}
 .scan-hint{text-align:center;padding:8px;background:rgba(0,0,0,0.75);color:#fff;font-size:12px}
 
+/* ── PANELS ── */
 .panel{background:#fff;border-radius:14px;padding:16px;border:2px solid #1a1a1a;margin-bottom:12px}
 .panel-name{font-size:15px;font-weight:700;margin-bottom:2px}
 .panel-meta{font-size:12px;color:#888;margin-bottom:6px}
@@ -74,10 +91,10 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .qty-steps button{width:40px;height:40px;border:1.5px solid #e0e0e0;border-radius:8px;background:#fff;font-size:20px;cursor:pointer;color:#1a1a1a}
 .qty-steps button:active{background:#f0f0f0}
 
+/* ── FORMS ── */
 .missing-unit{background:#fff3cd;border:1.5px solid #ffc107;border-radius:10px;padding:10px 13px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
 .missing-unit span{font-size:12px;color:#856404}
 .missing-unit button{background:#1a1a1a;color:#fff;border:none;border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer}
-
 .new-sku-section{background:#fff8e8;border:1.5px solid #f5c842;border-radius:12px;padding:14px;margin-top:10px}
 .new-sku-section .nss-title{font-size:13px;font-weight:700;color:#b8860b;margin-bottom:10px}
 .form-field{margin-bottom:10px}
@@ -86,31 +103,38 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:#1a1a1a}
 .form-field textarea{resize:none;min-height:60px;line-height:1.4}
 
+/* ── SEARCH ── */
 .search-wrap{position:relative;margin-bottom:10px}
 .search-wrap input{width:100%;padding:12px 14px 12px 38px;border-radius:10px;border:1.5px solid #e0e0e0;font-size:15px;background:#fff;outline:none;-webkit-appearance:none}
 .search-wrap input:focus{border-color:#1a1a1a}
 .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:15px;color:#bbb;pointer-events:none}
 
+/* ── SUMBAR ── */
 .sumbar{background:#1a1a1a;color:#fff;border-radius:10px;padding:11px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
 .sv{font-size:18px;font-weight:700}
 .sl{font-size:11px;color:#aaa}
 
+/* ── STAFF ── */
 .staff-sel{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
 .staff-btn{padding:10px;border:1.5px solid #e0e0e0;border-radius:10px;background:#fff;font-size:13px;font-weight:600;cursor:pointer;text-align:center}
 .staff-btn.on{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
 
+/* ── BUTTONS ── */
 .btn{width:100%;padding:14px;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;margin-top:8px}
 .btn:active{opacity:0.85}
 .btn-dark{background:#1a1a1a;color:#fff}
 .btn-green{background:#1A7A3C;color:#fff}
 .btn-red{background:#E64A2E;color:#fff}
+.btn-purple{background:#7B4F9E;color:#fff}
+.btn-blue{background:#2E7D9E;color:#fff}
+.btn-teal{background:#2E7A47;color:#fff}
 .btn-outline{background:#fff;color:#1a1a1a;border:1.5px solid #e0e0e0}
 
+/* ── INVENTORY ITEMS ── */
 .inv-item{background:#fff;border-radius:10px;padding:12px 13px;border:1.5px solid #e5e5e5;margin-bottom:8px;transition:border-color 0.2s,background 0.2s}
 .inv-item.error-highlight{border:2px solid #CC0000 !important;background:#fff5f5 !important}
 .inv-item-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
 .inv-item-name{font-size:14px;font-weight:700;flex:1;margin-right:8px;letter-spacing:0.2px}
-.inv-item-vendor{font-size:11px;color:#888}
 .inv-item-rows{display:flex;gap:8px}
 .inv-field{flex:1;text-align:center}
 .inv-field label{display:block;font-size:10px;font-weight:700;color:#888;text-transform:uppercase;margin-bottom:4px}
@@ -121,7 +145,7 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .inv-field input.error-field{border-color:#CC0000 !important;background:#fff0f0 !important}
 .inv-util-badge{display:inline-block;font-size:10px;font-weight:700;color:#b8860b;background:#fff8e8;border:1px solid #f5c842;padding:2px 6px;border-radius:4px;margin-top:4px}
 
-/* Fish-specific item card */
+/* ── FISH ITEMS ── */
 .fish-item{background:#fff;border-radius:10px;padding:13px;border:1.5px solid #e5e5e5;margin-bottom:10px;transition:border-color 0.2s,background 0.2s}
 .fish-item.error-highlight{border:2px solid #CC0000 !important;background:#fff5f5 !important}
 .fish-item-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
@@ -140,7 +164,7 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .fish-note:focus{border-color:#1a1a1a;background:#fff}
 .fish-note.has-note{border-color:#888;background:#f9f9f9}
 
-/* Fish approval item */
+/* ── FISH APPROVAL ── */
 .fish-appr-item{background:#fff;border-radius:10px;padding:13px;margin-bottom:10px;border:1.5px solid #e5e5e5}
 .fish-appr-name{font-size:14px;font-weight:700}
 .fish-appr-meta{font-size:11px;color:#888;margin-bottom:8px}
@@ -154,6 +178,7 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .fish-peter-note{flex:1;padding:9px 10px;font-size:12px;border:1.5px solid #e0e0e0;border-radius:8px;font-family:inherit;-webkit-appearance:none;outline:none}
 .fish-peter-note:focus{border-color:#1a1a1a}
 
+/* ── GROCERY APPROVAL ── */
 .appr-item{background:#fff;border-radius:10px;padding:13px;margin-bottom:8px;border:1.5px solid #e5e5e5}
 .appr-name{font-size:14px;font-weight:700}
 .appr-meta{font-size:11px;color:#888;margin-bottom:8px}
@@ -161,25 +186,21 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .appr-stat{flex:1;text-align:center;font-size:11px;color:#888}
 .appr-stat strong{display:block;font-size:15px;font-weight:700;color:#1a1a1a}
 
+/* ── MISC ── */
 .vhdr{font-size:11px;font-weight:700;color:#888;letter-spacing:0.8px;text-transform:uppercase;padding:8px 0 4px;border-bottom:1px solid #eee;margin:12px 0 6px}
-
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:500;display:flex;align-items:flex-end}
 .modal{background:#fff;border-radius:16px 16px 0 0;padding:20px 16px 32px;width:100%;max-width:560px;margin:0 auto}
 .modal h3{font-size:16px;font-weight:700;margin-bottom:14px}
-
 .inact-item{background:#fff;border-radius:10px;padding:11px 13px;border:1.5px solid #ffd0d0;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
 .inact-btns{display:flex;gap:6px}
 .inact-btn{padding:6px 11px;border-radius:6px;border:none;font-size:12px;font-weight:600;cursor:pointer}
 .inact-keep{background:#f0f0f0;color:#333}
 .inact-rem{background:#CC0000;color:#fff}
-
 .week-badge{display:inline-block;background:#E64A2E;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;letter-spacing:0.4px;margin-bottom:10px}
-
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;color:#fff;padding:11px 20px;border-radius:24px;font-size:14px;font-weight:600;transition:transform 0.3s;z-index:9998;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,0.25);pointer-events:none;max-width:90vw;white-space:normal;text-align:center}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a1a;color:#fff;padding:11px 20px;border-radius:24px;font-size:14px;font-weight:600;transition:transform 0.3s;z-index:9998;max-width:90vw;white-space:normal;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,0.25);pointer-events:none}
 .toast.show{transform:translateX(-50%) translateY(0)}
 .toast.ok{background:#1A7A3C}
 .toast.err{background:#CC0000}
-
 .loading{text-align:center;padding:36px;color:#888}
 .spinner{width:28px;height:28px;border:3px solid #eee;border-top-color:#1a1a1a;border-radius:50%;animation:spin 0.7s linear infinite;margin:0 auto 10px}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -187,15 +208,13 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 </head>
 <body>
 
-<!-- ── PIN SCREEN ────────────────────────────────────────── -->
+<!-- PIN SCREEN -->
 <div id="pin-screen">
   <h1>Shelsky's Inventory</h1>
   <p>Enter your PIN to continue</p>
   <div class="pin-dots">
-    <div class="pin-dot" id="d0"></div>
-    <div class="pin-dot" id="d1"></div>
-    <div class="pin-dot" id="d2"></div>
-    <div class="pin-dot" id="d3"></div>
+    <div class="pin-dot" id="d0"></div><div class="pin-dot" id="d1"></div>
+    <div class="pin-dot" id="d2"></div><div class="pin-dot" id="d3"></div>
   </div>
   <div class="pin-pad">
     <button class="pin-key" onclick="pinKey('1')">1</button>
@@ -213,50 +232,36 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
   <div class="pin-error" id="pin-err"></div>
 </div>
 
-<!-- ── HEADER ────────────────────────────────────────────── -->
+<!-- HEADER -->
 <div class="header">
   <button class="back-btn" id="back-btn" onclick="goBack()" style="display:none">← Back</button>
   <h1 id="hdr-title">Shelsky's Inventory</h1>
 </div>
 <div id="toast" class="toast"></div>
 
-<!-- ── SKU EDIT MODAL ────────────────────────────────────── -->
+<!-- SKU EDIT MODAL -->
 <div class="modal-bg" id="sku-modal" style="display:none" onclick="closeSkuModal(event)">
   <div class="modal">
     <h3 id="sku-modal-title">Edit SKU</h3>
-    <div class="form-field">
-      <label>Product Name *</label>
-      <input type="text" id="sku-modal-name" placeholder="e.g. Ritter Sport Dark Chocolate">
-    </div>
+    <div class="form-field"><label>Product Name *</label><input type="text" id="sku-modal-name" placeholder="Product name"></div>
     <div class="form-field">
       <label>Vendor *</label>
-      <input type="text" id="sku-modal-vendor" placeholder="e.g. Acme" list="vendor-list" autocomplete="off">
+      <input type="text" id="sku-modal-vendor" list="vendor-list" autocomplete="off">
       <datalist id="vendor-list"></datalist>
     </div>
-    <div class="form-field">
-      <label>Order Unit</label>
+    <div class="form-field"><label>Order Unit</label>
       <select id="sku-modal-orderunit">
         <option>Case</option><option>Box</option><option>Bag</option><option>Tub</option>
         <option>Each</option><option>Side</option><option>Pail</option><option>Fish</option>
         <option>Piece</option><option>Plate</option><option>Jar</option><option>Loin</option>
-        <option>Pack</option><option>LBs</option><option>Other</option>
+        <option>Pack</option><option>LBs</option><option>Bucket</option><option>Other</option>
       </select>
     </div>
     <div style="display:flex;gap:10px">
-      <div class="form-field" style="flex:1">
-        <label>Unit Count</label>
-        <input type="number" id="sku-modal-unitcount" min="1" step="1" placeholder="e.g. 12">
-      </div>
-      <div class="form-field" style="flex:1">
-        <label>Size</label>
-        <input type="number" id="sku-modal-size" min="0" step="0.1" placeholder="e.g. 3.5">
-      </div>
-      <div class="form-field" style="flex:1">
-        <label>UOM</label>
-        <select id="sku-modal-uom">
-          <option value="">—</option><option>oz</option><option>gram</option>
-          <option>ml</option><option>lb</option><option>kg</option><option>liter</option>
-        </select>
+      <div class="form-field" style="flex:1"><label>Unit Count</label><input type="number" id="sku-modal-unitcount" min="1" step="1" placeholder="e.g. 12"></div>
+      <div class="form-field" style="flex:1"><label>Size</label><input type="number" id="sku-modal-size" min="0" step="0.1" placeholder="e.g. 3.5"></div>
+      <div class="form-field" style="flex:1"><label>UOM</label>
+        <select id="sku-modal-uom"><option value="">—</option><option>oz</option><option>gram</option><option>ml</option><option>lb</option><option>kg</option><option>liter</option></select>
       </div>
     </div>
     <button class="btn btn-dark" onclick="saveSkuEdit()">Save Changes</button>
@@ -265,13 +270,14 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 </div>
 
 
-<!-- ════════════════════════════════════════════════════════
+<!-- ════════════════════════════════════════
      HOME
-═════════════════════════════════════════════════════════ -->
+═════════════════════════════════════════ -->
 <div id="screen-home" class="screen active">
-  <div class="sec-label">Grocery Section</div>
+
+  <div class="sec-label">🥯 Grocery</div>
   <div class="home-grid">
-    <div class="home-card" onclick="startInv('GROCERY')">
+    <div class="home-card" onclick="startIntake('GROCERY')">
       <div class="icon">📦</div><div class="label">Grocery Intake</div><div class="sub">Log delivery</div>
     </div>
     <div class="home-card" onclick="startInv('GROCERY')">
@@ -279,11 +285,43 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
     </div>
   </div>
 
-  <div class="sec-label">Fish Section</div>
+  <div class="sec-label">🐟 Fish</div>
   <div class="home-grid">
-    <div class="home-card full fish" onclick="startFishInv()">
-      <div class="icon">🐟</div><div class="label">Fish Inventory &amp; Order</div>
-      <div class="sub">Count sides, pails, pieces &amp; propose order</div>
+    <div class="home-card fish" onclick="startIntake('FISH')">
+      <div class="icon">📦</div><div class="label">Fish Intake</div><div class="sub">Log delivery</div>
+    </div>
+    <div class="home-card fish" onclick="startFishInv()">
+      <div class="icon">🐟</div><div class="label">Fish Inventory &amp; Order</div><div class="sub">Count + propose</div>
+    </div>
+  </div>
+
+  <div class="sec-label">🧀 Cream Cheese &amp; Baked Goods</div>
+  <div class="home-grid">
+    <div class="home-card cc" onclick="startIntake('CREAM_CHEESE')">
+      <div class="icon">📦</div><div class="label">CC &amp; Baked Intake</div><div class="sub">Log delivery</div>
+    </div>
+    <div class="home-card cc" onclick="startInv('CREAM_CHEESE')">
+      <div class="icon">🔢</div><div class="label">CC &amp; Baked Stock</div><div class="sub">Count + propose</div>
+    </div>
+  </div>
+
+  <div class="sec-label">📋 Paper Goods</div>
+  <div class="home-grid">
+    <div class="home-card paper" onclick="startIntake('PAPER')">
+      <div class="icon">📦</div><div class="label">Paper Intake</div><div class="sub">Log delivery</div>
+    </div>
+    <div class="home-card paper" onclick="startInv('PAPER')">
+      <div class="icon">🔢</div><div class="label">Paper Stock</div><div class="sub">Count + propose</div>
+    </div>
+  </div>
+
+  <div class="sec-label">🍳 Kitchen Goods</div>
+  <div class="home-grid">
+    <div class="home-card kitchen" onclick="startIntake('KITCHEN')">
+      <div class="icon">📦</div><div class="label">Kitchen Intake</div><div class="sub">Log delivery</div>
+    </div>
+    <div class="home-card kitchen" onclick="startInv('KITCHEN')">
+      <div class="icon">🔢</div><div class="label">Kitchen Stock</div><div class="sub">Count + propose</div>
     </div>
   </div>
 
@@ -300,29 +338,36 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
       <div class="label" style="color:#fff">Approve Fish Order</div>
       <div class="sub" style="color:rgba(255,255,255,0.75)">Peter's fish screen</div>
     </div>
+    <div class="home-card full" style="background:#7B4F9E;border-color:#7B4F9E" onclick="go('cat-approve-setup-CREAM_CHEESE')">
+      <div class="icon" style="color:#fff">🧀</div>
+      <div class="label" style="color:#fff">Approve CC &amp; Baked</div>
+      <div class="sub" style="color:rgba(255,255,255,0.75)">Peter's screen</div>
+    </div>
+    <div class="home-card full" style="background:#2E7D9E;border-color:#2E7D9E" onclick="go('cat-approve-setup-PAPER')">
+      <div class="icon" style="color:#fff">📋</div>
+      <div class="label" style="color:#fff">Approve Paper Goods</div>
+      <div class="sub" style="color:rgba(255,255,255,0.75)">Peter's screen</div>
+    </div>
+    <div class="home-card full" style="background:#2E7A47;border-color:#2E7A47" onclick="go('cat-approve-setup-KITCHEN')">
+      <div class="icon" style="color:#fff">🍳</div>
+      <div class="label" style="color:#fff">Approve Kitchen</div>
+      <div class="sub" style="color:rgba(255,255,255,0.75)">Peter's screen</div>
+    </div>
   </div>
 </div>
 
 
-<!-- ════════════════════════════════════════════════════════
-     GROCERY INTAKE SETUP
-═════════════════════════════════════════════════════════ -->
-<div id="screen-intake-setup" class="screen">
-  <div class="sec-label">Who is logging?</div>
-  <div class="staff-sel">
-    <div class="staff-btn on" id="is-ethan" onclick="setStaff('intake','Ethan')">Ethan</div>
-    <div class="staff-btn" id="is-leo"   onclick="setStaff('intake','Leo')">Leo</div>
-    <div class="staff-btn" id="is-other" onclick="setStaff('intake','Other')">Other</div>
-  </div>
-  <button class="btn btn-dark" onclick="go('intake')">Start Intake →</button>
-</div>
-
-
-<!-- ════════════════════════════════════════════════════════
-     GROCERY INTAKE
-═════════════════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════
+     GENERIC INTAKE
+═════════════════════════════════════════ -->
 <div id="screen-intake" class="screen">
-  <button class="scan-btn" id="intake-scan-btn" onclick="toggleScan('intake')">📷 Scan Product Barcode</button>
+  <div class="sec-label" id="intake-who-label">Who is logging?</div>
+  <div class="staff-sel">
+    <div class="staff-btn on" id="intake-ethan" onclick="setStaff('intake','Ethan')">Ethan</div>
+    <div class="staff-btn" id="intake-leo"   onclick="setStaff('intake','Leo')">Leo</div>
+    <div class="staff-btn" id="intake-other" onclick="setStaff('intake','Other')">Other</div>
+  </div>
+  <button class="scan-btn" id="intake-scan-btn" onclick="toggleScan('intake')">📷 Scan Barcode</button>
   <div class="scanner-box" id="intake-scanner">
     <video id="intake-video" autoplay playsinline muted webkit-playsinline></video>
     <div class="scan-line"></div>
@@ -347,11 +392,11 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
     <div class="form-field"><label>Product Name *</label><input type="text" id="inp-name" placeholder="e.g. Heinz Ketchup"></div>
     <div class="form-field">
       <label>Vendor *</label>
-      <input type="text" id="inp-vendor" placeholder="e.g. Nassau Candy" list="inp-vendor-list" autocomplete="off">
+      <input type="text" id="inp-vendor" list="inp-vendor-list" autocomplete="off">
       <datalist id="inp-vendor-list"></datalist>
     </div>
     <div class="form-field"><label>Order Unit</label>
-      <select id="inp-unit"><option>Case</option><option>Box</option><option>Bag</option><option>Tub</option><option>Each</option><option>Side</option><option>Pail</option><option>Other</option></select>
+      <select id="inp-unit"><option>Case</option><option>Box</option><option>Bag</option><option>Tub</option><option>Each</option><option>Bucket</option><option>Side</option><option>Pail</option><option>Other</option></select>
     </div>
     <div style="display:flex;gap:10px">
       <div class="form-field" style="flex:1"><label>Unit Count</label><input type="number" id="inp-unitcount" placeholder="e.g. 12" min="1" step="1"></div>
@@ -366,15 +411,15 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
   </div>
   <div id="intake-search-wrap" class="search-wrap">
     <span class="search-icon">🔍</span>
-    <input type="text" id="intake-search" placeholder="Or search by name…" oninput="renderIntakeList()" autocomplete="off">
+    <input type="text" id="intake-search" placeholder="Search by name…" oninput="renderIntakeList()" autocomplete="off">
   </div>
-  <div id="intake-list" style="display:flex;flex-direction:column;gap:6px;max-height:50vh;overflow-y:auto"></div>
+  <div id="intake-list" style="display:flex;flex-direction:column;gap:6px;max-height:55vh;overflow-y:auto"></div>
 </div>
 
 
-<!-- ════════════════════════════════════════════════════════
-     GROCERY INVENTORY
-═════════════════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════
+     GENERIC INVENTORY (Count + Propose)
+═════════════════════════════════════════ -->
 <div id="screen-inv" class="screen">
   <div class="sumbar">
     <div><div class="sl">Items counted</div><div class="sv" id="inv-prog">0</div></div>
@@ -382,7 +427,7 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
   </div>
   <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.6px;text-transform:uppercase;margin-bottom:6px">Filter By Vendor</div>
   <div class="vendor-roller" id="inv-vendor-roller"></div>
-  <button class="scan-btn" id="inv-scan-btn" onclick="toggleScan('inv')">📷 Scan Product Barcode</button>
+  <button class="scan-btn" id="inv-scan-btn" onclick="toggleScan('inv')">📷 Scan Barcode</button>
   <div class="scanner-box" id="inv-scanner">
     <video id="inv-video" autoplay playsinline muted webkit-playsinline></video>
     <div class="scan-line"></div>
@@ -399,167 +444,165 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
     <div class="panel-row">
       <label>Units in Store</label>
       <input type="number" id="ivp-stock" value="0" min="0" step="1">
-      <div class="qty-steps">
-        <button onclick="adj('ivp-stock',1)">+</button>
-        <button onclick="adj('ivp-stock',-1)">−</button>
-      </div>
+      <div class="qty-steps"><button onclick="adj('ivp-stock',1)">+</button><button onclick="adj('ivp-stock',-1)">−</button></div>
     </div>
     <div class="panel-row">
-      <label>Cases to Order</label>
+      <label>Units to Order</label>
       <input type="number" id="ivp-order" value="0" min="0" step="0.5">
-      <div class="qty-steps">
-        <button onclick="adj('ivp-order',0.5)">+</button>
-        <button onclick="adj('ivp-order',-0.5)">−</button>
-      </div>
+      <div class="qty-steps"><button onclick="adj('ivp-order',0.5)">+</button><button onclick="adj('ivp-order',-0.5)">−</button></div>
     </div>
     <button class="btn btn-green" onclick="saveInvItem()">✓ Save &amp; Next</button>
     <button class="btn btn-outline" onclick="skipInvItem()">Skip</button>
   </div>
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
-    <input type="text" id="inv-search" placeholder="Or search by name…" oninput="renderInvList()" autocomplete="off">
+    <input type="text" id="inv-search" placeholder="Search by name…" oninput="renderInvList()" autocomplete="off">
   </div>
   <div id="inv-list"></div>
   <button class="btn" id="inv-submit-btn" onclick="submitInv()" style="margin-top:12px;background:#ccc;color:#fff;cursor:not-allowed" disabled>→ Submit to Peter for Approval</button>
 </div>
 
 
-<!-- ════════════════════════════════════════════════════════
+<!-- ════════════════════════════════════════
      FISH INVENTORY & ORDER
-═════════════════════════════════════════════════════════ -->
+═════════════════════════════════════════ -->
 <div id="screen-fish-inv" class="screen">
   <div class="week-badge" id="fish-week-badge">Week of —</div>
   <div class="sumbar">
     <div><div class="sl">Items counted</div><div class="sv" id="fish-inv-prog">0</div></div>
     <div><div class="sl">Items to order</div><div class="sv" id="fish-inv-order-cnt">0</div></div>
   </div>
-
   <div class="sec-label">Who is logging?</div>
   <div class="staff-sel" style="margin-bottom:12px">
     <div class="staff-btn on" id="fis-ethan" onclick="setStaff('fish','Ethan')">Ethan</div>
     <div class="staff-btn" id="fis-leo"   onclick="setStaff('fish','Leo')">Leo</div>
     <div class="staff-btn" id="fis-other" onclick="setStaff('fish','Other')">Other</div>
   </div>
-
   <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.6px;text-transform:uppercase;margin-bottom:6px">Filter By Vendor</div>
   <div class="vendor-roller" id="fish-vendor-roller"></div>
-
   <div class="search-wrap">
     <span class="search-icon">🔍</span>
     <input type="text" id="fish-search" placeholder="Search fish products…" oninput="renderFishList()" autocomplete="off">
   </div>
-
   <div id="fish-list"></div>
-
   <button class="btn btn-red" id="fish-submit-btn" onclick="submitFishInv()" style="margin-top:12px;opacity:0.4;cursor:not-allowed" disabled>
     🐟 Submit Fish Order to Peter
   </button>
 </div>
 
 
-<!-- ════════════════════════════════════════════════════════
+<!-- ════════════════════════════════════════
      GROCERY APPROVE SETUP
-═════════════════════════════════════════════════════════ -->
+═════════════════════════════════════════ -->
 <div id="screen-approve-setup" class="screen">
   <div class="sec-label">Order date</div>
-  <div class="form-field" style="margin-bottom:16px">
-    <label>Week Date</label>
-    <input type="date" id="appr-date">
-  </div>
+  <div class="form-field" style="margin-bottom:16px"><label>Week Date</label><input type="date" id="appr-date"></div>
   <button class="btn btn-dark" onclick="loadApproval()">Load Order →</button>
 </div>
 
-
-<!-- ════════════════════════════════════════════════════════
+<!-- ════════════════════════════════════════
      GROCERY APPROVE
-═════════════════════════════════════════════════════════ -->
+═════════════════════════════════════════ -->
 <div id="screen-approve" class="screen">
   <p style="font-size:13px;color:#555;margin-bottom:12px">Adjust quantities in cases. Set to 0 to reject.</p>
   <div id="appr-list"></div>
   <button class="btn btn-green" onclick="submitApproval()">✓ Submit Approved Order</button>
 </div>
 
-
-<!-- ════════════════════════════════════════════════════════
+<!-- ════════════════════════════════════════
      FISH APPROVE SETUP
-═════════════════════════════════════════════════════════ -->
+═════════════════════════════════════════ -->
 <div id="screen-fish-approve-setup" class="screen">
   <div class="sec-label">Fish order week</div>
-  <p style="font-size:13px;color:#555;margin-bottom:14px">Select the week date to load the fish order for review.</p>
-  <div class="form-field" style="margin-bottom:16px">
-    <label>Week Of (Sunday)</label>
-    <input type="date" id="fish-appr-date">
-  </div>
+  <div class="form-field" style="margin-bottom:16px"><label>Week Of (Sunday)</label><input type="date" id="fish-appr-date"></div>
   <button class="btn btn-red" onclick="loadFishApproval()">🐟 Load Fish Order →</button>
 </div>
 
-
-<!-- ════════════════════════════════════════════════════════
+<!-- ════════════════════════════════════════
      FISH APPROVE
-═════════════════════════════════════════════════════════ -->
+═════════════════════════════════════════ -->
 <div id="screen-fish-approve" class="screen">
-  <p style="font-size:13px;color:#555;margin-bottom:4px">
-    Adjust approved quantities. Add a note where needed. Set to 0 to reject.
-  </p>
+  <p style="font-size:13px;color:#555;margin-bottom:4px">Adjust approved quantities. Set to 0 to reject.</p>
   <div class="week-badge" id="fish-appr-badge" style="margin-bottom:12px">Week of —</div>
   <div id="fish-appr-list"></div>
   <button class="btn btn-green" onclick="submitFishApproval()">✓ Submit Approved Fish Order</button>
 </div>
 
+<!-- ════════════════════════════════════════
+     CATEGORY APPROVE SETUP (CC / Paper / Kitchen)
+═════════════════════════════════════════ -->
+<div id="screen-cat-approve-setup" class="screen">
+  <div class="sec-label" id="cat-appr-setup-label">Order date</div>
+  <div class="form-field" style="margin-bottom:16px"><label>Week Date</label><input type="date" id="cat-appr-date"></div>
+  <button class="btn" id="cat-appr-load-btn" onclick="loadCatApproval()">Load Order →</button>
+</div>
 
-<!-- ════════════════════════════════════════════════════════
+<!-- ════════════════════════════════════════
+     CATEGORY APPROVE
+═════════════════════════════════════════ -->
+<div id="screen-cat-approve" class="screen">
+  <p style="font-size:13px;color:#555;margin-bottom:12px">Adjust quantities. Set to 0 to reject.</p>
+  <div id="cat-appr-list"></div>
+  <button class="btn" id="cat-appr-submit-btn" onclick="submitCatApproval()">✓ Submit Approved Order</button>
+</div>
+
+<!-- ════════════════════════════════════════
      INACTIVE
-═════════════════════════════════════════════════════════ -->
+═════════════════════════════════════════ -->
 <div id="screen-inactive" class="screen">
   <p style="font-size:13px;color:#555;margin-bottom:12px">No stock and no orders in 4+ weeks.</p>
   <div id="inact-list"><div class="loading"><div class="spinner"></div>Loading…</div></div>
 </div>
 
 
-<!-- ════════════════════════════════════════════════════════
+<!-- ════════════════════════════════════════
      SCRIPTS
-═════════════════════════════════════════════════════════ -->
+═════════════════════════════════════════ -->
 <script src="https://cdn.jsdelivr.net/npm/@zxing/library@0.19.1/umd/index.min.js"></script>
 <script>
 var API = "https://script.google.com/a/macros/shelskys.com/s/AKfycbxWAh8V4zkSTTPRdoQiiivC4shf2LHfym6jkn_TjQ81K3582XOo4R6ZI-QLfIWo0Cz3DA/exec";
 var PIN = "1984";
 
-var _pin = "";
-var _cbc = 0;
-var _zxing = null;
+var _pin = "", _cbc = 0, _zxing = null;
+
+// Category configuration
+var CAT_CONFIG = {
+  GROCERY:      { label: "Grocery",                  color: "#1a1a1a", emoji: "🥯", submitLabel: "→ Submit to Peter for Approval" },
+  FISH:         { label: "Fish",                     color: "#E64A2E", emoji: "🐟", submitLabel: "→ Submit to Peter for Approval" },
+  CREAM_CHEESE: { label: "Cream Cheese & Baked Goods", color: "#7B4F9E", emoji: "🧀", submitLabel: "→ Submit to Peter for Approval" },
+  PAPER:        { label: "Paper Goods",              color: "#2E7D9E", emoji: "📋", submitLabel: "→ Submit to Peter for Approval" },
+  KITCHEN:      { label: "Kitchen Goods",            color: "#2E7A47", emoji: "🍳", submitLabel: "→ Submit to Peter for Approval" }
+};
 
 var _titles = {
-  "home":               "Shelsky's Inventory",
-  "intake-setup":       "Grocery Intake",
-  "intake":             "Grocery Intake",
-  "inv":                "Grocery Stock",
-  "fish-inv":           "Fish Inventory & Order",
-  "approve-setup":      "Approve Grocery Order",
-  "approve":            "Approve Grocery Order",
-  "fish-approve-setup": "Approve Fish Order",
-  "fish-approve":       "Approve Fish Order",
-  "inactive":           "Inactive Products"
+  "home":                   "Shelsky's Inventory",
+  "intake":                 "Intake",
+  "inv":                    "Stock Count",
+  "fish-inv":               "Fish Inventory & Order",
+  "approve-setup":          "Approve Grocery Order",
+  "approve":                "Approve Grocery Order",
+  "fish-approve-setup":     "Approve Fish Order",
+  "fish-approve":           "Approve Fish Order",
+  "cat-approve-setup":      "Approve Order",
+  "cat-approve":            "Approve Order",
+  "inactive":               "Inactive Products"
 };
 
 var S = {
   products: [], counts: {}, consumption: {},
   staff: { intake: "Ethan", inv: "Ethan", fish: "Ethan" },
-  intakeSel: null, intakeBarcode: "",
-  invData: {}, invSel: null, invVendor: "All",
-  currentCategory: "GROCERY",
+  intakeSel: null, intakeBarcode: "", intakeCategory: "GROCERY",
+  invData: {}, invSel: null, invVendor: "All", invCategory: "GROCERY",
   apprItems: [],
-  fishData: {},
-  fishCounts: {},
-  fishVendor: "All",
-  fishApprItems: [],
-  fishWeekOf: "",
+  fishData: {}, fishCounts: {}, fishVendor: "All",
+  fishApprItems: [], fishWeekOf: "",
+  catApprCategory: "", catApprItems: [],
   scanning: false, scanCtx: null,
-  history: ["home"],
-  skuEditRowIndex: null
+  history: ["home"], skuEditRowIndex: null
 };
 
 
-// ── PIN ───────────────────────────────────────────────────
+// ── PIN ───────────────────────────────────
 
 function pinKey(d) {
   if (_pin.length >= 4) return;
@@ -585,7 +628,7 @@ function checkPin() {
 }
 
 
-// ── INIT ──────────────────────────────────────────────────
+// ── INIT ──────────────────────────────────
 
 function init() {
   api("getProducts", {}, function(d) {
@@ -593,31 +636,34 @@ function init() {
     buildVendorRoller();
     renderIntakeList();
     renderInvList();
+    buildFishVendorRoller();
   });
-  api("getLatestCounts", {}, function(d) {
-    S.counts = d || {};
-    renderInvList();
-  }, function() { S.counts = {}; });
-  api("getRollingConsumption", {}, function(d) {
-    S.consumption = d || {};
-    renderInvList();
-    renderFishList();
-  }, function() { S.consumption = {}; });
-  api("getFishLatestCounts", {}, function(d) {
-    S.fishCounts = d || {};
-    renderFishList();
-  }, function() { S.fishCounts = {}; });
+  api("getLatestCounts", {}, function(d) { S.counts = d || {}; renderInvList(); }, function() { S.counts = {}; });
+  api("getRollingConsumption", {}, function(d) { S.consumption = d || {}; renderInvList(); renderFishList(); }, function() { S.consumption = {}; });
+  api("getFishLatestCounts", {}, function(d) { S.fishCounts = d || {}; renderFishList(); }, function() { S.fishCounts = {}; });
 }
 
 
-// ── NAVIGATION ───────────────────────────────────────────
+// ── NAVIGATION ────────────────────────────
 
 function go(id) {
   stopScan();
+  // Handle dynamic cat-approve-setup screens
+  var screenId = id;
+  if (id.startsWith("cat-approve-setup-")) {
+    var cat = id.replace("cat-approve-setup-", "");
+    S.catApprCategory = cat;
+    screenId = "cat-approve-setup";
+    var cfg = CAT_CONFIG[cat] || {};
+    var lbl = document.getElementById("cat-appr-setup-label");
+    if (lbl) lbl.textContent = cfg.emoji + " " + cfg.label + " — Order Date";
+    var btn = document.getElementById("cat-appr-load-btn");
+    if (btn) { btn.textContent = "Load Order →"; btn.style.background = cfg.color; }
+  }
   document.querySelectorAll(".screen").forEach(function(s) { s.classList.remove("active"); });
-  document.getElementById("screen-" + id).classList.add("active");
+  document.getElementById("screen-" + screenId).classList.add("active");
   S.history.push(id);
-  document.getElementById("hdr-title").textContent = _titles[id] || "Shelsky's";
+  document.getElementById("hdr-title").textContent = _titles[screenId] || _titles[id] || "Shelsky's";
   document.getElementById("back-btn").style.display = id === "home" ? "none" : "block";
   if (id === "inactive") loadInactive();
 }
@@ -631,11 +677,11 @@ function goBack() {
 }
 
 
-// ── STAFF SELECTOR ────────────────────────────────────────
+// ── STAFF ─────────────────────────────────
 
 function setStaff(ctx, name) {
   S.staff[ctx] = name;
-  var prefix = ctx === "intake" ? "is" : (ctx === "fish" ? "fis" : "vs");
+  var prefix = ctx === "intake" ? "intake" : (ctx === "fish" ? "fis" : "vs");
   ["ethan", "leo", "other"].forEach(function(n) {
     var el = document.getElementById(prefix + "-" + n);
     if (el) el.classList.toggle("on", n === name.toLowerCase());
@@ -643,14 +689,13 @@ function setStaff(ctx, name) {
 }
 
 
-// ── VENDOR ROLLER ─────────────────────────────────────────
+// ── VENDOR ROLLER ─────────────────────────
 
 function vendorId(v) { return "vhdr_" + v.replace(/[^a-zA-Z0-9]/g, "_"); }
 
 function buildVendorRoller() {
-  _buildRoller("inv-vendor-roller", "GROCERY", S.invVendor, setInvVendor);
+  _buildRoller("inv-vendor-roller", S.invCategory, S.invVendor, setInvVendor);
 }
-
 function buildFishVendorRoller() {
   _buildRoller("fish-vendor-roller", "FISH", S.fishVendor, setFishVendor);
 }
@@ -661,18 +706,13 @@ function _buildRoller(containerId, category, activeVendor, setFn) {
   var catProducts = S.products.filter(function(p) { return p.category === category; });
   var unclassified = catProducts.filter(function(p) {
     var v = (p.vendor || "").toString().trim().toUpperCase();
-    return !v || v === "" || v === "TBD" || v === "UNKNOWN";
+    return !v || v === "TBD" || v === "UNKNOWN";
   }).length;
   var vendors = ["All"];
   if (unclassified > 0) vendors.push("Needs Vendor");
   var valid = [...new Set(catProducts.map(function(p) { return p.vendor; }))]
-    .filter(Boolean)
-    .filter(function(v) {
-      var u = v.toString().trim().toUpperCase();
-      return u !== "" && u !== "TBD" && u !== "UNKNOWN";
-    }).sort();
+    .filter(Boolean).filter(function(v) { var u = v.toString().trim().toUpperCase(); return u && u !== "TBD" && u !== "UNKNOWN"; }).sort();
   vendors = vendors.concat(valid);
-
   container.innerHTML = vendors.map(function(v) {
     var label = v === "All" ? "All Vendors" : v;
     var isWarn = v === "Needs Vendor";
@@ -683,20 +723,11 @@ function _buildRoller(containerId, category, activeVendor, setFn) {
   }).join("");
 }
 
-function setInvVendor(v) {
-  S.invVendor = v;
-  buildVendorRoller();
-  renderInvList();
-}
-
-function setFishVendor(v) {
-  S.fishVendor = v;
-  buildFishVendorRoller();
-  renderFishList();
-}
+function setInvVendor(v) { S.invVendor = v; buildVendorRoller(); renderInvList(); }
+function setFishVendor(v) { S.fishVendor = v; buildFishVendorRoller(); renderFishList(); }
 
 
-// ── SCANNER ───────────────────────────────────────────────
+// ── SCANNER ───────────────────────────────
 
 function toggleScan(ctx) {
   if (S.scanning && S.scanCtx === ctx) { stopScan(); return; }
@@ -721,68 +752,64 @@ function stopScan() {
   if (!S.scanning) return;
   if (_zxing) { try { _zxing.reset(); } catch(e) {} _zxing = null; }
   S.scanning = false;
-  ["intake-scanner", "inv-scanner"].forEach(function(id) {
-    var el = document.getElementById(id); if (el) el.style.display = "none";
-  });
-  [{ id: "intake-scan-btn", label: "📷 Scan Product Barcode" },
-   { id: "inv-scan-btn",    label: "📷 Scan Product Barcode" }
-  ].forEach(function(b) {
-    var el = document.getElementById(b.id);
-    if (el) { el.textContent = b.label; el.classList.remove("red"); }
+  ["intake-scanner", "inv-scanner"].forEach(function(id) { var el = document.getElementById(id); if (el) el.style.display = "none"; });
+  [{ id: "intake-scan-btn", label: "📷 Scan Barcode" }, { id: "inv-scan-btn", label: "📷 Scan Barcode" }].forEach(function(b) {
+    var el = document.getElementById(b.id); if (el) { el.textContent = b.label; el.classList.remove("red"); }
   });
 }
 
 function handleScan(code, ctx) {
   var local = S.products.find(function(p) { return p.barcode && p.barcode.toString() === code.toString(); });
-  if (local) {
-    if (ctx === "intake") showIntakeFound(local, code);
-    else showInvPanel(local);
-    return;
-  }
+  if (local) { if (ctx === "intake") showIntakeFound(local, code); else showInvPanel(local); return; }
   toast("Looking up barcode…");
   api("lookupBarcode", { barcode: code }, function(r) {
     if (ctx === "intake") {
-      if (r && r.found && r.source === "local") {
-        var p = S.products.find(function(x) { return x.name === r.name; });
-        if (p) showIntakeFound(p, code);
-      } else if (r && r.found && r.source === "openfoodfacts") {
-        showIntakeNew(code, r.suggestedName || r.name || "", r.brand || "");
-      } else {
-        showIntakeNew(code, "", "");
-      }
+      if (r && r.found && r.source === "local") { var p = S.products.find(function(x) { return x.name === r.name; }); if (p) showIntakeFound(p, code); }
+      else if (r && r.found && r.source === "openfoodfacts") showIntakeNew(code, r.suggestedName || r.name || "", r.brand || "");
+      else showIntakeNew(code, "", "");
     } else {
-      if (r && r.found && r.source === "local") {
-        var p = S.products.find(function(x) { return x.name === r.name; });
-        if (p) showInvPanel(p);
-      } else {
-        toast("Not found — search by name below");
-        if (r && r.name) document.getElementById("inv-search").value = r.name;
-        renderInvList();
-      }
+      if (r && r.found && r.source === "local") { var p = S.products.find(function(x) { return x.name === r.name; }); if (p) showInvPanel(p); }
+      else { toast("Not found — search by name below"); if (r && r.name) document.getElementById("inv-search").value = r.name; renderInvList(); }
     }
-  }, function() { toast("Barcode lookup failed — search by name below", "err"); });
+  }, function() { toast("Barcode lookup failed — search below", "err"); });
 }
 
 
-// ════════════════════════════════════════════════════════
-//  GROCERY INTAKE
-// ════════════════════════════════════════════════════════
+// ════════════════════════════════════════
+//  GENERIC INTAKE (all categories)
+// ════════════════════════════════════════
+
+function startIntake(category) {
+  S.intakeCategory = category;
+  S.intakeSel = null;
+  S.intakeBarcode = "";
+  var cfg = CAT_CONFIG[category] || CAT_CONFIG.GROCERY;
+  go("intake");
+  // Style header
+  var hdr = document.querySelector(".header");
+  if (hdr) hdr.style.background = cfg.color;
+  document.getElementById("hdr-title").textContent = cfg.emoji + " " + cfg.label + " — Intake";
+  document.getElementById("intake-who-label").textContent = "Who is logging " + cfg.label + "?";
+  renderIntakeList();
+  setTimeout(function() { toggleScan("intake"); }, 400);
+}
 
 function renderIntakeList() {
-  var active = S.products.filter(function(p) { return p.category === "GROCERY"; });
+  var cat = S.intakeCategory || "GROCERY";
+  var active = S.products.filter(function(p) { return p.category === cat; });
   var vendors = [...new Set(active.map(function(p) { return p.vendor; }))].filter(Boolean).sort();
   var dl = document.getElementById("inp-vendor-list");
   if (dl) dl.innerHTML = vendors.map(function(v) { return "<option value='" + v.replace(/'/g, "&#39;") + "'>"; }).join("");
-  var q    = document.getElementById("intake-search").value.toLowerCase();
+  var q    = (document.getElementById("intake-search") || {}).value || "";
+  q = q.toLowerCase();
   var list = document.getElementById("intake-list");
-  var f    = active.filter(function(p) {
-    return !q || p.name.toLowerCase().includes(q) || p.vendor.toLowerCase().includes(q);
-  });
+  if (!list) return;
+  var f = active.filter(function(p) { return !q || p.name.toLowerCase().includes(q) || (p.vendor || "").toLowerCase().includes(q); });
   if (!f.length) { list.innerHTML = "<div style='padding:20px;text-align:center;color:#aaa'>No products found</div>"; return; }
-  list.innerHTML = f.slice(0, 40).map(function(p) {
+  list.innerHTML = f.slice(0, 60).map(function(p) {
     return "<div style='background:#fff;border-radius:10px;padding:11px 13px;border:1.5px solid #e5e5e5;cursor:pointer;margin-bottom:6px' onclick='showIntakeFound(" + JSON.stringify(p).replace(/'/g, "&#39;") + ",\"\")'>"
       + "<div style='font-size:13px;font-weight:600'>" + p.name + "</div>"
-      + "<div style='font-size:11px;color:#888'>" + p.vendor + " · " + (p.orderUnit || "Case") + "</div></div>";
+      + "<div style='font-size:11px;color:#888'>" + (p.vendor || "") + " · " + (p.orderUnit || "Case") + "</div></div>";
   }).join("");
 }
 
@@ -790,7 +817,7 @@ function showIntakeFound(p, barcode) {
   S.intakeSel = p; S.intakeBarcode = barcode;
   document.getElementById("ifp-name").textContent = p.name;
   var uc = parseInt(p.unitCount) || 0;
-  document.getElementById("ifp-meta").textContent = p.vendor + " · " + (p.orderUnit || "Case") + (uc ? " of " + uc : "");
+  document.getElementById("ifp-meta").textContent = (p.vendor || "") + " · " + (p.orderUnit || "Case") + (uc ? " of " + uc : "");
   document.getElementById("ifp-qty").value = 1;
   document.getElementById("intake-found-panel").style.display = "block";
   document.getElementById("intake-new-panel").style.display = "none";
@@ -843,7 +870,7 @@ function addAndLogIntake() {
   var uom       = document.getElementById("inp-uom").value;
   var unit      = document.getElementById("inp-unit").value;
   if (!name || !vendor) { toast("Name and vendor required", "err"); return; }
-  apiPost("addProduct", { name: name, vendor: vendor, orderUnit: unit, unitCount: unitCount, size: size, uom: uom, barcode: S.intakeBarcode, category: "GROCERY" }, function() {
+  apiPost("addProduct", { name: name, vendor: vendor, orderUnit: unit, unitCount: unitCount, size: size, uom: uom, barcode: S.intakeBarcode, category: S.intakeCategory || "GROCERY" }, function() {
     apiPost("logIntake", { name: name, vendor: vendor, qty: qty, staff: S.staff.intake, barcode: S.intakeBarcode }, function() {
       toast("✓ Added & logged", "ok");
       init();
@@ -853,66 +880,63 @@ function addAndLogIntake() {
 }
 
 
-// ════════════════════════════════════════════════════════
-//  GROCERY INVENTORY
-// ════════════════════════════════════════════════════════
+// ════════════════════════════════════════
+//  GENERIC INVENTORY (all non-fish cats)
+// ════════════════════════════════════════
 
-function startInv(categoryTarget) {
+function startInv(category) {
   S.invData = {};
   S.invVendor = "All";
-  S.currentCategory = categoryTarget || "GROCERY";
+  S.invCategory = category;
   go("inv");
+  var cfg = CAT_CONFIG[category] || CAT_CONFIG.GROCERY;
+  var hdr = document.querySelector(".header"); if (hdr) hdr.style.background = cfg.color;
+  document.getElementById("hdr-title").textContent = cfg.emoji + " " + cfg.label + " — Stock Count";
+  var btn = document.getElementById("inv-submit-btn");
+  if (btn) { btn.style.background = "#ccc"; btn.disabled = true; btn.textContent = cfg.submitLabel || "→ Submit to Peter for Approval"; }
   buildVendorRoller();
   renderInvList();
 }
 
 function renderInvList() {
-  var q             = document.getElementById("inv-search") ? document.getElementById("inv-search").value.toLowerCase() : "";
+  var q = (document.getElementById("inv-search") ? document.getElementById("inv-search").value : "").toLowerCase();
   var listContainer = document.getElementById("inv-list");
   if (!listContainer) return;
-  var active = S.products.filter(function(p) { return p.category === "GROCERY"; });
+  var cat = S.invCategory || "GROCERY";
+  var active = S.products.filter(function(p) { return p.category === cat; });
   var done   = Object.keys(S.invData).filter(function(n) { return S.invData[n].stock !== undefined; }).length;
   var orders = Object.values(S.invData).filter(function(d) { return d.order && d.order > 0; }).length;
   var el = document.getElementById("inv-prog"); if (el) el.textContent = done;
   var eo = document.getElementById("inv-order-cnt"); if (eo) eo.textContent = orders;
-  var hasAny    = done > 0;
-  var allCounted = done >= active.length;
+  var hasAny = done > 0;
   var submitBtn = document.getElementById("inv-submit-btn");
   if (submitBtn) {
     submitBtn.disabled = !hasAny;
-    submitBtn.style.background = hasAny ? "#1A7A3C" : "#ccc";
+    var cfg = CAT_CONFIG[cat] || CAT_CONFIG.GROCERY;
+    submitBtn.style.background = hasAny ? cfg.color : "#ccc";
     submitBtn.style.cursor = hasAny ? "pointer" : "not-allowed";
   }
   var html = "", cv = "";
   active.forEach(function(p) {
-    var matchSearch = !q || p.name.toLowerCase().includes(q) || p.vendor.toLowerCase().includes(q);
-    var matchVendor = false;
-    if (S.invVendor === "All") { matchVendor = true; }
-    else if (S.invVendor === "Needs Vendor") {
-      var vCheck = (p.vendor || "").toString().trim().toUpperCase();
-      matchVendor = !vCheck || vCheck === "" || vCheck === "TBD" || vCheck === "UNKNOWN";
-    } else { matchVendor = p.vendor === S.invVendor; }
+    var matchSearch = !q || p.name.toLowerCase().includes(q) || (p.vendor || "").toLowerCase().includes(q);
+    var matchVendor = S.invVendor === "All" || (S.invVendor === "Needs Vendor" ? (!p.vendor || ["","TBD","UNKNOWN"].includes((p.vendor||"").trim().toUpperCase())) : p.vendor === S.invVendor);
     if (!matchSearch || !matchVendor) return;
-    var headerLabel = p.vendor;
-    var vUp = (p.vendor || "").toString().trim().toUpperCase();
-    if (!vUp || vUp === "TBD" || vUp === "UNKNOWN") headerLabel = "⚠️ UNCLASSIFIED SKUS";
-    if (headerLabel !== cv) {
-      cv = headerLabel;
-      html += "<div class='vhdr' id='" + vendorId(p.vendor || "unclassified") + "'>" + headerLabel + "</div>";
-    }
-    var d         = S.invData[p.name] || {};
-    var sv        = d.stock !== undefined ? d.stock : "";
-    var ov        = d.order !== undefined ? d.order : "";
-    var uc        = parseInt(p.unitCount) || 0;
-    var size      = p.size && p.uom ? (p.size + " " + p.uom) : "";
+    var vLabel = (p.vendor || "").toString().trim().toUpperCase();
+    var headerLabel = (!vLabel || vLabel === "TBD" || vLabel === "UNKNOWN") ? "⚠️ UNCLASSIFIED" : p.vendor;
+    if (headerLabel !== cv) { cv = headerLabel; html += "<div class='vhdr' id='" + vendorId(p.vendor || "unclassified") + "'>" + headerLabel + "</div>"; }
+    var d = S.invData[p.name] || {};
+    var sv = d.stock !== undefined ? d.stock : "";
+    var ov = d.order !== undefined ? d.order : "";
+    var uc = parseInt(p.unitCount) || 0;
+    var size = p.size && p.uom ? (p.size + " " + p.uom) : "";
     var caseLabel = (p.orderUnit || "Case") + (uc ? " of " + uc : "");
-    var meta      = caseLabel + (size ? " · " + size : "");
-    var cons      = S.consumption[p.name];
-    var consStr   = cons !== undefined ? cons + "u/wk" : "0u/wk";
-    var safeName  = p.name.replace(/'/g, "\\'").replace(/"/g, "&quot;");
-    var safeVendor= p.vendor.replace(/'/g, "\\'").replace(/"/g, "&quot;");
-    var safeUnit  = (p.orderUnit || "Case").replace(/'/g, "\\'").replace(/"/g, "&quot;");
-    var itemId    = "inv-item-" + p.name.replace(/[^a-zA-Z0-9]/g, "_");
+    var meta = caseLabel + (size ? " · " + size : "");
+    var cons = S.consumption[p.name];
+    var consStr = cons !== undefined ? cons + "u/wk" : "0u/wk";
+    var safeName = p.name.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    var safeVendor = (p.vendor||"").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    var safeUnit = (p.orderUnit||"Case").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    var itemId = "inv-item-" + p.name.replace(/[^a-zA-Z0-9]/g, "_");
     html += "<div class='inv-item' id='" + itemId + "'>"
       + "<div class='inv-item-top'>"
       + "<div style='flex:1;min-width:0'>"
@@ -937,39 +961,29 @@ function renderInvList() {
 function setInv(name, vendor, unit, field, val, itemId) {
   if (!S.invData[name]) S.invData[name] = { vendor: vendor, orderUnit: unit };
   S.invData[name][field] = (val === "") ? undefined : (parseFloat(val) || 0);
-  // Clear error highlight when stock field is filled
   if (field === "stock" && S.invData[name].stock !== undefined && itemId) {
     var card = document.getElementById(itemId);
     if (card) {
       card.classList.remove("error-highlight");
-      var stockInput = card.querySelectorAll(".inv-field input")[0];
-      if (stockInput) stockInput.classList.remove("error-field");
+      var si = card.querySelectorAll(".inv-field input")[0]; if (si) si.classList.remove("error-field");
     }
   }
   var done   = Object.keys(S.invData).filter(function(n) { return S.invData[n].stock !== undefined; }).length;
   var orders = Object.values(S.invData).filter(function(d) { return d.order && d.order > 0; }).length;
   var ep = document.getElementById("inv-prog"); if (ep) ep.textContent = done;
   var eo = document.getElementById("inv-order-cnt"); if (eo) eo.textContent = orders;
-  var active = S.products.filter(function(p) { return p.category === "GROCERY"; });
-  var hasAny = done > 0;
+  var cfg = CAT_CONFIG[S.invCategory] || CAT_CONFIG.GROCERY;
   var submitBtn = document.getElementById("inv-submit-btn");
-  if (submitBtn) {
-    submitBtn.disabled = !hasAny;
-    submitBtn.style.background = hasAny ? "#1A7A3C" : "#ccc";
-    submitBtn.style.cursor = hasAny ? "pointer" : "not-allowed";
-  }
+  if (submitBtn) { submitBtn.disabled = done === 0; submitBtn.style.background = done > 0 ? cfg.color : "#ccc"; submitBtn.style.cursor = done > 0 ? "pointer" : "not-allowed"; }
 }
 
 function showInvPanel(p) {
   S.invSel = p;
   document.getElementById("ivp-name").textContent = p.name;
   var unitCount = parseInt(p.unitCount) || 0;
-  var orderUnit = p.orderUnit || "Case";
-  document.getElementById("ivp-meta").textContent = p.vendor + " · " + orderUnit + (unitCount ? " of " + unitCount : " (pack size unknown)");
-  var last    = S.counts[p.name];
-  var lastQty = last ? last.qty + "u" : "—";
-  var cons    = S.consumption[p.name];
-  var consStr = cons ? cons + "u/wk" : "—";
+  document.getElementById("ivp-meta").textContent = (p.vendor || "") + " · " + (p.orderUnit || "Case") + (unitCount ? " of " + unitCount : " (pack size unknown)");
+  var last = S.counts[p.name]; var lastQty = last ? last.qty + "u" : "—";
+  var cons = S.consumption[p.name]; var consStr = cons ? cons + "u/wk" : "—";
   document.getElementById("ivp-stats").innerHTML =
     "<div class='pstat'><div class='ps-val'>" + lastQty + "</div><div class='ps-lbl'>Last Count</div></div>"
     + "<div class='pstat highlight'><div class='ps-val'>" + consStr + "</div><div class='ps-lbl'>3-wk Avg Use</div></div>";
@@ -984,12 +998,11 @@ function showInvPanel(p) {
 
 function saveInvItem() {
   if (!S.invSel) return;
-  var p     = S.invSel;
+  var p = S.invSel;
   var stock = parseFloat(document.getElementById("ivp-stock").value) || 0;
   var order = parseFloat(document.getElementById("ivp-order").value) || 0;
   if (!S.invData[p.name]) S.invData[p.name] = { vendor: p.vendor, orderUnit: p.orderUnit || "Case" };
-  S.invData[p.name].stock = stock;
-  S.invData[p.name].order = order;
+  S.invData[p.name].stock = stock; S.invData[p.name].order = order;
   toast("✓ " + p.name + " saved", "ok");
   clearInvPanel();
 }
@@ -1004,42 +1017,27 @@ function clearInvPanel() {
 }
 
 function submitInv() {
-  var active = S.products.filter(function(p) { return p.category === "GROCERY"; });
-
-  // Validate: find any product missing a stock count
+  var cat = S.invCategory || "GROCERY";
+  var active = S.products.filter(function(p) { return p.category === cat; });
   var missing = [];
   active.forEach(function(p) {
     var d = S.invData[p.name];
+    var itemId = "inv-item-" + p.name.replace(/[^a-zA-Z0-9]/g, "_");
+    var card = document.getElementById(itemId);
     if (!d || d.stock === undefined) {
       missing.push(p.name);
+      if (card) { card.classList.add("error-highlight"); var si = card.querySelectorAll(".inv-field input")[0]; if (si) si.classList.add("error-field"); }
+    } else {
+      if (card) { card.classList.remove("error-highlight"); var si = card.querySelectorAll(".inv-field input")[0]; if (si) si.classList.remove("error-field"); }
     }
   });
-
   if (missing.length) {
-    // Highlight missing items red
-    var listEl = document.getElementById("inv-list");
-    var firstCard = null;
-    if (listEl) {
-      active.forEach(function(p) {
-        if (missing.indexOf(p.name) === -1) return;
-        var itemId = "inv-item-" + p.name.replace(/[^a-zA-Z0-9]/g, "_");
-        var card = document.getElementById(itemId);
-        if (card) {
-          card.classList.add("error-highlight");
-          var stockInput = card.querySelectorAll(".inv-field input")[0];
-          if (stockInput) stockInput.classList.add("error-field");
-          if (!firstCard) firstCard = card;
-        }
-      });
-    }
+    var firstItemId = "inv-item-" + missing[0].replace(/[^a-zA-Z0-9]/g, "_");
+    var firstCard = document.getElementById(firstItemId);
     if (firstCard) firstCard.scrollIntoView({ behavior: "smooth", block: "center" });
-    toast(missing.length === 1
-      ? "⚠ 1 item still needs a count — highlighted in red"
-      : "⚠ " + missing.length + " items still need a count — highlighted in red",
-      "err");
+    toast(missing.length === 1 ? "⚠ 1 item still needs a count — highlighted in red" : "⚠ " + missing.length + " items still need a count — highlighted in red", "err");
     return;
   }
-
   var countEntries = [], orderEntries = [];
   Object.keys(S.invData).forEach(function(name) {
     var d = S.invData[name];
@@ -1047,191 +1045,102 @@ function submitInv() {
     if (d.order !== undefined && d.order > 0) orderEntries.push({ name: name, vendor: d.vendor || "", qty: d.order, orderUnit: d.orderUnit || "Case" });
   });
   if (!countEntries.length && !orderEntries.length) { toast("Nothing to submit", "err"); return; }
-
   var submitBtn = document.getElementById("inv-submit-btn");
   if (submitBtn) { submitBtn.textContent = "Submitting…"; submitBtn.disabled = true; }
-
-  var staff   = S.staff.inv;
+  var staff = S.staff.inv;
   var pending = 0;
   if (countEntries.length) pending++;
   if (orderEntries.length) pending++;
-
-  function done() {
-    pending--;
-    if (pending === 0) {
-      toast("✓ Submitted for Approval", "ok");
-      setTimeout(function() { goBack(); }, 1500);
-    }
-  }
-  function fail(err) {
-    toast(friendlyError(err), "err");
-    if (submitBtn) { submitBtn.textContent = "→ Submit to Peter for Approval"; submitBtn.disabled = false; }
-  }
-
-  if (countEntries.length)  apiPostReal("logCount",             { entries: countEntries, staff: staff }, done, fail);
-  if (orderEntries.length)  apiPostReal("submitOrderProposal",  { entries: orderEntries, staff: staff, category: "GROCERY" }, done, fail);
+  function done() { pending--; if (pending === 0) { toast("✓ Submitted for Approval", "ok"); setTimeout(function() { goBack(); }, 1500); } }
+  function fail(err) { toast(friendlyError(err), "err"); if (submitBtn) { submitBtn.textContent = "→ Submit to Peter for Approval"; submitBtn.disabled = false; } }
+  if (countEntries.length)  apiPostReal("logCount",            { entries: countEntries, staff: staff }, done, fail);
+  if (orderEntries.length)  apiPostReal("submitOrderProposal", { entries: orderEntries, staff: staff, category: cat }, done, fail);
 }
 
 
-// ════════════════════════════════════════════════════════
+// ════════════════════════════════════════
 //  FISH INVENTORY & ORDER
-// ════════════════════════════════════════════════════════
+// ════════════════════════════════════════
 
 function getThisSunday() {
-  var d   = new Date();
-  var day = d.getDay();
-  d.setDate(d.getDate() - day);
-  var mm  = String(d.getMonth() + 1).padStart(2, "0");
-  var dd  = String(d.getDate()).padStart(2, "0");
-  return d.getFullYear() + "-" + mm + "-" + dd;
+  var d = new Date(); var day = d.getDay(); d.setDate(d.getDate() - day);
+  return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
 }
 
 function startFishInv() {
-  S.fishData   = {};
-  S.fishVendor = "All";
-  S.fishWeekOf = getThisSunday();
+  S.fishData = {}; S.fishVendor = "All"; S.fishWeekOf = getThisSunday();
   go("fish-inv");
-  var badge = document.getElementById("fish-week-badge");
-  if (badge) badge.textContent = "Week of " + S.fishWeekOf;
+  var hdr = document.querySelector(".header"); if (hdr) hdr.style.background = "#E64A2E";
+  var badge = document.getElementById("fish-week-badge"); if (badge) badge.textContent = "Week of " + S.fishWeekOf;
   buildFishVendorRoller();
   renderFishList();
 }
 
 function renderFishList() {
-  var q    = document.getElementById("fish-search") ? document.getElementById("fish-search").value.toLowerCase() : "";
-  var list = document.getElementById("fish-list");
-  if (!list) return;
+  var q = (document.getElementById("fish-search") ? document.getElementById("fish-search").value : "").toLowerCase();
+  var list = document.getElementById("fish-list"); if (!list) return;
   var fishProducts = S.products.filter(function(p) { return p.category === "FISH"; });
   var counted  = Object.keys(S.fishData).filter(function(n) { return S.fishData[n].stock !== undefined; }).length;
   var ordering = Object.values(S.fishData).filter(function(d) { return d.proposed && d.proposed > 0; }).length;
   var ep = document.getElementById("fish-inv-prog");      if (ep) ep.textContent = counted;
   var eo = document.getElementById("fish-inv-order-cnt"); if (eo) eo.textContent = ordering;
-  var hasAny    = counted > 0;
+  var hasAny = counted > 0;
   var allCounted = fishProducts.length > 0 && counted >= fishProducts.length;
-  var submitBtn  = document.getElementById("fish-submit-btn");
-  if (submitBtn) {
-    submitBtn.disabled = !hasAny;
-    submitBtn.style.opacity = hasAny ? "1" : "0.4";
-    submitBtn.style.cursor  = hasAny ? "pointer" : "not-allowed";
-    submitBtn.style.background = allCounted ? "#E64A2E" : "#c0392b";
-  }
-
+  var submitBtn = document.getElementById("fish-submit-btn");
+  if (submitBtn) { submitBtn.disabled = !hasAny; submitBtn.style.opacity = hasAny ? "1" : "0.4"; submitBtn.style.cursor = hasAny ? "pointer" : "not-allowed"; submitBtn.style.background = allCounted ? "#E64A2E" : "#c0392b"; }
   var html = "", cv = "";
   fishProducts.forEach(function(p) {
-    var matchSearch = !q || p.name.toLowerCase().includes(q) || (p.vendor || "").toLowerCase().includes(q);
-    var matchVendor = false;
-    if (S.fishVendor === "All") { matchVendor = true; }
-    else if (S.fishVendor === "Needs Vendor") {
-      var vCheck = (p.vendor || "").toString().trim().toUpperCase();
-      matchVendor = !vCheck || vCheck === "TBD" || vCheck === "UNKNOWN";
-    } else { matchVendor = p.vendor === S.fishVendor; }
+    var matchSearch = !q || p.name.toLowerCase().includes(q) || (p.vendor||"").toLowerCase().includes(q);
+    var matchVendor = S.fishVendor === "All" || (S.fishVendor === "Needs Vendor" ? (!p.vendor || ["","TBD","UNKNOWN"].includes((p.vendor||"").trim().toUpperCase())) : p.vendor === S.fishVendor);
     if (!matchSearch || !matchVendor) return;
-
-    var vLabel = (p.vendor || "").toString().trim().toUpperCase();
+    var vLabel = (p.vendor||"").toString().trim().toUpperCase();
     var headerLabel = (!vLabel || vLabel === "TBD" || vLabel === "UNKNOWN") ? "⚠️ UNCLASSIFIED" : p.vendor;
-    if (headerLabel !== cv) {
-      cv = headerLabel;
-      html += "<div class='vhdr'>" + headerLabel + "</div>";
-    }
-
-    var d        = S.fishData[p.name] || {};
-    var sv       = d.stock    !== undefined ? d.stock    : "";
-    var pv       = d.proposed !== undefined ? d.proposed : "";
-    var noteVal  = d.note     || "";
-    var lastCount= S.fishCounts[p.name];
-    var lastQty  = lastCount  !== undefined ? lastCount.qty : "—";
-    var cons     = S.consumption[p.name];
-    var consStr  = cons !== undefined ? cons + " " + (p.orderUnit || "unit") + "/wk" : "—";
-
-    var safeName   = p.name.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    if (headerLabel !== cv) { cv = headerLabel; html += "<div class='vhdr'>" + headerLabel + "</div>"; }
+    var d = S.fishData[p.name] || {};
+    var sv = d.stock !== undefined ? d.stock : "";
+    var pv = d.proposed !== undefined ? d.proposed : "";
+    var noteVal = d.note || "";
+    var lastCount = S.fishCounts[p.name]; var lastQty = lastCount !== undefined ? lastCount.qty : "—";
+    var cons = S.consumption[p.name]; var consStr = cons !== undefined ? cons + " " + (p.orderUnit||"unit") + "/wk" : "—";
+    var safeName = p.name.replace(/'/g, "\\'").replace(/"/g, "&quot;");
     var safeVendor = (p.vendor||"").replace(/'/g, "\\'").replace(/"/g, "&quot;");
-    var safeUnit   = (p.orderUnit||"Each").replace(/'/g, "\\'").replace(/"/g, "&quot;");
-    var cardId     = "fi-" + p.name.replace(/[^a-zA-Z0-9]/g, "_");
-
+    var safeUnit = (p.orderUnit||"Each").replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    var cardId = "fi-" + p.name.replace(/[^a-zA-Z0-9]/g, "_");
     html += "<div class='fish-item' id='" + cardId + "'>"
-      + "<div class='fish-item-top'>"
-      + "<div style='flex:1;min-width:0'>"
-      + "<div class='fish-item-name'>" + p.name + "</div>"
-      + "<div class='fish-item-meta'>" + (p.vendor || "—") + " · " + (p.orderUnit || "Each") + "</div>"
-      + "</div>"
-      + "<button onclick='openSkuModalFor(" + JSON.stringify(p).replace(/'/g,"&#39;") + ")' style='background:none;border:none;font-size:10px;color:#aaa;cursor:pointer;padding:4px'>✏ SKU</button>"
-      + "</div>"
-
-      // Stats row
-      + "<div style='display:flex;gap:6px;margin-bottom:8px'>"
-      + "<div class='pstat' style='flex:1'><div class='ps-val' style='font-size:13px'>" + lastQty + "</div><div class='ps-lbl'>Last Count</div></div>"
-      + "<div class='pstat highlight' style='flex:1'><div class='ps-val' style='font-size:13px'>" + consStr + "</div><div class='ps-lbl'>Avg/Week</div></div>"
-      + "</div>"
-
-      // Count + Proposed inputs
+      + "<div class='fish-item-top'><div style='flex:1;min-width:0'><div class='fish-item-name'>" + p.name + "</div><div class='fish-item-meta'>" + (p.vendor||"—") + " · " + (p.orderUnit||"Each") + "</div></div>"
+      + "<button onclick='openSkuModalFor(" + JSON.stringify(p).replace(/'/g,"&#39;") + ")' style='background:none;border:none;font-size:10px;color:#aaa;cursor:pointer;padding:4px'>✏ SKU</button></div>"
+      + "<div style='display:flex;gap:6px;margin-bottom:8px'><div class='pstat' style='flex:1'><div class='ps-val' style='font-size:13px'>" + lastQty + "</div><div class='ps-lbl'>Last Count</div></div>"
+      + "<div class='pstat highlight' style='flex:1'><div class='ps-val' style='font-size:13px'>" + consStr + "</div><div class='ps-lbl'>Avg/Week</div></div></div>"
       + "<div class='fish-item-rows'>"
-      + "<div class='fish-field'><label>In Stock</label>"
-      + "<input type='number' min='0' step='0.5' placeholder='—' value='" + sv + "' class='" + (sv !== "" ? "has-s" : "") + "' "
-      + "oninput='setFish(\"" + safeName + "\",\"" + safeVendor + "\",\"" + safeUnit + "\",\"stock\",this.value,\"" + cardId + "\")'>"
-      + "</div>"
-      + "<div class='fish-field'><label>To Order</label>"
-      + "<input type='number' min='0' step='0.5' placeholder='—' value='" + pv + "' class='" + (pv !== "" ? "has-p" : "") + "' "
-      + "oninput='setFish(\"" + safeName + "\",\"" + safeVendor + "\",\"" + safeUnit + "\",\"proposed\",this.value,\"" + cardId + "\")'>"
-      + "</div>"
-      + "</div>"
-
-      // Note field
-      + "<div class='fish-note-wrap'>"
-      + "<textarea class='fish-note" + (noteVal ? " has-note" : "") + "' placeholder='Note for Peter (optional)…' "
-      + "oninput='setFishNote(\"" + safeName + "\",this.value)'>" + noteVal + "</textarea>"
-      + "</div>"
-      + "</div>";
+      + "<div class='fish-field'><label>In Stock</label><input type='number' min='0' step='0.5' placeholder='—' value='" + sv + "' class='" + (sv !== "" ? "has-s" : "") + "' oninput='setFish(\"" + safeName + "\",\"" + safeVendor + "\",\"" + safeUnit + "\",\"stock\",this.value,\"" + cardId + "\")'></div>"
+      + "<div class='fish-field'><label>To Order</label><input type='number' min='0' step='0.5' placeholder='—' value='" + pv + "' class='" + (pv !== "" ? "has-p" : "") + "' oninput='setFish(\"" + safeName + "\",\"" + safeVendor + "\",\"" + safeUnit + "\",\"proposed\",this.value,\"" + cardId + "\")'></div>"
+      + "</div><div class='fish-note-wrap'><textarea class='fish-note" + (noteVal ? " has-note" : "") + "' placeholder='Note for Peter (optional)…' oninput='setFishNote(\"" + safeName + "\",this.value)'>" + noteVal + "</textarea></div></div>";
   });
-
   list.innerHTML = html || "<div style='padding:20px;text-align:center;color:#aaa'>No fish products found.<br><small>Run importFishSkusToProducts in Apps Script first.</small></div>";
 }
 
 function setFish(name, vendor, unit, field, val, cardId) {
   if (!S.fishData[name]) S.fishData[name] = { vendor: vendor, unit: unit, note: "" };
   S.fishData[name][field] = (val === "") ? undefined : (parseFloat(val) || 0);
-
-  // Update input highlight + clear error state if stock just filled
   var card = document.getElementById(cardId);
   if (card) {
     var inputs = card.querySelectorAll(".fish-field input");
-    if (inputs[0]) {
-      inputs[0].className = (S.fishData[name].stock !== undefined ? "has-s" : "");
-      if (field === "stock" && S.fishData[name].stock !== undefined) {
-        inputs[0].classList.remove("error-field");
-        card.classList.remove("error-highlight");
-      }
-    }
-    if (inputs[1]) {
-      inputs[1].className = (S.fishData[name].proposed !== undefined ? "has-p" : "");
-    }
+    if (inputs[0]) { inputs[0].className = S.fishData[name].stock !== undefined ? "has-s" : ""; if (field === "stock" && S.fishData[name].stock !== undefined) { inputs[0].classList.remove("error-field"); card.classList.remove("error-highlight"); } }
+    if (inputs[1]) inputs[1].className = S.fishData[name].proposed !== undefined ? "has-p" : "";
   }
-
-  // Update summary counters
-  var counted   = Object.keys(S.fishData).filter(function(n) { return S.fishData[n].stock !== undefined; }).length;
-  var ordering  = Object.values(S.fishData).filter(function(d) { return d.proposed && d.proposed > 0; }).length;
+  var counted = Object.keys(S.fishData).filter(function(n) { return S.fishData[n].stock !== undefined; }).length;
+  var ordering = Object.values(S.fishData).filter(function(d) { return d.proposed && d.proposed > 0; }).length;
   var fishTotal = S.products.filter(function(p) { return p.category === "FISH"; }).length;
-  var ep = document.getElementById("fish-inv-prog");      if (ep) ep.textContent = counted;
+  var ep = document.getElementById("fish-inv-prog"); if (ep) ep.textContent = counted;
   var eo = document.getElementById("fish-inv-order-cnt"); if (eo) eo.textContent = ordering;
   var submitBtn = document.getElementById("fish-submit-btn");
-  if (submitBtn) {
-    var hasAny  = counted > 0;
-    var allDone = fishTotal > 0 && counted >= fishTotal;
-    submitBtn.disabled      = !hasAny;
-    submitBtn.style.opacity = hasAny ? "1" : "0.4";
-    submitBtn.style.cursor  = hasAny ? "pointer" : "not-allowed";
-    submitBtn.style.background = allDone ? "#E64A2E" : "#c0392b";
-  }
+  if (submitBtn) { var hasAny = counted > 0; var allDone = fishTotal > 0 && counted >= fishTotal; submitBtn.disabled = !hasAny; submitBtn.style.opacity = hasAny ? "1" : "0.4"; submitBtn.style.cursor = hasAny ? "pointer" : "not-allowed"; submitBtn.style.background = allDone ? "#E64A2E" : "#c0392b"; }
 }
 
-function setFishNote(name, val) {
-  if (!S.fishData[name]) S.fishData[name] = { note: "" };
-  S.fishData[name].note = val;
-}
+function setFishNote(name, val) { if (!S.fishData[name]) S.fishData[name] = { note: "" }; S.fishData[name].note = val; }
 
 function submitFishInv() {
   var fishProducts = S.products.filter(function(p) { return p.category === "FISH"; });
-
-  // Validate: highlight any SKU missing a stock count
   var missing = [];
   fishProducts.forEach(function(p) {
     var d = S.fishData[p.name];
@@ -1239,62 +1148,32 @@ function submitFishInv() {
     var card = document.getElementById(cardId);
     if (!d || d.stock === undefined) {
       missing.push({ name: p.name, cardId: cardId });
-      if (card) {
-        card.classList.add("error-highlight");
-        var stockInput = card.querySelectorAll(".fish-field input")[0];
-        if (stockInput) stockInput.classList.add("error-field");
-      }
-    } else {
-      // Clear any stale error highlight
-      if (card) {
-        card.classList.remove("error-highlight");
-        var stockInput = card.querySelectorAll(".fish-field input")[0];
-        if (stockInput) stockInput.classList.remove("error-field");
-      }
-    }
+      if (card) { card.classList.add("error-highlight"); var si = card.querySelectorAll(".fish-field input")[0]; if (si) si.classList.add("error-field"); }
+    } else { if (card) { card.classList.remove("error-highlight"); var si = card.querySelectorAll(".fish-field input")[0]; if (si) si.classList.remove("error-field"); } }
   });
-
   if (missing.length) {
-    var firstCard = document.getElementById(missing[0].cardId);
-    if (firstCard) firstCard.scrollIntoView({ behavior: "smooth", block: "center" });
-    toast(missing.length === 1
-      ? "⚠ 1 item still needs a stock count — highlighted in red"
-      : "⚠ " + missing.length + " items still need a stock count — highlighted in red",
-      "err");
+    var firstCard = document.getElementById(missing[0].cardId); if (firstCard) firstCard.scrollIntoView({ behavior: "smooth", block: "center" });
+    toast(missing.length === 1 ? "⚠ 1 item still needs a stock count — highlighted in red" : "⚠ " + missing.length + " items still need a stock count — highlighted in red", "err");
     return;
   }
-
   var entries = [];
   fishProducts.forEach(function(p) {
     var d = S.fishData[p.name] || {};
-    entries.push({
-      name:     p.name,
-      vendor:   p.vendor    || "",
-      unit:     p.orderUnit || "Each",
-      stock:    d.stock    !== undefined ? d.stock    : 0,
-      proposed: d.proposed !== undefined ? d.proposed : 0,
-      note:     d.note     || ""
-    });
+    entries.push({ name: p.name, vendor: p.vendor || "", unit: p.orderUnit || "Each", stock: d.stock !== undefined ? d.stock : 0, proposed: d.proposed !== undefined ? d.proposed : 0, note: d.note || "" });
   });
-
   if (!entries.length) { toast("Nothing to submit", "err"); return; }
   var btn = document.getElementById("fish-submit-btn");
   if (btn) { btn.textContent = "Submitting…"; btn.disabled = true; }
-
-  // Use real fetch POST — avoids URL-length limit that causes silent failures on JSONP transport
   apiPostReal("submitFishInventory", { entries: entries, staff: S.staff.fish, weekOf: S.fishWeekOf }, function() {
     toast("✓ Fish order submitted to Peter", "ok");
     setTimeout(function() { goBack(); }, 1600);
-  }, function(err) {
-    toast(friendlyError(err), "err");
-    if (btn) { btn.textContent = "🐟 Submit Fish Order to Peter"; btn.disabled = false; }
-  });
+  }, function(err) { toast(friendlyError(err), "err"); if (btn) { btn.textContent = "🐟 Submit Fish Order to Peter"; btn.disabled = false; } });
 }
 
 
-// ════════════════════════════════════════════════════════
+// ════════════════════════════════════════
 //  GROCERY APPROVAL
-// ════════════════════════════════════════════════════════
+// ════════════════════════════════════════
 
 function loadApproval() {
   var token = document.getElementById("appr-date").value;
@@ -1303,30 +1182,21 @@ function loadApproval() {
   document.getElementById("appr-list").innerHTML = "<div class='loading'><div class='spinner'></div>Loading…</div>";
   api("getPendingOrders", { token: token }, function(orders) {
     S.apprItems = orders || [];
-    if (!S.apprItems.length) {
-      document.getElementById("appr-list").innerHTML = "<div style='padding:20px;text-align:center;color:#888'>No pending orders for this date.</div>";
-      return;
-    }
+    if (!S.apprItems.length) { document.getElementById("appr-list").innerHTML = "<div style='padding:20px;text-align:center;color:#888'>No pending orders for this date.</div>"; return; }
     var byVendor = {};
     S.apprItems.forEach(function(o) { if (!byVendor[o.vendor]) byVendor[o.vendor] = []; byVendor[o.vendor].push(o); });
     var html = "";
     Object.keys(byVendor).sort().forEach(function(v) {
       html += "<div class='vhdr'>" + v + "</div>";
       byVendor[v].forEach(function(item) {
-        var last    = S.counts[item.name];
-        var lastUnits = last ? last.qty + "u" : "—";
-        var cons    = S.consumption[item.name];
-        var consStr = cons !== undefined ? cons + "u/wk" : "0u/wk";
-        html += "<div class='appr-item'>"
-          + "<div class='appr-name'>" + item.name + "</div>"
-          + "<div class='appr-meta'>" + item.vendor + "</div>"
-          + "<div class='appr-row'>"
-          + "<div class='appr-stat'><strong>" + lastUnits + "</strong>In Store</div>"
+        var last = S.counts[item.name]; var lastUnits = last ? last.qty + "u" : "—";
+        var cons = S.consumption[item.name]; var consStr = cons !== undefined ? cons + "u/wk" : "0u/wk";
+        html += "<div class='appr-item'><div class='appr-name'>" + item.name + "</div><div class='appr-meta'>" + item.vendor + "</div>"
+          + "<div class='appr-row'><div class='appr-stat'><strong>" + lastUnits + "</strong>In Store</div>"
           + "<div class='appr-stat' style='background:#fff8e8;border-radius:4px;padding:2px 0'><strong>" + consStr + "</strong>3-wk Avg</div>"
           + "<div class='appr-stat'><strong>" + item.qtyProposed + "</strong>Proposed</div>"
           + "<input class='appr-input' type='number' min='0' step='0.5' value='" + item.qtyProposed + "' id='ai-" + item.rowIndex + "'>"
-          + "<div style='font-size:11px;color:#888'>" + (item.orderUnit || "Case") + "</div>"
-          + "</div></div>";
+          + "<div style='font-size:11px;color:#888'>" + (item.orderUnit || "Case") + "</div></div></div>";
       });
     });
     document.getElementById("appr-list").innerHTML = html;
@@ -1334,72 +1204,50 @@ function loadApproval() {
 }
 
 function submitApproval() {
-  var token    = document.getElementById("appr-date").value;
-  var approvals= S.apprItems.map(function(item) {
+  var token = document.getElementById("appr-date").value;
+  var approvals = S.apprItems.map(function(item) {
     var el = document.getElementById("ai-" + item.rowIndex);
-    return { rowIndex: item.rowIndex, name: item.name, vendor: item.vendor,
-             qtyProposed: item.qtyProposed, qtyApproved: el ? el.value : 0, orderUnit: item.orderUnit };
+    return { rowIndex: item.rowIndex, name: item.name, vendor: item.vendor, qtyProposed: item.qtyProposed, qtyApproved: el ? el.value : 0, orderUnit: item.orderUnit };
   });
   apiPostReal("submitApprovals", { approvals: approvals, weekDate: token }, function() {
     toast("✓ Order approved — report sent", "ok");
     setTimeout(function() { goBack(); goBack(); }, 2000);
-  }, function(err) {
-    toast(friendlyError(err), "err");
-  });
+  }, function(err) { toast(friendlyError(err), "err"); });
 }
 
 
-// ════════════════════════════════════════════════════════
+// ════════════════════════════════════════
 //  FISH APPROVAL
-// ════════════════════════════════════════════════════════
+// ════════════════════════════════════════
 
 function loadFishApproval() {
   var token = document.getElementById("fish-appr-date").value;
   if (!token) { toast("Select a date", "err"); return; }
   go("fish-approve");
-  var badge = document.getElementById("fish-appr-badge");
-  if (badge) badge.textContent = "Week of " + token;
+  var badge = document.getElementById("fish-appr-badge"); if (badge) badge.textContent = "Week of " + token;
   document.getElementById("fish-appr-list").innerHTML = "<div class='loading'><div class='spinner'></div>Loading…</div>";
   api("getFishPendingOrders", { token: token }, function(orders) {
     S.fishApprItems = orders || [];
-    if (!S.fishApprItems.length) {
-      document.getElementById("fish-appr-list").innerHTML = "<div style='padding:20px;text-align:center;color:#888'>No fish inventory submitted for this week yet.</div>";
-      return;
-    }
+    if (!S.fishApprItems.length) { document.getElementById("fish-appr-list").innerHTML = "<div style='padding:20px;text-align:center;color:#888'>No fish inventory submitted for this week yet.</div>"; return; }
     var byVendor = {};
-    S.fishApprItems.forEach(function(o) {
-      if (!byVendor[o.vendor]) byVendor[o.vendor] = [];
-      byVendor[o.vendor].push(o);
-    });
+    S.fishApprItems.forEach(function(o) { if (!byVendor[o.vendor]) byVendor[o.vendor] = []; byVendor[o.vendor].push(o); });
     var html = "";
     Object.keys(byVendor).sort().forEach(function(v) {
       html += "<div class='vhdr'>🐟 " + v + "</div>";
       byVendor[v].forEach(function(item) {
-        var parAvg    = item.parAvg !== undefined && item.parAvg !== "" ? item.parAvg : "—";
-        var note      = item.proposedNote ? item.proposedNote.toString().trim() : "";
-        var stockDisp = item.qtyInStock !== undefined ? item.qtyInStock : "—";
-        html += "<div class='fish-appr-item'>"
-          + "<div class='fish-appr-name'>" + item.name + "</div>"
-          + "<div class='fish-appr-meta'>" + item.vendor + " · " + (item.unit || "") + "</div>"
-
-          + "<div class='fish-appr-stats'>"
-          + "<div class='fish-appr-stat'><strong>" + stockDisp + "</strong>In Stock</div>"
+        var parAvg = item.parAvg !== undefined && item.parAvg !== "" ? item.parAvg : "—";
+        var note = item.proposedNote ? item.proposedNote.toString().trim() : "";
+        html += "<div class='fish-appr-item'><div class='fish-appr-name'>" + item.name + "</div><div class='fish-appr-meta'>" + item.vendor + " · " + (item.unit || "") + "</div>"
+          + "<div class='fish-appr-stats'><div class='fish-appr-stat'><strong>" + (item.qtyInStock !== undefined ? item.qtyInStock : "—") + "</strong>In Stock</div>"
           + "<div class='fish-appr-stat highlight'><strong>" + parAvg + "</strong>4-wk Avg</div>"
-          + "<div class='fish-appr-stat'><strong>" + item.qtyProposed + "</strong>Proposed</div>"
-          + "</div>"
-
+          + "<div class='fish-appr-stat'><strong>" + item.qtyProposed + "</strong>Proposed</div></div>"
           + (note ? "<div class='fish-appr-note-in'>💬 " + note + "</div>" : "")
-
-          + "<div class='fish-appr-controls'>"
-          + "<div style='text-align:center;flex-shrink:0'>"
+          + "<div class='fish-appr-controls'><div style='text-align:center;flex-shrink:0'>"
           + "<div style='font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px'>Approved</div>"
           + "<input class='appr-input' type='number' min='0' step='0.5' value='" + item.qtyApproved + "' id='fa-" + item.rowIndex + "'>"
-          + "<div style='font-size:10px;color:#888;margin-top:3px'>" + (item.unit || "") + "</div>"
-          + "</div>"
-          + "<input class='fish-peter-note' type='text' placeholder=\"Peter's note…\" id='fn-" + item.rowIndex + "' "
-          + "style='flex:1;margin-left:8px'>"
-          + "</div>"
-          + "</div>";
+          + "<div style='font-size:10px;color:#888;margin-top:3px'>" + (item.unit || "") + "</div></div>"
+          + "<input class='fish-peter-note' type='text' placeholder=\"Peter's note…\" id='fn-" + item.rowIndex + "' style='flex:1;margin-left:8px'>"
+          + "</div></div>";
       });
     });
     document.getElementById("fish-appr-list").innerHTML = html;
@@ -1407,36 +1255,81 @@ function loadFishApproval() {
 }
 
 function submitFishApproval() {
-  var token    = document.getElementById("fish-appr-date").value;
-  var approvals= S.fishApprItems.map(function(item) {
-    var qtyEl  = document.getElementById("fa-" + item.rowIndex);
+  var token = document.getElementById("fish-appr-date").value;
+  var approvals = S.fishApprItems.map(function(item) {
+    var qtyEl = document.getElementById("fa-" + item.rowIndex);
     var noteEl = document.getElementById("fn-" + item.rowIndex);
-    return {
-      rowIndex:    item.rowIndex,
-      name:        item.name,
-      vendor:      item.vendor,
-      unit:        item.unit,
-      qtyProposed: item.qtyProposed,
-      qtyApproved: qtyEl  ? parseFloat(qtyEl.value)  || 0 : 0,
-      peterNote:   noteEl ? noteEl.value.trim() : ""
-    };
+    return { rowIndex: item.rowIndex, name: item.name, vendor: item.vendor, unit: item.unit, qtyProposed: item.qtyProposed, qtyApproved: qtyEl ? parseFloat(qtyEl.value) || 0 : 0, peterNote: noteEl ? noteEl.value.trim() : "" };
   });
   apiPostReal("submitFishApprovals", { approvals: approvals, weekDate: token }, function() {
     toast("✓ Fish order approved — team notified", "ok");
     setTimeout(function() { goBack(); goBack(); }, 2000);
-  }, function(err) {
-    toast(friendlyError(err), "err");
-  });
+  }, function(err) { toast(friendlyError(err), "err"); });
 }
 
 
-// ════════════════════════════════════════════════════════
+// ════════════════════════════════════════
+//  CATEGORY APPROVAL (CC / Paper / Kitchen)
+// ════════════════════════════════════════
+
+function loadCatApproval() {
+  var token = document.getElementById("cat-appr-date").value;
+  if (!token) { toast("Select a date", "err"); return; }
+  var cat = S.catApprCategory;
+  var cfg = CAT_CONFIG[cat] || {};
+  go("cat-approve");
+  var hdr = document.querySelector(".header"); if (hdr) hdr.style.background = cfg.color || "#1a1a1a";
+  document.getElementById("hdr-title").textContent = (cfg.emoji || "") + " Approve " + (cfg.label || cat);
+  var submitBtn = document.getElementById("cat-appr-submit-btn");
+  if (submitBtn) { submitBtn.style.background = cfg.color || "#1A7A3C"; }
+  document.getElementById("cat-appr-list").innerHTML = "<div class='loading'><div class='spinner'></div>Loading…</div>";
+  api("getPendingOrders", { token: token }, function(orders) {
+    // Filter to only this category
+    var catOrders = (orders || []).filter(function(o) {
+      var prod = S.products.find(function(p) { return p.name === o.name; });
+      return prod && prod.category === cat;
+    });
+    S.catApprItems = catOrders;
+    if (!catOrders.length) { document.getElementById("cat-appr-list").innerHTML = "<div style='padding:20px;text-align:center;color:#888'>No pending orders for this date.</div>"; return; }
+    var byVendor = {};
+    catOrders.forEach(function(o) { if (!byVendor[o.vendor]) byVendor[o.vendor] = []; byVendor[o.vendor].push(o); });
+    var html = "";
+    Object.keys(byVendor).sort().forEach(function(v) {
+      html += "<div class='vhdr'>" + (cfg.emoji || "") + " " + v + "</div>";
+      byVendor[v].forEach(function(item) {
+        var last = S.counts[item.name]; var lastUnits = last ? last.qty + "u" : "—";
+        var cons = S.consumption[item.name]; var consStr = cons !== undefined ? cons + "u/wk" : "0u/wk";
+        html += "<div class='appr-item'><div class='appr-name'>" + item.name + "</div><div class='appr-meta'>" + item.vendor + "</div>"
+          + "<div class='appr-row'><div class='appr-stat'><strong>" + lastUnits + "</strong>In Store</div>"
+          + "<div class='appr-stat' style='background:#fff8e8;border-radius:4px;padding:2px 0'><strong>" + consStr + "</strong>3-wk Avg</div>"
+          + "<div class='appr-stat'><strong>" + item.qtyProposed + "</strong>Proposed</div>"
+          + "<input class='appr-input' type='number' min='0' step='0.5' value='" + item.qtyProposed + "' id='cai-" + item.rowIndex + "'>"
+          + "<div style='font-size:11px;color:#888'>" + (item.orderUnit || "Case") + "</div></div></div>";
+      });
+    });
+    document.getElementById("cat-appr-list").innerHTML = html;
+  });
+}
+
+function submitCatApproval() {
+  var token = document.getElementById("cat-appr-date").value;
+  var approvals = S.catApprItems.map(function(item) {
+    var el = document.getElementById("cai-" + item.rowIndex);
+    return { rowIndex: item.rowIndex, name: item.name, vendor: item.vendor, qtyProposed: item.qtyProposed, qtyApproved: el ? el.value : 0, orderUnit: item.orderUnit };
+  });
+  apiPostReal("submitApprovals", { approvals: approvals, weekDate: token }, function() {
+    toast("✓ Order approved — report sent", "ok");
+    setTimeout(function() { goBack(); goBack(); }, 2000);
+  }, function(err) { toast(friendlyError(err), "err"); });
+}
+
+
+// ════════════════════════════════════════
 //  SKU MODAL
-// ════════════════════════════════════════════════════════
+// ════════════════════════════════════════
 
 function openSkuModalFor(p) {
-  S.invSel = p;
-  S.skuEditRowIndex = p.rowIndex;
+  S.invSel = p; S.skuEditRowIndex = p.rowIndex;
   var vendors = [...new Set(S.products.map(function(x) { return x.vendor; }))].filter(Boolean).sort();
   document.getElementById("vendor-list").innerHTML = vendors.map(function(v) { return "<option value='" + v.replace(/'/g, "&#39;") + "'>"; }).join("");
   document.getElementById("sku-modal-title").textContent = "Edit SKU";
@@ -1449,55 +1342,39 @@ function openSkuModalFor(p) {
   document.getElementById("sku-modal").style.display   = "flex";
 }
 
-function closeSkuModal(event) {
-  if (event.target === document.getElementById("sku-modal")) {
-    document.getElementById("sku-modal").style.display = "none";
-  }
-}
+function closeSkuModal(event) { if (event.target === document.getElementById("sku-modal")) document.getElementById("sku-modal").style.display = "none"; }
 
 function saveSkuEdit() {
-  var name      = document.getElementById("sku-modal-name").value.trim();
-  var vendor    = document.getElementById("sku-modal-vendor").value.trim();
+  var name = document.getElementById("sku-modal-name").value.trim();
+  var vendor = document.getElementById("sku-modal-vendor").value.trim();
   var orderUnit = document.getElementById("sku-modal-orderunit").value;
   var unitCount = parseInt(document.getElementById("sku-modal-unitcount").value) || 0;
-  var size      = parseFloat(document.getElementById("sku-modal-size").value) || 0;
-  var uom       = document.getElementById("sku-modal-uom").value;
+  var size = parseFloat(document.getElementById("sku-modal-size").value) || 0;
+  var uom = document.getElementById("sku-modal-uom").value;
   if (!name || !vendor) { toast("Name and vendor required", "err"); return; }
-  apiPost("updateProductFull", {
-    rowIndex: S.skuEditRowIndex,
-    name: name, vendor: vendor, orderUnit: orderUnit,
-    unitCount: unitCount, size: size, uom: uom
-  }, function() {
+  apiPost("updateProductFull", { rowIndex: S.skuEditRowIndex, name: name, vendor: vendor, orderUnit: orderUnit, unitCount: unitCount, size: size, uom: uom }, function() {
     toast("✓ SKU updated", "ok");
     document.getElementById("sku-modal").style.display = "none";
     var p = S.products.find(function(x) { return x.rowIndex === S.skuEditRowIndex; });
     if (p) { p.name = name; p.vendor = vendor; p.orderUnit = orderUnit; p.unitCount = unitCount; p.size = size; p.uom = uom; }
-    buildVendorRoller();
-    buildFishVendorRoller();
-    renderInvList();
-    renderFishList();
+    buildVendorRoller(); buildFishVendorRoller(); renderInvList(); renderFishList();
   });
 }
 
 
-// ════════════════════════════════════════════════════════
+// ════════════════════════════════════════
 //  INACTIVE
-// ════════════════════════════════════════════════════════
+// ════════════════════════════════════════
 
 function loadInactive() {
   document.getElementById("inact-list").innerHTML = "<div class='loading'><div class='spinner'></div>Loading…</div>";
   api("getInactiveProducts", {}, function(items) {
-    if (!items || !items.length) {
-      document.getElementById("inact-list").innerHTML = "<div style='padding:20px;text-align:center;color:#1A7A3C;font-weight:600'>✓ No inactive products</div>";
-      return;
-    }
+    if (!items || !items.length) { document.getElementById("inact-list").innerHTML = "<div style='padding:20px;text-align:center;color:#1A7A3C;font-weight:600'>✓ No inactive products</div>"; return; }
     document.getElementById("inact-list").innerHTML = items.map(function(item) {
       return "<div class='inact-item' id='in-" + item.skuId + "'>"
         + "<div><strong style='font-size:13px;display:block'>" + item.name + "</strong><span style='font-size:11px;color:#888'>" + item.vendor + "</span></div>"
-        + "<div class='inact-btns'>"
-        + "<button class='inact-btn inact-keep' onclick='keepIt(\"" + item.skuId + "\")'>Keep</button>"
-        + "<button class='inact-btn inact-rem' onclick='removeIt(\"" + item.skuId + "\",\"" + item.name.replace(/"/g, "&quot;") + "\")'>Remove</button>"
-        + "</div></div>";
+        + "<div class='inact-btns'><button class='inact-btn inact-keep' onclick='keepIt(\"" + item.skuId + "\")'>Keep</button>"
+        + "<button class='inact-btn inact-rem' onclick='removeIt(\"" + item.skuId + "\",\"" + item.name.replace(/"/g, "&quot;") + "\")'>Remove</button></div></div>";
     }).join("");
   });
 }
@@ -1514,9 +1391,9 @@ function removeIt(id, name) {
 }
 
 
-// ════════════════════════════════════════════════════════
+// ════════════════════════════════════════
 //  UTILITIES
-// ════════════════════════════════════════════════════════
+// ════════════════════════════════════════
 
 function adj(id, d) {
   var el = document.getElementById(id);
@@ -1532,91 +1409,58 @@ function toast(msg, type) {
   _tt = setTimeout(function() { el.classList.remove("show"); }, 3400);
 }
 
-
-// ════════════════════════════════════════════════════════
-//  ERROR TRANSLATOR — plain English, no tech-speak
-// ════════════════════════════════════════════════════════
-
 function friendlyError(raw) {
   var r = (raw || "").toString().toLowerCase();
-  if (r.includes("networkerror") || r.includes("failed to fetch") || r.includes("load failed") || r.includes("http 0")) {
-    return "Can't reach the server. Check your connection and try again.";
-  }
-  if (r.includes("http 5") || r.includes("500") || r.includes("502") || r.includes("503")) {
-    return "The server ran into a problem. Wait 30 seconds and try again.";
-  }
-  if (r.includes("timeout") || r.includes("timed out")) {
-    return "The request took too long — your connection may be slow. Try again.";
-  }
-  if (r.includes("fish_db") || r.includes("not found")) {
-    return "The fish database sheet couldn't be found. Ask Rudi to check the sheet setup.";
-  }
-  if (r.includes("quota") || r.includes("rate limit")) {
-    return "Too many requests right now. Wait a minute and try again.";
-  }
-  if (r.includes("permission") || r.includes("unauthorized") || r.includes("403")) {
-    return "Permission denied — the sheet may need to be reshared. Let Rudi know.";
-  }
+  if (r.includes("networkerror") || r.includes("failed to fetch") || r.includes("load failed") || r.includes("http 0")) return "Can't reach the server. Check your connection and try again.";
+  if (r.includes("http 5") || r.includes("500") || r.includes("502") || r.includes("503")) return "The server ran into a problem. Wait 30 seconds and try again.";
+  if (r.includes("timeout") || r.includes("timed out")) return "The request took too long. Try again.";
+  if (r.includes("fish_db") || r.includes("not found")) return "The database sheet couldn't be found. Ask Rudi to check the sheet setup.";
+  if (r.includes("quota") || r.includes("rate limit")) return "Too many requests right now. Wait a minute and try again.";
+  if (r.includes("permission") || r.includes("unauthorized") || r.includes("403")) return "Permission denied. Let Rudi know.";
   return "Something went wrong. Try again, or let Rudi know if it keeps happening.";
 }
 
+// Reset header color on going home
+var _origGoBack = goBack;
+function goBack() {
+  _origGoBack();
+  // Restore red header after navigating
+  setTimeout(function() {
+    var hdr = document.querySelector(".header");
+    if (hdr) hdr.style.background = "#E64A2E";
+  }, 0);
+}
 
-// ════════════════════════════════════════════════════════
+
+// ════════════════════════════════════════
 //  API TRANSPORT
-// ════════════════════════════════════════════════════════
+// ════════════════════════════════════════
 
-// JSONP GET — used for read-only calls (small payloads)
 function api(fn, params, cb, errCb) {
-  var p = params || {};
-  p.fn = fn;
-  var cbName = "_cb" + (++_cbc);
-  p.callback = cbName;
-  var timer = setTimeout(function() {
-    if (window[cbName]) { delete window[cbName]; var s = document.getElementById(cbName); if (s) s.remove(); }
-  }, 20000);
+  var p = params || {}; p.fn = fn;
+  var cbName = "_cb" + (++_cbc); p.callback = cbName;
+  var timer = setTimeout(function() { if (window[cbName]) { delete window[cbName]; var s = document.getElementById(cbName); if (s) s.remove(); } }, 20000);
   window[cbName] = function(d) {
-    clearTimeout(timer);
-    delete window[cbName];
+    clearTimeout(timer); delete window[cbName];
     var s = document.getElementById(cbName); if (s) s.remove();
     if (d && d.error) { if (errCb) errCb(d.error); return; }
     if (cb) cb(d && d.result !== undefined ? d.result : d);
   };
-  var url = API + "?" + Object.keys(p).map(function(k) {
-    return encodeURIComponent(k) + "=" + encodeURIComponent(typeof p[k] === "object" ? JSON.stringify(p[k]) : p[k]);
-  }).join("&");
-  var s = document.createElement("script");
-  s.id = cbName; s.src = url;
+  var url = API + "?" + Object.keys(p).map(function(k) { return encodeURIComponent(k) + "=" + encodeURIComponent(typeof p[k] === "object" ? JSON.stringify(p[k]) : p[k]); }).join("&");
+  var s = document.createElement("script"); s.id = cbName; s.src = url;
   s.onerror = function() { clearTimeout(timer); delete window[cbName]; s.remove(); if (errCb) errCb("network error"); };
   document.head.appendChild(s);
 }
 
-// Legacy alias — small write calls still use JSONP (intake, add product, SKU edits)
 function apiPost(fn, body, cb, errCb) {
   api(fn, { data: JSON.stringify(body) }, cb, errCb);
 }
 
-// True HTTP POST — used for all large write payloads (inventory submit, approvals)
-// Prevents URL-length overflow that caused "Submit failed" on JSONP transport
 function apiPostReal(fn, body, cb, errCb) {
-  fetch(API, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ fn: fn, data: body })
-  })
-  .then(function(r) {
-    if (!r.ok) throw new Error("HTTP " + r.status);
-    return r.json();
-  })
-  .then(function(d) {
-    if (d && d.error) {
-      if (errCb) errCb(d.error);
-    } else {
-      if (cb) cb(d && d.result !== undefined ? d.result : d);
-    }
-  })
-  .catch(function(err) {
-    if (errCb) errCb(err.toString());
-  });
+  fetch(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ fn: fn, data: body }) })
+  .then(function(r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+  .then(function(d) { if (d && d.error) { if (errCb) errCb(d.error); } else { if (cb) cb(d && d.result !== undefined ? d.result : d); } })
+  .catch(function(err) { if (errCb) errCb(err.toString()); });
 }
 
 </script>
