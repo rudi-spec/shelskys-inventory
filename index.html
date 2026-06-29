@@ -674,6 +674,11 @@ function goBack() {
   var prev = S.history[S.history.length - 1] || "home";
   S.history.pop();
   go(prev);
+  // Restore base header color when returning to home
+  if (prev === "home") {
+    var hdr = document.querySelector(".header");
+    if (hdr) hdr.style.background = "#E64A2E";
+  }
 }
 
 
@@ -1419,18 +1424,6 @@ function friendlyError(raw) {
   if (r.includes("permission") || r.includes("unauthorized") || r.includes("403")) return "Permission denied. Let Rudi know.";
   return "Something went wrong. Try again, or let Rudi know if it keeps happening.";
 }
-
-// Reset header color on going home
-var _origGoBack = goBack;
-function goBack() {
-  _origGoBack();
-  // Restore red header after navigating
-  setTimeout(function() {
-    var hdr = document.querySelector(".header");
-    if (hdr) hdr.style.background = "#E64A2E";
-  }, 0);
-}
-
 
 // ════════════════════════════════════════
 //  API TRANSPORT
