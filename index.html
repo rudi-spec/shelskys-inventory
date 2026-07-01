@@ -42,18 +42,10 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .home-card.full{grid-column:1/-1}
 .home-card.dark{background:#1a1a1a;border-color:#1a1a1a}
 .home-card.dark .label,.home-card.dark .sub{color:#fff}
-
-/* Category accent cards */
 .home-card.fish{background:#fff;border-color:#E64A2E;border-width:2px}
 .home-card.cc{background:#fff;border-color:#7B4F9E;border-width:2px}
 .home-card.paper{background:#fff;border-color:#2E7D9E;border-width:2px}
 .home-card.kitchen{background:#fff;border-color:#2E7A47;border-width:2px}
-
-/* Full-width approve buttons */
-.appr-btn-fish{background:#E64A2E;border-color:#E64A2E}
-.appr-btn-cc{background:#7B4F9E;border-color:#7B4F9E}
-.appr-btn-paper{background:#2E7D9E;border-color:#2E7D9E}
-.appr-btn-kitchen{background:#2E7A47;border-color:#2E7A47}
 
 /* ── VENDOR ROLLER ── */
 .vendor-roller{display:flex;overflow-x:auto;gap:8px;padding:8px 4px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
@@ -144,6 +136,9 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 .inv-field input.has-o{border-color:#1a1a1a;background:#f8f8f8}
 .inv-field input.error-field{border-color:#CC0000 !important;background:#fff0f0 !important}
 .inv-util-badge{display:inline-block;font-size:10px;font-weight:700;color:#b8860b;background:#fff8e8;border:1px solid #f5c842;padding:2px 6px;border-radius:4px;margin-top:4px}
+
+/* ── INTAKE LOGGED BADGE ── */
+.intake-logged-badge{display:inline-block;font-size:11px;font-weight:700;color:#1A7A3C;background:#f0fff4;border:1px solid #1A7A3C;padding:2px 8px;border-radius:4px;margin-left:6px;vertical-align:middle}
 
 /* ── FISH ITEMS ── */
 .fish-item{background:#fff;border-radius:10px;padding:13px;border:1.5px solid #e5e5e5;margin-bottom:10px;transition:border-color 0.2s,background 0.2s}
@@ -270,11 +265,8 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 </div>
 
 
-<!-- ════════════════════════════════════════
-     HOME
-═════════════════════════════════════════ -->
+<!-- HOME -->
 <div id="screen-home" class="screen active">
-
   <div class="sec-label">🥯 Grocery</div>
   <div class="home-grid">
     <div class="home-card" onclick="startIntake('GROCERY')">
@@ -357,9 +349,7 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 </div>
 
 
-<!-- ════════════════════════════════════════
-     GENERIC INTAKE
-═════════════════════════════════════════ -->
+<!-- GENERIC INTAKE (all categories) -->
 <div id="screen-intake" class="screen">
   <div class="sec-label" id="intake-who-label">Who is logging?</div>
   <div class="staff-sel">
@@ -367,6 +357,10 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
     <div class="staff-btn" id="intake-leo"   onclick="setStaff('intake','Leo')">Leo</div>
     <div class="staff-btn" id="intake-other" onclick="setStaff('intake','Other')">Other</div>
   </div>
+
+  <!-- Session tally banner — shows during active intake session -->
+  <div id="intake-session-banner" style="display:none;background:#f0fff4;border:1.5px solid #1A7A3C;border-radius:10px;padding:10px 13px;margin-bottom:10px;font-size:12px;color:#1A7A3C;font-weight:600"></div>
+
   <button class="scan-btn" id="intake-scan-btn" onclick="toggleScan('intake')">📷 Scan Barcode</button>
   <div class="scanner-box" id="intake-scanner">
     <video id="intake-video" autoplay playsinline muted webkit-playsinline></video>
@@ -376,6 +370,8 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
   <div id="intake-found-panel" class="panel" style="display:none">
     <div class="panel-name" id="ifp-name"></div>
     <div class="panel-meta" id="ifp-meta"></div>
+    <!-- Already logged this session -->
+    <div id="ifp-already-logged" style="display:none;background:#f0fff4;border:1px solid #1A7A3C;border-radius:8px;padding:8px 11px;margin-bottom:10px;font-size:12px;font-weight:600;color:#1A7A3C"></div>
     <div class="panel-row">
       <label>Qty Received</label>
       <input type="number" id="ifp-qty" value="1" min="0" step="1">
@@ -417,9 +413,7 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 </div>
 
 
-<!-- ════════════════════════════════════════
-     GENERIC INVENTORY (Count + Propose)
-═════════════════════════════════════════ -->
+<!-- GENERIC INVENTORY (Count + Propose) -->
 <div id="screen-inv" class="screen">
   <div class="sumbar">
     <div><div class="sl">Items counted</div><div class="sv" id="inv-prog">0</div></div>
@@ -463,9 +457,7 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 </div>
 
 
-<!-- ════════════════════════════════════════
-     FISH INVENTORY & ORDER
-═════════════════════════════════════════ -->
+<!-- FISH INVENTORY & ORDER -->
 <div id="screen-fish-inv" class="screen">
   <div class="week-badge" id="fish-week-badge">Week of —</div>
   <div class="sumbar">
@@ -491,36 +483,28 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 </div>
 
 
-<!-- ════════════════════════════════════════
-     GROCERY APPROVE SETUP
-═════════════════════════════════════════ -->
+<!-- GROCERY APPROVE SETUP -->
 <div id="screen-approve-setup" class="screen">
   <div class="sec-label">Order date</div>
   <div class="form-field" style="margin-bottom:16px"><label>Week Date</label><input type="date" id="appr-date"></div>
   <button class="btn btn-dark" onclick="loadApproval()">Load Order →</button>
 </div>
 
-<!-- ════════════════════════════════════════
-     GROCERY APPROVE
-═════════════════════════════════════════ -->
+<!-- GROCERY APPROVE -->
 <div id="screen-approve" class="screen">
   <p style="font-size:13px;color:#555;margin-bottom:12px">Adjust quantities in cases. Set to 0 to reject.</p>
   <div id="appr-list"></div>
   <button class="btn btn-green" onclick="submitApproval()">✓ Submit Approved Order</button>
 </div>
 
-<!-- ════════════════════════════════════════
-     FISH APPROVE SETUP
-═════════════════════════════════════════ -->
+<!-- FISH APPROVE SETUP -->
 <div id="screen-fish-approve-setup" class="screen">
   <div class="sec-label">Fish order week</div>
   <div class="form-field" style="margin-bottom:16px"><label>Week Of (Sunday)</label><input type="date" id="fish-appr-date"></div>
   <button class="btn btn-red" onclick="loadFishApproval()">🐟 Load Fish Order →</button>
 </div>
 
-<!-- ════════════════════════════════════════
-     FISH APPROVE
-═════════════════════════════════════════ -->
+<!-- FISH APPROVE -->
 <div id="screen-fish-approve" class="screen">
   <p style="font-size:13px;color:#555;margin-bottom:4px">Adjust approved quantities. Set to 0 to reject.</p>
   <div class="week-badge" id="fish-appr-badge" style="margin-bottom:12px">Week of —</div>
@@ -528,36 +512,27 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
   <button class="btn btn-green" onclick="submitFishApproval()">✓ Submit Approved Fish Order</button>
 </div>
 
-<!-- ════════════════════════════════════════
-     CATEGORY APPROVE SETUP (CC / Paper / Kitchen)
-═════════════════════════════════════════ -->
+<!-- CATEGORY APPROVE SETUP -->
 <div id="screen-cat-approve-setup" class="screen">
   <div class="sec-label" id="cat-appr-setup-label">Order date</div>
   <div class="form-field" style="margin-bottom:16px"><label>Week Date</label><input type="date" id="cat-appr-date"></div>
   <button class="btn" id="cat-appr-load-btn" onclick="loadCatApproval()">Load Order →</button>
 </div>
 
-<!-- ════════════════════════════════════════
-     CATEGORY APPROVE
-═════════════════════════════════════════ -->
+<!-- CATEGORY APPROVE -->
 <div id="screen-cat-approve" class="screen">
   <p style="font-size:13px;color:#555;margin-bottom:12px">Adjust quantities. Set to 0 to reject.</p>
   <div id="cat-appr-list"></div>
   <button class="btn" id="cat-appr-submit-btn" onclick="submitCatApproval()">✓ Submit Approved Order</button>
 </div>
 
-<!-- ════════════════════════════════════════
-     INACTIVE
-═════════════════════════════════════════ -->
+<!-- INACTIVE -->
 <div id="screen-inactive" class="screen">
   <p style="font-size:13px;color:#555;margin-bottom:12px">No stock and no orders in 4+ weeks.</p>
   <div id="inact-list"><div class="loading"><div class="spinner"></div>Loading…</div></div>
 </div>
 
 
-<!-- ════════════════════════════════════════
-     SCRIPTS
-═════════════════════════════════════════ -->
 <script src="https://cdn.jsdelivr.net/npm/@zxing/library@0.19.1/umd/index.min.js"></script>
 <script>
 var API = "https://script.google.com/a/macros/shelskys.com/s/AKfycbxWAh8V4zkSTTPRdoQiiivC4shf2LHfym6jkn_TjQ81K3582XOo4R6ZI-QLfIWo0Cz3DA/exec";
@@ -565,33 +540,28 @@ var PIN = "1984";
 
 var _pin = "", _cbc = 0, _zxing = null;
 
-// Category configuration
 var CAT_CONFIG = {
-  GROCERY:      { label: "Grocery",                  color: "#1a1a1a", emoji: "🥯", submitLabel: "→ Submit to Peter for Approval" },
-  FISH:         { label: "Fish",                     color: "#E64A2E", emoji: "🐟", submitLabel: "→ Submit to Peter for Approval" },
+  GROCERY:      { label: "Grocery",                    color: "#1a1a1a", emoji: "🥯", submitLabel: "→ Submit to Peter for Approval" },
+  FISH:         { label: "Fish",                       color: "#E64A2E", emoji: "🐟", submitLabel: "→ Submit to Peter for Approval" },
   CREAM_CHEESE: { label: "Cream Cheese & Baked Goods", color: "#7B4F9E", emoji: "🧀", submitLabel: "→ Submit to Peter for Approval" },
-  PAPER:        { label: "Paper Goods",              color: "#2E7D9E", emoji: "📋", submitLabel: "→ Submit to Peter for Approval" },
-  KITCHEN:      { label: "Kitchen Goods",            color: "#2E7A47", emoji: "🍳", submitLabel: "→ Submit to Peter for Approval" }
+  PAPER:        { label: "Paper Goods",                color: "#2E7D9E", emoji: "📋", submitLabel: "→ Submit to Peter for Approval" },
+  KITCHEN:      { label: "Kitchen Goods",              color: "#2E7A47", emoji: "🍳", submitLabel: "→ Submit to Peter for Approval" }
 };
 
 var _titles = {
-  "home":                   "Shelsky's Inventory",
-  "intake":                 "Intake",
-  "inv":                    "Stock Count",
-  "fish-inv":               "Fish Inventory & Order",
-  "approve-setup":          "Approve Grocery Order",
-  "approve":                "Approve Grocery Order",
-  "fish-approve-setup":     "Approve Fish Order",
-  "fish-approve":           "Approve Fish Order",
-  "cat-approve-setup":      "Approve Order",
-  "cat-approve":            "Approve Order",
-  "inactive":               "Inactive Products"
+  "home": "Shelsky's Inventory", "intake": "Intake", "inv": "Stock Count",
+  "fish-inv": "Fish Inventory & Order", "approve-setup": "Approve Grocery Order",
+  "approve": "Approve Grocery Order", "fish-approve-setup": "Approve Fish Order",
+  "fish-approve": "Approve Fish Order", "cat-approve-setup": "Approve Order",
+  "cat-approve": "Approve Order", "inactive": "Inactive Products"
 };
 
 var S = {
   products: [], counts: {}, consumption: {},
   staff: { intake: "Ethan", inv: "Ethan", fish: "Ethan" },
   intakeSel: null, intakeBarcode: "", intakeCategory: "GROCERY",
+  // ── FIX: session tally tracks what's been logged this intake session ──
+  intakeTotals: {},
   invData: {}, invSel: null, invVendor: "All", invCategory: "GROCERY",
   apprItems: [],
   fishData: {}, fishCounts: {}, fishVendor: "All",
@@ -648,7 +618,6 @@ function init() {
 
 function go(id) {
   stopScan();
-  // Handle dynamic cat-approve-setup screens
   var screenId = id;
   if (id.startsWith("cat-approve-setup-")) {
     var cat = id.replace("cat-approve-setup-", "");
@@ -674,7 +643,6 @@ function goBack() {
   var prev = S.history[S.history.length - 1] || "home";
   S.history.pop();
   go(prev);
-  // Restore base header color when returning to home
   if (prev === "home") {
     var hdr = document.querySelector(".header");
     if (hdr) hdr.style.background = "#E64A2E";
@@ -698,12 +666,8 @@ function setStaff(ctx, name) {
 
 function vendorId(v) { return "vhdr_" + v.replace(/[^a-zA-Z0-9]/g, "_"); }
 
-function buildVendorRoller() {
-  _buildRoller("inv-vendor-roller", S.invCategory, S.invVendor, setInvVendor);
-}
-function buildFishVendorRoller() {
-  _buildRoller("fish-vendor-roller", "FISH", S.fishVendor, setFishVendor);
-}
+function buildVendorRoller() { _buildRoller("inv-vendor-roller", S.invCategory, S.invVendor, setInvVendor); }
+function buildFishVendorRoller() { _buildRoller("fish-vendor-roller", "FISH", S.fishVendor, setFishVendor); }
 
 function _buildRoller(containerId, category, activeVendor, setFn) {
   var container = document.getElementById(containerId);
@@ -788,15 +752,27 @@ function startIntake(category) {
   S.intakeCategory = category;
   S.intakeSel = null;
   S.intakeBarcode = "";
+  // ── FIX: reset session tally when starting a new intake session ──
+  S.intakeTotals = {};
   var cfg = CAT_CONFIG[category] || CAT_CONFIG.GROCERY;
   go("intake");
-  // Style header
   var hdr = document.querySelector(".header");
   if (hdr) hdr.style.background = cfg.color;
   document.getElementById("hdr-title").textContent = cfg.emoji + " " + cfg.label + " — Intake";
   document.getElementById("intake-who-label").textContent = "Who is logging " + cfg.label + "?";
+  updateSessionBanner();
   renderIntakeList();
-  setTimeout(function() { toggleScan("intake"); }, 400);
+  // ── FIX: do NOT auto-start scanner — staff taps when ready ──
+}
+
+function updateSessionBanner() {
+  var banner = document.getElementById("intake-session-banner");
+  if (!banner) return;
+  var keys = Object.keys(S.intakeTotals);
+  if (!keys.length) { banner.style.display = "none"; return; }
+  var items = keys.map(function(k) { return k.split(" ").slice(0,3).join(" ") + " ×" + S.intakeTotals[k]; }).join("  ·  ");
+  banner.style.display = "block";
+  banner.textContent = "✓ Logged this session: " + items;
 }
 
 function renderIntakeList() {
@@ -805,15 +781,20 @@ function renderIntakeList() {
   var vendors = [...new Set(active.map(function(p) { return p.vendor; }))].filter(Boolean).sort();
   var dl = document.getElementById("inp-vendor-list");
   if (dl) dl.innerHTML = vendors.map(function(v) { return "<option value='" + v.replace(/'/g, "&#39;") + "'>"; }).join("");
-  var q    = (document.getElementById("intake-search") || {}).value || "";
+  var q = (document.getElementById("intake-search") || {}).value || "";
   q = q.toLowerCase();
   var list = document.getElementById("intake-list");
   if (!list) return;
   var f = active.filter(function(p) { return !q || p.name.toLowerCase().includes(q) || (p.vendor || "").toLowerCase().includes(q); });
   if (!f.length) { list.innerHTML = "<div style='padding:20px;text-align:center;color:#aaa'>No products found</div>"; return; }
   list.innerHTML = f.slice(0, 60).map(function(p) {
+    // ── FIX: show per-item logged badge if already logged this session ──
+    var logged = S.intakeTotals[p.name] || 0;
+    var badge = logged > 0
+      ? "<span class='intake-logged-badge'>✓ " + logged + " logged today</span>"
+      : "";
     return "<div style='background:#fff;border-radius:10px;padding:11px 13px;border:1.5px solid #e5e5e5;cursor:pointer;margin-bottom:6px' onclick='showIntakeFound(" + JSON.stringify(p).replace(/'/g, "&#39;") + ",\"\")'>"
-      + "<div style='font-size:13px;font-weight:600'>" + p.name + "</div>"
+      + "<div style='font-size:13px;font-weight:600'>" + p.name + badge + "</div>"
       + "<div style='font-size:11px;color:#888'>" + (p.vendor || "") + " · " + (p.orderUnit || "Case") + "</div></div>";
   }).join("");
 }
@@ -823,6 +804,15 @@ function showIntakeFound(p, barcode) {
   document.getElementById("ifp-name").textContent = p.name;
   var uc = parseInt(p.unitCount) || 0;
   document.getElementById("ifp-meta").textContent = (p.vendor || "") + " · " + (p.orderUnit || "Case") + (uc ? " of " + uc : "");
+  // ── FIX: show "already logged" warning if logged this session ──
+  var alreadyEl = document.getElementById("ifp-already-logged");
+  var logged = S.intakeTotals[p.name] || 0;
+  if (logged > 0) {
+    alreadyEl.style.display = "block";
+    alreadyEl.textContent = "✓ Already logged " + logged + " this session — adding more will accumulate correctly";
+  } else {
+    alreadyEl.style.display = "none";
+  }
   document.getElementById("ifp-qty").value = 1;
   document.getElementById("intake-found-panel").style.display = "block";
   document.getElementById("intake-new-panel").style.display = "none";
@@ -852,16 +842,27 @@ function clearIntakePanel() {
   document.getElementById("intake-list").style.display = "flex";
   document.getElementById("intake-scan-btn").style.display = "flex";
   document.getElementById("intake-search").value = "";
+  // ── FIX: no auto-restart of scanner ──
   renderIntakeList();
-  setTimeout(function() { toggleScan("intake"); }, 400);
 }
 
 function doIntake() {
   var p   = S.intakeSel;
   var qty = parseFloat(document.getElementById("ifp-qty").value) || 0;
   if (!p || qty <= 0) { toast("Enter a valid quantity", "err"); return; }
-  apiPost("logIntake", { name: p.name, vendor: p.vendor, qty: qty, staff: S.staff.intake, barcode: S.intakeBarcode }, function() {
+  // ── FIX 1: send "received" not "qty", and include category ──
+  apiPost("logIntake", {
+    name:     p.name,
+    vendor:   p.vendor,
+    received: qty,           // was "qty" — now matches unified backend
+    staff:    S.staff.intake,
+    category: S.intakeCategory,
+    weekOf:   ""             // backend derives from today's date
+  }, function() {
+    // ── FIX 2: accumulate session tally ──
+    S.intakeTotals[p.name] = (S.intakeTotals[p.name] || 0) + qty;
     toast("✓ Logged " + qty + "× " + p.name, "ok");
+    updateSessionBanner();
     clearIntakePanel();
   });
 }
@@ -876,8 +877,11 @@ function addAndLogIntake() {
   var unit      = document.getElementById("inp-unit").value;
   if (!name || !vendor) { toast("Name and vendor required", "err"); return; }
   apiPost("addProduct", { name: name, vendor: vendor, orderUnit: unit, unitCount: unitCount, size: size, uom: uom, barcode: S.intakeBarcode, category: S.intakeCategory || "GROCERY" }, function() {
-    apiPost("logIntake", { name: name, vendor: vendor, qty: qty, staff: S.staff.intake, barcode: S.intakeBarcode }, function() {
+    // ── FIX: use received + category for new products too ──
+    apiPost("logIntake", { name: name, vendor: vendor, received: qty, staff: S.staff.intake, category: S.intakeCategory || "GROCERY", weekOf: "" }, function() {
+      S.intakeTotals[name] = (S.intakeTotals[name] || 0) + qty;
       toast("✓ Added & logged", "ok");
+      updateSessionBanner();
       init();
       clearIntakePanel();
     });
@@ -943,8 +947,7 @@ function renderInvList() {
     var safeUnit = (p.orderUnit||"Case").replace(/'/g, "\\'").replace(/"/g, "&quot;");
     var itemId = "inv-item-" + p.name.replace(/[^a-zA-Z0-9]/g, "_");
     html += "<div class='inv-item' id='" + itemId + "'>"
-      + "<div class='inv-item-top'>"
-      + "<div style='flex:1;min-width:0'>"
+      + "<div class='inv-item-top'><div style='flex:1;min-width:0'>"
       + "<div class='inv-item-name'>" + p.name + "</div>"
       + "<div style='font-size:11px;color:#888;margin-top:2px'>" + meta + "</div>"
       + "<div class='inv-util-badge'>⚡ 3-Wk Avg: " + consStr + "</div>"
@@ -968,10 +971,7 @@ function setInv(name, vendor, unit, field, val, itemId) {
   S.invData[name][field] = (val === "") ? undefined : (parseFloat(val) || 0);
   if (field === "stock" && S.invData[name].stock !== undefined && itemId) {
     var card = document.getElementById(itemId);
-    if (card) {
-      card.classList.remove("error-highlight");
-      var si = card.querySelectorAll(".inv-field input")[0]; if (si) si.classList.remove("error-field");
-    }
+    if (card) { card.classList.remove("error-highlight"); var si = card.querySelectorAll(".inv-field input")[0]; if (si) si.classList.remove("error-field"); }
   }
   var done   = Object.keys(S.invData).filter(function(n) { return S.invData[n].stock !== undefined; }).length;
   var orders = Object.values(S.invData).filter(function(d) { return d.order && d.order > 0; }).length;
@@ -1040,7 +1040,7 @@ function submitInv() {
     var firstItemId = "inv-item-" + missing[0].replace(/[^a-zA-Z0-9]/g, "_");
     var firstCard = document.getElementById(firstItemId);
     if (firstCard) firstCard.scrollIntoView({ behavior: "smooth", block: "center" });
-    toast(missing.length === 1 ? "⚠ 1 item still needs a count — highlighted in red" : "⚠ " + missing.length + " items still need a count — highlighted in red", "err");
+    toast(missing.length === 1 ? "⚠ 1 item still needs a count" : "⚠ " + missing.length + " items still need a count — highlighted in red", "err");
     return;
   }
   var countEntries = [], orderEntries = [];
@@ -1158,7 +1158,7 @@ function submitFishInv() {
   });
   if (missing.length) {
     var firstCard = document.getElementById(missing[0].cardId); if (firstCard) firstCard.scrollIntoView({ behavior: "smooth", block: "center" });
-    toast(missing.length === 1 ? "⚠ 1 item still needs a stock count — highlighted in red" : "⚠ " + missing.length + " items still need a stock count — highlighted in red", "err");
+    toast(missing.length === 1 ? "⚠ 1 item still needs a stock count" : "⚠ " + missing.length + " items still need a stock count — highlighted in red", "err");
     return;
   }
   var entries = [];
@@ -1289,7 +1289,6 @@ function loadCatApproval() {
   if (submitBtn) { submitBtn.style.background = cfg.color || "#1A7A3C"; }
   document.getElementById("cat-appr-list").innerHTML = "<div class='loading'><div class='spinner'></div>Loading…</div>";
   api("getPendingOrders", { token: token }, function(orders) {
-    // Filter to only this category
     var catOrders = (orders || []).filter(function(o) {
       var prod = S.products.find(function(p) { return p.name === o.name; });
       return prod && prod.category === cat;
@@ -1338,24 +1337,24 @@ function openSkuModalFor(p) {
   var vendors = [...new Set(S.products.map(function(x) { return x.vendor; }))].filter(Boolean).sort();
   document.getElementById("vendor-list").innerHTML = vendors.map(function(v) { return "<option value='" + v.replace(/'/g, "&#39;") + "'>"; }).join("");
   document.getElementById("sku-modal-title").textContent = "Edit SKU";
-  document.getElementById("sku-modal-name").value      = p.name       || "";
-  document.getElementById("sku-modal-vendor").value    = p.vendor     || "";
-  document.getElementById("sku-modal-orderunit").value = p.orderUnit  || "Case";
-  document.getElementById("sku-modal-unitcount").value = p.unitCount  || "";
-  document.getElementById("sku-modal-size").value      = p.size       || "";
-  document.getElementById("sku-modal-uom").value       = p.uom        || "";
+  document.getElementById("sku-modal-name").value      = p.name      || "";
+  document.getElementById("sku-modal-vendor").value    = p.vendor    || "";
+  document.getElementById("sku-modal-orderunit").value = p.orderUnit || "Case";
+  document.getElementById("sku-modal-unitcount").value = p.unitCount || "";
+  document.getElementById("sku-modal-size").value      = p.size      || "";
+  document.getElementById("sku-modal-uom").value       = p.uom       || "";
   document.getElementById("sku-modal").style.display   = "flex";
 }
 
 function closeSkuModal(event) { if (event.target === document.getElementById("sku-modal")) document.getElementById("sku-modal").style.display = "none"; }
 
 function saveSkuEdit() {
-  var name = document.getElementById("sku-modal-name").value.trim();
-  var vendor = document.getElementById("sku-modal-vendor").value.trim();
+  var name      = document.getElementById("sku-modal-name").value.trim();
+  var vendor    = document.getElementById("sku-modal-vendor").value.trim();
   var orderUnit = document.getElementById("sku-modal-orderunit").value;
   var unitCount = parseInt(document.getElementById("sku-modal-unitcount").value) || 0;
-  var size = parseFloat(document.getElementById("sku-modal-size").value) || 0;
-  var uom = document.getElementById("sku-modal-uom").value;
+  var size      = parseFloat(document.getElementById("sku-modal-size").value) || 0;
+  var uom       = document.getElementById("sku-modal-uom").value;
   if (!name || !vendor) { toast("Name and vendor required", "err"); return; }
   apiPost("updateProductFull", { rowIndex: S.skuEditRowIndex, name: name, vendor: vendor, orderUnit: orderUnit, unitCount: unitCount, size: size, uom: uom }, function() {
     toast("✓ SKU updated", "ok");
@@ -1425,6 +1424,7 @@ function friendlyError(raw) {
   return "Something went wrong. Try again, or let Rudi know if it keeps happening.";
 }
 
+
 // ════════════════════════════════════════
 //  API TRANSPORT
 // ════════════════════════════════════════
@@ -1455,7 +1455,6 @@ function apiPostReal(fn, body, cb, errCb) {
   .then(function(d) { if (d && d.error) { if (errCb) errCb(d.error); } else { if (cb) cb(d && d.result !== undefined ? d.result : d); } })
   .catch(function(err) { if (errCb) errCb(err.toString()); });
 }
-
 </script>
 </body>
 </html>
