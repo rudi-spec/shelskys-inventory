@@ -267,53 +267,33 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 
 <!-- HOME -->
 <div id="screen-home" class="screen active">
-  <div class="sec-label">🥯 Grocery</div>
+
+  <!-- Single unified delivery intake -->
+  <div class="sec-label">Receiving</div>
   <div class="home-grid">
-    <div class="home-card" onclick="startIntake('GROCERY')">
-      <div class="icon">📦</div><div class="label">Grocery Intake</div><div class="sub">Log delivery</div>
-    </div>
-    <div class="home-card" onclick="startInv('GROCERY')">
-      <div class="icon">🔢</div><div class="label">Grocery Stock</div><div class="sub">Count + propose</div>
+    <div class="home-card full dark" onclick="startIntake()">
+      <div class="icon">📦</div>
+      <div class="label">Log Delivery</div>
+      <div class="sub">All categories — scan or search</div>
     </div>
   </div>
 
-  <div class="sec-label">🐟 Fish</div>
+  <div class="sec-label">Stock Count &amp; Order</div>
   <div class="home-grid">
-    <div class="home-card fish" onclick="startIntake('FISH')">
-      <div class="icon">📦</div><div class="label">Fish Intake</div><div class="sub">Log delivery</div>
+    <div class="home-card" onclick="startInv('GROCERY')">
+      <div class="icon">🥯</div><div class="label">Grocery</div><div class="sub">Count + propose</div>
     </div>
     <div class="home-card fish" onclick="startFishInv()">
-      <div class="icon">🐟</div><div class="label">Fish Inventory &amp; Order</div><div class="sub">Count + propose</div>
-    </div>
-  </div>
-
-  <div class="sec-label">🧀 Cream Cheese &amp; Baked Goods</div>
-  <div class="home-grid">
-    <div class="home-card cc" onclick="startIntake('CREAM_CHEESE')">
-      <div class="icon">📦</div><div class="label">CC &amp; Baked Intake</div><div class="sub">Log delivery</div>
+      <div class="icon">🐟</div><div class="label">Fish</div><div class="sub">Count + propose</div>
     </div>
     <div class="home-card cc" onclick="startInv('CREAM_CHEESE')">
-      <div class="icon">🔢</div><div class="label">CC &amp; Baked Stock</div><div class="sub">Count + propose</div>
-    </div>
-  </div>
-
-  <div class="sec-label">📋 Paper Goods</div>
-  <div class="home-grid">
-    <div class="home-card paper" onclick="startIntake('PAPER')">
-      <div class="icon">📦</div><div class="label">Paper Intake</div><div class="sub">Log delivery</div>
+      <div class="icon">🧀</div><div class="label">CC &amp; Baked</div><div class="sub">Count + propose</div>
     </div>
     <div class="home-card paper" onclick="startInv('PAPER')">
-      <div class="icon">🔢</div><div class="label">Paper Stock</div><div class="sub">Count + propose</div>
+      <div class="icon">📋</div><div class="label">Paper</div><div class="sub">Count + propose</div>
     </div>
-  </div>
-
-  <div class="sec-label">🍳 Kitchen Goods</div>
-  <div class="home-grid">
-    <div class="home-card kitchen" onclick="startIntake('KITCHEN')">
-      <div class="icon">📦</div><div class="label">Kitchen Intake</div><div class="sub">Log delivery</div>
-    </div>
-    <div class="home-card kitchen" onclick="startInv('KITCHEN')">
-      <div class="icon">🔢</div><div class="label">Kitchen Stock</div><div class="sub">Count + propose</div>
+    <div class="home-card kitchen full" onclick="startInv('KITCHEN')">
+      <div class="icon">🍳</div><div class="label">Kitchen</div><div class="sub">Count + propose</div>
     </div>
   </div>
 
@@ -349,14 +329,18 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 </div>
 
 
-<!-- GENERIC INTAKE (all categories) -->
+<!-- UNIFIED INTAKE (all categories) -->
 <div id="screen-intake" class="screen">
-  <div class="sec-label" id="intake-who-label">Who is logging?</div>
+  <div class="sec-label">Who is receiving?</div>
   <div class="staff-sel">
     <div class="staff-btn on" id="intake-ethan" onclick="setStaff('intake','Ethan')">Ethan</div>
     <div class="staff-btn" id="intake-leo"   onclick="setStaff('intake','Leo')">Leo</div>
     <div class="staff-btn" id="intake-other" onclick="setStaff('intake','Other')">Other</div>
   </div>
+
+  <!-- Category filter roller -->
+  <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:0.6px;text-transform:uppercase;margin-bottom:6px">Filter by Category</div>
+  <div class="vendor-roller" id="intake-cat-roller"></div>
 
   <!-- Session tally banner — shows during active intake session -->
   <div id="intake-session-banner" style="display:none;background:#f0fff4;border:1.5px solid #1A7A3C;border-radius:10px;padding:10px 13px;margin-bottom:10px;font-size:12px;color:#1A7A3C;font-weight:600"></div>
@@ -559,8 +543,7 @@ var _titles = {
 var S = {
   products: [], counts: {}, consumption: {},
   staff: { intake: "Ethan", inv: "Ethan", fish: "Ethan" },
-  intakeSel: null, intakeBarcode: "", intakeCategory: "GROCERY",
-  // ── FIX: session tally tracks what's been logged this intake session ──
+  intakeSel: null, intakeBarcode: "", intakeCatFilter: "All",
   intakeTotals: {},
   invData: {}, invSel: null, invVendor: "All", invCategory: "GROCERY",
   apprItems: [],
@@ -745,24 +728,47 @@ function handleScan(code, ctx) {
 
 
 // ════════════════════════════════════════
-//  GENERIC INTAKE (all categories)
+//  UNIFIED INTAKE (all categories)
 // ════════════════════════════════════════
 
-function startIntake(category) {
-  S.intakeCategory = category;
+function startIntake() {
   S.intakeSel = null;
   S.intakeBarcode = "";
-  // ── FIX: reset session tally when starting a new intake session ──
+  S.intakeCatFilter = "All";  // category filter roller selection
   S.intakeTotals = {};
-  var cfg = CAT_CONFIG[category] || CAT_CONFIG.GROCERY;
   go("intake");
   var hdr = document.querySelector(".header");
-  if (hdr) hdr.style.background = cfg.color;
-  document.getElementById("hdr-title").textContent = cfg.emoji + " " + cfg.label + " — Intake";
-  document.getElementById("intake-who-label").textContent = "Who is logging " + cfg.label + "?";
+  if (hdr) hdr.style.background = "#1a1a1a";
+  document.getElementById("hdr-title").textContent = "📦 Log Delivery";
+  buildIntakeCatRoller();
   updateSessionBanner();
   renderIntakeList();
-  // ── FIX: do NOT auto-start scanner — staff taps when ready ──
+}
+
+function buildIntakeCatRoller() {
+  var roller = document.getElementById("intake-cat-roller");
+  if (!roller) return;
+  var cats = [
+    { key: "All",         label: "All",            color: "#1a1a1a" },
+    { key: "FISH",        label: "🐟 Fish",        color: "#E64A2E" },
+    { key: "GROCERY",     label: "🥯 Grocery",     color: "#1a1a1a" },
+    { key: "CREAM_CHEESE",label: "🧀 CC & Baked",  color: "#7B4F9E" },
+    { key: "PAPER",       label: "📋 Paper",        color: "#2E7D9E" },
+    { key: "KITCHEN",     label: "🍳 Kitchen",      color: "#2E7A47" }
+  ];
+  roller.innerHTML = cats.map(function(c) {
+    var active = S.intakeCatFilter === c.key;
+    var style = active
+      ? "background:" + c.color + ";color:#fff;border-color:" + c.color
+      : "";
+    return "<button class='vr-btn" + (active ? " on" : "") + "' style='" + style + "' onclick='setIntakeCatFilter(\"" + c.key + "\")'>" + c.label + "</button>";
+  }).join("");
+}
+
+function setIntakeCatFilter(cat) {
+  S.intakeCatFilter = cat;
+  buildIntakeCatRoller();
+  renderIntakeList();
 }
 
 function updateSessionBanner() {
@@ -776,26 +782,47 @@ function updateSessionBanner() {
 }
 
 function renderIntakeList() {
-  var cat = S.intakeCategory || "GROCERY";
-  var active = S.products.filter(function(p) { return p.category === cat; });
-  var vendors = [...new Set(active.map(function(p) { return p.vendor; }))].filter(Boolean).sort();
+  // All active products across all categories, filtered by roller selection
+  var cat = S.intakeCatFilter || "All";
+  var active = S.products.filter(function(p) {
+    return p.status !== "REMOVED" && p.status !== "INACTIVE"
+      && (cat === "All" || p.category === cat);
+  });
+
+  // Populate vendor datalist for new-product form
+  var vendors = [...new Set(S.products.map(function(p) { return p.vendor; }))].filter(Boolean).sort();
   var dl = document.getElementById("inp-vendor-list");
   if (dl) dl.innerHTML = vendors.map(function(v) { return "<option value='" + v.replace(/'/g, "&#39;") + "'>"; }).join("");
+
   var q = (document.getElementById("intake-search") || {}).value || "";
   q = q.toLowerCase();
   var list = document.getElementById("intake-list");
   if (!list) return;
-  var f = active.filter(function(p) { return !q || p.name.toLowerCase().includes(q) || (p.vendor || "").toLowerCase().includes(q); });
+
+  var f = active.filter(function(p) {
+    return !q || p.name.toLowerCase().includes(q) || (p.vendor || "").toLowerCase().includes(q);
+  });
+
   if (!f.length) { list.innerHTML = "<div style='padding:20px;text-align:center;color:#aaa'>No products found</div>"; return; }
-  list.innerHTML = f.slice(0, 60).map(function(p) {
-    // ── FIX: show per-item logged badge if already logged this session ──
+
+  // Category color map for the subtle category pill on each item
+  var catColors = { FISH: "#E64A2E", GROCERY: "#555", CREAM_CHEESE: "#7B4F9E", PAPER: "#2E7D9E", KITCHEN: "#2E7A47" };
+  var catLabels = { FISH: "Fish", GROCERY: "Grocery", CREAM_CHEESE: "CC & Baked", PAPER: "Paper", KITCHEN: "Kitchen" };
+
+  list.innerHTML = f.slice(0, 80).map(function(p) {
     var logged = S.intakeTotals[p.name] || 0;
-    var badge = logged > 0
-      ? "<span class='intake-logged-badge'>✓ " + logged + " logged today</span>"
+    var loggedBadge = logged > 0
+      ? "<span class='intake-logged-badge'>✓ " + logged + " logged</span>"
+      : "";
+    var catColor = catColors[p.category] || "#888";
+    var catLabel = catLabels[p.category] || (p.category || "");
+    // Only show category pill when showing "All" — redundant when filtered
+    var catPill = (cat === "All")
+      ? "<span style='font-size:10px;font-weight:700;color:" + catColor + ";background:" + catColor + "18;padding:1px 6px;border-radius:3px;margin-left:5px;vertical-align:middle'>" + catLabel + "</span>"
       : "";
     return "<div style='background:#fff;border-radius:10px;padding:11px 13px;border:1.5px solid #e5e5e5;cursor:pointer;margin-bottom:6px' onclick='showIntakeFound(" + JSON.stringify(p).replace(/'/g, "&#39;") + ",\"\")'>"
-      + "<div style='font-size:13px;font-weight:600'>" + p.name + badge + "</div>"
-      + "<div style='font-size:11px;color:#888'>" + (p.vendor || "") + " · " + (p.orderUnit || "Case") + "</div></div>";
+      + "<div style='font-size:13px;font-weight:600'>" + p.name + catPill + loggedBadge + "</div>"
+      + "<div style='font-size:11px;color:#888;margin-top:2px'>" + (p.vendor || "") + " · " + (p.orderUnit || "Case") + "</div></div>";
   }).join("");
 }
 
@@ -803,8 +830,10 @@ function showIntakeFound(p, barcode) {
   S.intakeSel = p; S.intakeBarcode = barcode;
   document.getElementById("ifp-name").textContent = p.name;
   var uc = parseInt(p.unitCount) || 0;
-  document.getElementById("ifp-meta").textContent = (p.vendor || "") + " · " + (p.orderUnit || "Case") + (uc ? " of " + uc : "");
-  // ── FIX: show "already logged" warning if logged this session ──
+  var catLabels = { FISH: "Fish", GROCERY: "Grocery", CREAM_CHEESE: "CC & Baked", PAPER: "Paper", KITCHEN: "Kitchen" };
+  document.getElementById("ifp-meta").textContent =
+    (catLabels[p.category] || p.category || "") + " · " +
+    (p.vendor || "") + " · " + (p.orderUnit || "Case") + (uc ? " of " + uc : "");
   var alreadyEl = document.getElementById("ifp-already-logged");
   var logged = S.intakeTotals[p.name] || 0;
   if (logged > 0) {
@@ -842,7 +871,6 @@ function clearIntakePanel() {
   document.getElementById("intake-list").style.display = "flex";
   document.getElementById("intake-scan-btn").style.display = "flex";
   document.getElementById("intake-search").value = "";
-  // ── FIX: no auto-restart of scanner ──
   renderIntakeList();
 }
 
@@ -850,16 +878,15 @@ function doIntake() {
   var p   = S.intakeSel;
   var qty = parseFloat(document.getElementById("ifp-qty").value) || 0;
   if (!p || qty <= 0) { toast("Enter a valid quantity", "err"); return; }
-  // ── FIX 1: send "received" not "qty", and include category ──
+  // Category comes from the product's own SKU record — never from a UI selection
   apiPost("logIntake", {
     name:     p.name,
     vendor:   p.vendor,
-    received: qty,           // was "qty" — now matches unified backend
+    received: qty,
     staff:    S.staff.intake,
-    category: S.intakeCategory,
-    weekOf:   ""             // backend derives from today's date
+    category: p.category,   // resolved from product, not from UI
+    weekOf:   ""
   }, function() {
-    // ── FIX 2: accumulate session tally ──
     S.intakeTotals[p.name] = (S.intakeTotals[p.name] || 0) + qty;
     toast("✓ Logged " + qty + "× " + p.name, "ok");
     updateSessionBanner();
@@ -876,9 +903,10 @@ function addAndLogIntake() {
   var uom       = document.getElementById("inp-uom").value;
   var unit      = document.getElementById("inp-unit").value;
   if (!name || !vendor) { toast("Name and vendor required", "err"); return; }
-  apiPost("addProduct", { name: name, vendor: vendor, orderUnit: unit, unitCount: unitCount, size: size, uom: uom, barcode: S.intakeBarcode, category: S.intakeCategory || "GROCERY" }, function() {
-    // ── FIX: use received + category for new products too ──
-    apiPost("logIntake", { name: name, vendor: vendor, received: qty, staff: S.staff.intake, category: S.intakeCategory || "GROCERY", weekOf: "" }, function() {
+  // New product defaults to current filter category, or GROCERY if showing All
+  var newCat = (S.intakeCatFilter && S.intakeCatFilter !== "All") ? S.intakeCatFilter : "GROCERY";
+  apiPost("addProduct", { name: name, vendor: vendor, orderUnit: unit, unitCount: unitCount, size: size, uom: uom, barcode: S.intakeBarcode, category: newCat }, function() {
+    apiPost("logIntake", { name: name, vendor: vendor, received: qty, staff: S.staff.intake, category: newCat, weekOf: "" }, function() {
       S.intakeTotals[name] = (S.intakeTotals[name] || 0) + qty;
       toast("✓ Added & logged", "ok");
       updateSessionBanner();
