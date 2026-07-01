@@ -268,64 +268,108 @@ body{font-family:'Century Gothic',Futura,'Avant Garde',-apple-system,BlinkMacSys
 <!-- HOME -->
 <div id="screen-home" class="screen active">
 
-  <!-- Single unified delivery intake -->
+  <!-- 1. Log Delivery — large, full-width, black -->
   <div class="sec-label">Receiving</div>
   <div class="home-grid">
-    <div class="home-card full dark" onclick="startIntake()">
-      <div class="icon">📦</div>
-      <div class="label">Log Delivery</div>
+    <div class="home-card full dark" onclick="startIntake()" style="padding:22px 14px">
+      <div class="icon" style="font-size:36px;margin-bottom:8px">📦</div>
+      <div class="label" style="font-size:15px">Log Delivery</div>
       <div class="sub">All categories — scan or search</div>
     </div>
   </div>
 
+  <!-- 2. Stock Count & Order — ordered: Fish, Grocery, CC&Baked, Paper, Kitchen -->
   <div class="sec-label">Stock Count &amp; Order</div>
   <div class="home-grid">
-    <div class="home-card" onclick="startInv('GROCERY')">
-      <div class="icon">🥯</div><div class="label">Grocery</div><div class="sub">Count + propose</div>
-    </div>
+
+    <!-- Fish — red outline, matches other count buttons -->
     <div class="home-card fish" onclick="startFishInv()">
-      <div class="icon">🐟</div><div class="label">Fish</div><div class="sub">Count + propose</div>
+      <div class="icon">🐟</div>
+      <div class="label">Fish</div>
+      <div class="sub">Count + propose</div>
     </div>
+
+    <!-- Grocery — yellow outline, chips icon -->
+    <div class="home-card" style="border-color:#D4A017;border-width:2px" onclick="startInv('GROCERY')">
+      <div class="icon">🥫</div>
+      <div class="label">Grocery</div>
+      <div class="sub">Count + propose</div>
+    </div>
+
+    <!-- CC & Baked — purple outline, challah icon -->
     <div class="home-card cc" onclick="startInv('CREAM_CHEESE')">
-      <div class="icon">🧀</div><div class="label">CC &amp; Baked</div><div class="sub">Count + propose</div>
+      <div class="icon">🥖</div>
+      <div class="label">CC &amp; Baked</div>
+      <div class="sub">Count + propose</div>
     </div>
+
+    <!-- Paper — blue outline, napkin/paper icon -->
     <div class="home-card paper" onclick="startInv('PAPER')">
-      <div class="icon">📋</div><div class="label">Paper</div><div class="sub">Count + propose</div>
+      <div class="icon">🧻</div>
+      <div class="label">Paper</div>
+      <div class="sub">Count + propose</div>
     </div>
-    <div class="home-card kitchen full" onclick="startInv('KITCHEN')">
-      <div class="icon">🍳</div><div class="label">Kitchen</div><div class="sub">Count + propose</div>
+
+    <!-- Kitchen — green outline, salt & pepper icon -->
+    <div class="home-card kitchen" onclick="startInv('KITCHEN')">
+      <div class="icon">🧂</div>
+      <div class="label">Kitchen</div>
+      <div class="sub">Count + propose</div>
     </div>
+
   </div>
 
-  <div class="sec-label">Management</div>
+  <!-- 3. Approvals — same order: Fish, Grocery, CC&Baked, Paper, Kitchen — all large/full -->
+  <div class="sec-label">Approvals</div>
   <div class="home-grid">
-    <div class="home-card" onclick="go('inactive')">
-      <div class="icon">🗑️</div><div class="label">Inactive</div><div class="sub">Stale products</div>
-    </div>
-    <div class="home-card dark" onclick="go('approve-setup')">
-      <div class="icon">✅</div><div class="label">Approve Grocery</div><div class="sub">Peter's screen</div>
-    </div>
+
+    <!-- Fish approve — red fill, large -->
     <div class="home-card full" style="background:#E64A2E;border-color:#E64A2E" onclick="go('fish-approve-setup')">
       <div class="icon" style="color:#fff">🐟</div>
       <div class="label" style="color:#fff">Approve Fish Order</div>
       <div class="sub" style="color:rgba(255,255,255,0.75)">Peter's fish screen</div>
     </div>
+
+    <!-- Grocery approve — yellow fill, large -->
+    <div class="home-card full" style="background:#D4A017;border-color:#D4A017" onclick="go('approve-setup')">
+      <div class="icon" style="color:#fff">🥫</div>
+      <div class="label" style="color:#fff">Approve Grocery</div>
+      <div class="sub" style="color:rgba(255,255,255,0.8)">Peter's screen</div>
+    </div>
+
+    <!-- CC & Baked approve — purple fill, large -->
     <div class="home-card full" style="background:#7B4F9E;border-color:#7B4F9E" onclick="go('cat-approve-setup-CREAM_CHEESE')">
-      <div class="icon" style="color:#fff">🧀</div>
+      <div class="icon" style="color:#fff">🥖</div>
       <div class="label" style="color:#fff">Approve CC &amp; Baked</div>
       <div class="sub" style="color:rgba(255,255,255,0.75)">Peter's screen</div>
     </div>
+
+    <!-- Paper approve — blue fill, large -->
     <div class="home-card full" style="background:#2E7D9E;border-color:#2E7D9E" onclick="go('cat-approve-setup-PAPER')">
-      <div class="icon" style="color:#fff">📋</div>
+      <div class="icon" style="color:#fff">🧻</div>
       <div class="label" style="color:#fff">Approve Paper Goods</div>
       <div class="sub" style="color:rgba(255,255,255,0.75)">Peter's screen</div>
     </div>
+
+    <!-- Kitchen approve — green fill, large -->
     <div class="home-card full" style="background:#2E7A47;border-color:#2E7A47" onclick="go('cat-approve-setup-KITCHEN')">
-      <div class="icon" style="color:#fff">🍳</div>
+      <div class="icon" style="color:#fff">🧂</div>
       <div class="label" style="color:#fff">Approve Kitchen</div>
       <div class="sub" style="color:rgba(255,255,255,0.75)">Peter's screen</div>
     </div>
+
   </div>
+
+  <!-- 4. Inactive — large, full-width, at the very bottom -->
+  <div class="sec-label">Admin</div>
+  <div class="home-grid">
+    <div class="home-card full" style="border-color:#ccc;background:#fafafa" onclick="go('inactive')">
+      <div class="icon" style="font-size:28px">🗑️</div>
+      <div class="label" style="color:#555">Inactive Products</div>
+      <div class="sub">Stale SKUs — review &amp; remove</div>
+    </div>
+  </div>
+
 </div>
 
 
